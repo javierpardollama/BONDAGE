@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bondage.Tier.Contexts\Bondage.Tier.Contexts.csproj" />
+    <ProjectReference Include="..\Bondage.Tier.ExceptionHandling\Bondage.Tier.ExceptionHandling.csproj" />
+    <ProjectReference Include="..\Bondage.Tier.Logging\Bondage.Tier.Logging.csproj" />
+    <ProjectReference Include="..\Bondage.Tier.Settings\Bondage.Tier.Settings.csproj" />
+  </ItemGroup>
+
+</Project>
