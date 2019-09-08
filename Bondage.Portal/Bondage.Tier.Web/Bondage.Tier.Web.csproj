@@ -10,6 +10,11 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <PackageProjectUrl>https://github.com/javierpardollama/BONDAGE/tree/master/Bondage.Portal/Bondage.Tier.Web</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/javierpardollama/BONDAGE/tree/master/Bondage.Portal/Bondage.Tier.Web</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Copyright>2019 Javier Pardo</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

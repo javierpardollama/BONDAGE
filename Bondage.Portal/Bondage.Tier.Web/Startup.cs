@@ -1,27 +1,90 @@
+using System;
+
+using AutoMapper;
+
+using Bondage.Tier.Contexts.Classes;
+using Bondage.Tier.Entities.Classes;
+using Bondage.Tier.Mappings.Classes;
+using Bondage.Tier.Settings.Classes;
+using Bondage.Tier.Web.Extensions;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Bondage.Tier.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
+
+        public MapperConfiguration MapperConfiguration { get; private set; }
+
+        public IMapper Mapper { get; set; }
+
+        public JwtSettings JwtSettings { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Lockout = new LockoutOptions()
+                {
+                    AllowedForNewUsers = true,
+                    DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5),
+                    MaxFailedAccessAttempts = 5
+                };
+            })
+              .AddEntityFrameworkStores<ApplicationContext>()
+              .AddDefaultTokenProviders();
+
+            MapperConfiguration = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ModelingProfile());
+            });
+
+            Mapper = MapperConfiguration.CreateMapper();
+
+            // Add customized Mapping to the services container.
+            services.AddSingleton(Mapper);
+
+            // Register the service and implementation for the database context
+            services.AddCustomizedContexts();
+
+            // Add customized Entity Framework services to the services container.
+            services.AddCustomizedServices();
+
+            // Register the Jwt Settings to the configuration container.
+            JwtSettings = new JwtSettings();
+            Configuration.GetSection("Jwt").Bind(JwtSettings);
+
+            // Add customized Authentication to the services container.
+            services.AddCustomizedAuthentication(JwtSettings);
+
+            // Add customized Cross Origin Requests to the services container.
+            services.AddCustomizedCrossOriginRequests(JwtSettings);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(options =>
+            {
+                options.SerializerSettings.Formatting = Formatting.Indented;
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -35,13 +98,19 @@ namespace Bondage.Tier.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCustomizedExceptionMiddlewares();
+
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseCustomizedExceptionMiddlewares();
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseAuthentication();
+
+            app.UseCors("Authentication");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
