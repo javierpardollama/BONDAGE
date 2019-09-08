@@ -35,7 +35,7 @@ namespace Bondage.Tier.Services.Classes
 
         public SymmetricSecurityKey GenerateSymmetricSecurityKey()
         {
-            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtSettings.JwtKey)); ;
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtSettings.JwtKey));
         }
 
         public SigningCredentials GenerateSigningCredentials(SymmetricSecurityKey symmetricSecurityKey)

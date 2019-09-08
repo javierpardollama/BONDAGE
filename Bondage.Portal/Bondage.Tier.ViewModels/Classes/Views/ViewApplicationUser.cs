@@ -26,7 +26,6 @@ namespace Bondage.Tier.ViewModels.Classes.Views
 
         public virtual ICollection<ViewApplicationUserToken> ApplicationUserTokens { get; set; }
 
-
         public virtual ViewApplicationUserToken ApplicationUserToken => ApplicationUserTokens?.AsQueryable().LastOrDefault();
     }
 }
