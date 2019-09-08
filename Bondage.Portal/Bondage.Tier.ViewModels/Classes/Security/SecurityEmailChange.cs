@@ -8,7 +8,7 @@ namespace Bondage.Tier.ViewModels.Classes.Security
         {
         }
 
-        public virtual ViewApplicationUser ApplicationUser { get; set; }       
+        public virtual ViewApplicationUser ApplicationUser { get; set; }
 
         public string NewEmail { get; set; }
     }

@@ -170,7 +170,7 @@ namespace Bondage.Tier.Services.Classes
         {
             ApplicationUser applicationUser = await UserManager.Users
               .AsNoTracking()
-              .TagWith("CheckEmail")            
+              .TagWith("CheckEmail")
               .FirstOrDefaultAsync(x => x.Email == viewModel.Email);
 
             if (applicationUser != null)

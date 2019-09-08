@@ -61,13 +61,13 @@ namespace Bondage.Tier.Services.Classes
                     applicationUser.Id.ToString()),
                 new Claim(
                     ClaimTypes.Email,
-                    applicationUser.Email),                  
+                    applicationUser.Email),
                 new Claim(
                     JwtRegisteredClaimNames.Iss,
                     JwtSettings.JwtIssuer),
                 new Claim(
                     JwtRegisteredClaimNames.Aud,
-                    JwtSettings.JwtAudience),                
+                    JwtSettings.JwtAudience),
             };
         }
     }

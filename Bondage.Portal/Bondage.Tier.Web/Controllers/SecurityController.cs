@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bondage.Tier.Web.Controllers
 {
     [Route("api/security")]
-    [Produces("application/json")]   
+    [Produces("application/json")]
     public class SecurityController
     {
         private readonly ISecurityService Service;

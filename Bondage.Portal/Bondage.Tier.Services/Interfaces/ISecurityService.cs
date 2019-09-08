@@ -1,7 +1,7 @@
-﻿using Bondage.Tier.Entities.Classes;
+﻿using System.Threading.Tasks;
+using Bondage.Tier.Entities.Classes;
 using Bondage.Tier.ViewModels.Classes.Security;
 using Bondage.Tier.ViewModels.Classes.Views;
-using System.Threading.Tasks;
 
 namespace Bondage.Tier.Services.Interfaces
 {

@@ -24,10 +24,10 @@ namespace Bondage.Tier.Services.Classes
 
         public SecurityService(IMapper mapper,
                            ILogger<SecurityService> logger,
-                           UserManager<ApplicationUser> userManager,                         
+                           UserManager<ApplicationUser> userManager,
                            ITokenService tokenService) : base(mapper, logger)
         {
-            UserManager = userManager;           
+            UserManager = userManager;
             TokenService = tokenService;
         }
 
@@ -60,7 +60,7 @@ namespace Bondage.Tier.Services.Classes
             else
             {
                 throw new Exception("Security Error");
-            }           
+            }
         }
 
         public async Task<ApplicationUser> FindApplicationUserByEmail(string email)
@@ -122,7 +122,7 @@ namespace Bondage.Tier.Services.Classes
             else
             {
                 throw new Exception("Security Error");
-            }          
+            }
         }
 
         public async Task<ViewApplicationUser> ChangeEmail(SecurityEmailChange viewModel)
