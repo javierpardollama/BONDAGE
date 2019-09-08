@@ -10,7 +10,7 @@ namespace Bondage.Tier.Services.Interfaces
 {
     public interface ITokenService : IBaseService
     {
-        JwtSecurityToken GenerateJwtToken(string email, ApplicationUser applicationUser);
+        JwtSecurityToken GenerateJwtToken(ApplicationUser applicationUser);
 
         string WriteJwtToken(JwtSecurityToken jwtSecurityToken);
 
@@ -18,6 +18,6 @@ namespace Bondage.Tier.Services.Interfaces
 
         SigningCredentials GenerateSigningCredentials(SymmetricSecurityKey symmetricSecurityKey);
 
-        List<Claim> GenerateJwtClaims(string email, ApplicationUser applicationUser);
+        List<Claim> GenerateJwtClaims(ApplicationUser applicationUser);
     }
 }

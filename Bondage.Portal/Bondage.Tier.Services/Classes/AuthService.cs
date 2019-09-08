@@ -52,7 +52,7 @@ namespace Bondage.Tier.Services.Classes
                 {
                     ApplicationUser = applicationUser,
                     UserId = applicationUser.Id,
-                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(viewModel.Email, applicationUser))
+                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(applicationUser))
                 });
 
                 // Log
@@ -87,8 +87,7 @@ namespace Bondage.Tier.Services.Classes
                 {
                     ApplicationUser = applicationUser,
                     UserId = applicationUser.Id,
-                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(viewModel.Email,
-                                                                                       applicationUser))
+                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(applicationUser))
                 });
 
                 // Log

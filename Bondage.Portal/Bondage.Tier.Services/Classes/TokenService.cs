@@ -20,14 +20,12 @@ namespace Bondage.Tier.Services.Classes
         {
         }
 
-        public JwtSecurityToken GenerateJwtToken(string email,
-                                                 ApplicationUser applicationUser)
+        public JwtSecurityToken GenerateJwtToken(ApplicationUser applicationUser)
         {
             return new JwtSecurityToken(
                 JwtSettings.JwtIssuer,
                 JwtSettings.JwtAudience,
-                GenerateJwtClaims(email,
-                                  applicationUser),
+                GenerateJwtClaims(applicationUser),
                 expires: GenerateTokenExpirationDate(),
                 signingCredentials: GenerateSigningCredentials(GenerateSymmetricSecurityKey())
             );
@@ -48,14 +46,13 @@ namespace Bondage.Tier.Services.Classes
 
         public DateTime GenerateTokenExpirationDate() => DateTime.Now.AddDays(JwtSettings.JwtExpireDays);
 
-        public List<Claim> GenerateJwtClaims(string email,
-                                             ApplicationUser applicationUser)
+        public List<Claim> GenerateJwtClaims(ApplicationUser applicationUser)
         {
             return new List<Claim>
             {
                 new Claim(
                     JwtRegisteredClaimNames.Sub,
-                    email),
+                    applicationUser.Email),
                 new Claim(
                     JwtRegisteredClaimNames.Jti,
                     Guid.NewGuid().ToString()),
