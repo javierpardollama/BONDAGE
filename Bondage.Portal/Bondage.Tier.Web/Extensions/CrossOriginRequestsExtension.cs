@@ -12,7 +12,7 @@ namespace Bondage.Tier.Web.Extensions
             {
                 options.AddPolicy("Authentication", builder =>
                 {
-                    builder.WithOrigins(JwtSettings.JwtAudience).AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
+                    builder.WithOrigins(JwtSettings.JwtAudience).AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
                 });
             });
         }

@@ -10,7 +10,8 @@ namespace Bondage.Tier.Web.Controllers
 {
     [Route("api/security")]
     [Produces("application/json")]
-    public class SecurityController
+    [ApiController]
+    public class SecurityController : ControllerBase
     {
         private readonly ISecurityService Service;
 

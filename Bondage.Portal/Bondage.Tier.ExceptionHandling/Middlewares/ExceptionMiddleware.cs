@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using Bondage.Tier.ViewModels.Classes.Views;
-
 using Microsoft.AspNetCore.Http;
-
-using Newtonsoft.Json;
 
 namespace Bondage.Tier.ExceptionHandling.Middlewares
 {
@@ -41,7 +39,7 @@ namespace Bondage.Tier.ExceptionHandling.Middlewares
                 Message = exception.Message
             };
 
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(viewException));
+            return context.Response.WriteAsync(JsonSerializer.Serialize(viewException));
         }
     }
 }
