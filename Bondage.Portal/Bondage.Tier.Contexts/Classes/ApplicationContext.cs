@@ -31,6 +31,8 @@ namespace Bondage.Tier.Contexts.Classes
 
         public DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
+        public DbSet<Fichero> Fichero { get; set; }
+
         public override int SaveChanges()
         {
             UpdateSoftStatus();
