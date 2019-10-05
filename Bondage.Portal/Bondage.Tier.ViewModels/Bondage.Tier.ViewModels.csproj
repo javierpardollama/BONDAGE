@@ -9,9 +9,5 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Classes\Additions\" />
-  </ItemGroup>
-
 
 </Project>

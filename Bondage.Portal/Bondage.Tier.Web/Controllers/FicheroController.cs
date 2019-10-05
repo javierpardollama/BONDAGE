@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Bondage.Tier.Services.Interfaces;
+using Bondage.Tier.ViewModels.Classes.Additions;
+using Bondage.Tier.ViewModels.Classes.Updates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +24,15 @@ namespace Bondage.Tier.Web.Controllers
         [HttpGet]
         [Route("findallfichero")]
         public async Task<IActionResult> FindAllFichero() => new JsonResult(value: await Service.FindAllFichero());
+
+        [HttpPost]
+        [Route("addfichero")]
+        public async Task<IActionResult> AddFichero([FromBody]AddFichero viewModel) => new JsonResult(value: await Service.AddFichero(viewModel));
+
+
+        [HttpPut]
+        [Route("updatefichero")]
+        public async Task<IActionResult> UpdateBandera([FromBody]UpdateFichero viewModel) => new JsonResult(value: await Service.UpdateFichero(viewModel));
 
         [HttpDelete]
         [Route("removeficherobyid/{id}")]

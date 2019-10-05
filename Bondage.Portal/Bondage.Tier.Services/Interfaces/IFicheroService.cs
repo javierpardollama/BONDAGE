@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 
 using Bondage.Tier.Entities.Classes;
+using Bondage.Tier.ViewModels.Classes.Additions;
+using Bondage.Tier.ViewModels.Classes.Updates;
 using Bondage.Tier.ViewModels.Classes.Views;
 
 namespace Bondage.Tier.Services.Interfaces
@@ -17,5 +19,11 @@ namespace Bondage.Tier.Services.Interfaces
         Task<IList<ViewFichero>> FindAllFicheroByApplicationUserId(int id);
 
         Task<ApplicationUser> FindApplicationUserByEmail(string email);
+
+        Task<ViewFichero> AddFichero(AddFichero viewModel);
+
+        Task<ViewFichero> UpdateFichero(UpdateFichero viewModel);
+
+        Task<Fichero> CheckName(AddFichero viewModel);
     }
 }

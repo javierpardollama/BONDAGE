@@ -22,17 +22,12 @@ namespace Bondage.Tier.Entities.Classes
         [Required]
         public bool Deleted { get; set; }
 
-        public virtual Fichero Parent { get; set; }
-
-        [Required]
-        public bool Carpeta { get; set; }
-
         public byte[] Data { get; set; }
 
         [Required]
         public virtual ApplicationUser By { get; set; }
 
         [Required]
-        public string ImageUri { get; set; }
+        public string Name { get; set; }
     }
 }

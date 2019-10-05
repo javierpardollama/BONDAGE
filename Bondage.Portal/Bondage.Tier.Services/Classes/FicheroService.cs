@@ -9,6 +9,8 @@ using Bondage.Tier.Contexts.Interfaces;
 using Bondage.Tier.Entities.Classes;
 using Bondage.Tier.Logging.Classes;
 using Bondage.Tier.Services.Interfaces;
+using Bondage.Tier.ViewModels.Classes.Additions;
+using Bondage.Tier.ViewModels.Classes.Updates;
 using Bondage.Tier.ViewModels.Classes.Views;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -77,7 +79,6 @@ namespace Bondage.Tier.Services.Classes
             ICollection<Fichero> ficheros = await Context.Fichero
                 .TagWith("FindAllFichero")
                 .AsQueryable()
-                .Include(x => x.Parent)
                 .Include(x => x.By)
                 .ToListAsync();
 
@@ -90,8 +91,7 @@ namespace Bondage.Tier.Services.Classes
                .TagWith("FindAllFicheroByApplicationUserId")
                .AsQueryable()
                .AsNoTracking()
-               .Include(x => x.Parent)
-                .Include(x => x.By)
+               .Include(x => x.By)
                .Where(x => x.By.Id == id)
                .ToListAsync();
 
@@ -127,5 +127,83 @@ namespace Bondage.Tier.Services.Classes
 
             return applicationUser;
         }
+
+        public async Task<ViewFichero> AddFichero(AddFichero viewModel)
+        {
+            await CheckName(viewModel);
+
+            Fichero fichero = new Fichero
+            {
+                Name = viewModel.Name,
+                Data = viewModel.Data,
+                By = await FindApplicationUserByEmail(viewModel.By.Email)
+            };
+
+            await Context.Fichero.AddAsync(fichero);
+
+            await Context.SaveChangesAsync();
+
+            // Log
+            string logData = fichero.GetType().Name
+                + " with Id "
+                + fichero.Id
+                + " was added at "
+                + DateTime.Now.ToShortTimeString();
+
+            Logger.WriteInsertItemLog(logData);
+
+            return Mapper.Map<ViewFichero>(fichero);
+        }
+
+        public async Task<ViewFichero> UpdateFichero(UpdateFichero viewModel)
+        {
+            Fichero fichero = await FindFicheroById(viewModel.Id);
+            fichero.Name = viewModel.Name;
+            fichero.Data = viewModel.Data;
+            fichero.By = await FindApplicationUserByEmail(viewModel.By.Email);
+
+            Context.Fichero.Update(fichero);
+
+            await Context.SaveChangesAsync();
+
+            // Log
+            string logData = fichero.GetType().Name
+                + " with Id "
+                + fichero.Id
+                + " was modified at "
+                + DateTime.Now.ToShortTimeString();
+
+            Logger.WriteUpdateItemLog(logData);
+
+            return Mapper.Map<ViewFichero>(fichero);
+        }
+
+        public async Task<Fichero> CheckName(AddFichero viewModel)
+        {
+            Fichero fichero = await Context.Fichero
+                 .TagWith("CheckName")
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(x => x.Name == viewModel.Name);
+
+            if (fichero != null)
+            {
+                // Log
+                string logData = fichero.GetType().Name
+                    + " with Name "
+                    + fichero.Name
+                    + " was already found at "
+                    + DateTime.Now.ToShortTimeString();
+
+                Logger.WriteGetItemFoundLog(logData);
+
+                throw new Exception(fichero.GetType().Name
+                    + " with Name "
+                    + viewModel.Name
+                    + " already exists");
+            }
+
+            return fichero;
+        }
+
     }
 }
