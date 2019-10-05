@@ -37,8 +37,7 @@ export class ChangeEmailSecurityComponent implements OnInit {
 
   // Life Cicle
   ngOnInit() {
-    this.User = JSON.parse(localStorage.getItem('User'));
-
+    this.GetLocalUser();
     this.CreateForm();
   }
 
@@ -56,5 +55,10 @@ export class ChangeEmailSecurityComponent implements OnInit {
   // Form Actions
   onSubmit(viewModel: SecurityEmailChange) {
     this.securityService.ChangeEmail(viewModel).subscribe(user => { localStorage.setItem('User', JSON.stringify(user)); });
+  }
+
+  // Get User from Storage
+  public GetLocalUser() {
+    this.User = JSON.parse(localStorage.getItem('User'));
   }
 }

@@ -66,6 +66,21 @@ import {
   ChangeEmailSecurityComponent
 } from './security/changeemail-security/changeemail-security.component';
 
+// App-Grid
+import {
+  FicheroGridComponent
+} from './management/grids/fichero-grid/fichero-grid.component';
+
+// App-Modal-Adition
+import {
+  FicheroAddModalComponent
+} from './management/modals/additions/fichero-add-modal/fichero-add-modal.component';
+
+// App-Modal-Update
+import {
+  FicheroUpdateModalComponent
+} from './management/modals/updates/fichero-update-modal/fichero-update-modal.component';
+
 @NgModule({
   declarations: [
     // App
@@ -78,7 +93,13 @@ import {
     // App-Security
     ChangePasswordSecurityComponent,
     ResetPasswordSecurityComponent,
-    ChangeEmailSecurityComponent],
+    ChangeEmailSecurityComponent,
+    // App-Grid
+    FicheroGridComponent,
+    // App-Modal-Adition
+    FicheroAddModalComponent,
+    // App-Modal-Update
+    FicheroUpdateModalComponent],
   imports: [
     // Angular Material
     BrowserAnimationsModule,
@@ -135,9 +156,18 @@ import {
         component: ResetPasswordSecurityComponent,
         pathMatch: 'full'
       },
+      {
+        path: 'management/ficheros',
+        component: FicheroGridComponent,
+        pathMatch: 'full',
+        canActivate: [SignInGuard]
+      },
     ])
   ],
-  entryComponents: [],
+  entryComponents: [
+    FicheroAddModalComponent,
+    FicheroUpdateModalComponent
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

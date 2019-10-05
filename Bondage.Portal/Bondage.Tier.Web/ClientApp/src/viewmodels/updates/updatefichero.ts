@@ -1,5 +1,5 @@
 import { ViewApplicationUser } from './../views/viewapplicationuser';
-import { UpdateBase } from './updatebase'
+import { UpdateBase } from './updatebase';
 
 export interface UpdateFichero extends UpdateBase {
     By: ViewApplicationUser;

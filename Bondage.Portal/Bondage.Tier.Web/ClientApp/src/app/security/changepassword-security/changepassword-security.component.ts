@@ -35,8 +35,7 @@ export class ChangePasswordSecurityComponent implements OnInit {
 
   // Life Cicle
   ngOnInit() {
-    this.User = JSON.parse(localStorage.getItem('User'));
-
+    this.GetLocalUser();
     this.CreateForm();
   }
 
@@ -55,5 +54,10 @@ export class ChangePasswordSecurityComponent implements OnInit {
   // Form Actions
   onSubmit(viewModel: SecurityPasswordChange) {
     this.securityService.ChangePassword(viewModel).subscribe(user => { localStorage.setItem('User', JSON.stringify(user)); });
+  }
+
+  // Get User from Storage
+  public GetLocalUser() {
+    this.User = JSON.parse(localStorage.getItem('User'));
   }
 }

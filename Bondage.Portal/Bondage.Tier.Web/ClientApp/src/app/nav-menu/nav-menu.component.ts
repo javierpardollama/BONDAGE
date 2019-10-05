@@ -38,12 +38,17 @@ export class NavMenuComponent implements OnInit {
   }
 
   display() {
-    this.User = JSON.parse(localStorage.getItem('User'));
+    this.GetLocalUser();
 
     if (this.User !== null) {
       this.isVisible = true;
     }
 
     return this.isVisible;
+  }
+
+  // Get User from Storage
+  public GetLocalUser() {
+    this.User = JSON.parse(localStorage.getItem('User'));
   }
 }

@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    this.User = JSON.parse(localStorage.getItem('User'));
+    this.GetLocalUser();
 
     if (this.User !== null) {
       req = req.clone({
@@ -36,5 +36,10 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(req);
+  }
+
+  // Get User from Storage
+  public GetLocalUser() {
+    this.User = JSON.parse(localStorage.getItem('User'));
   }
 }

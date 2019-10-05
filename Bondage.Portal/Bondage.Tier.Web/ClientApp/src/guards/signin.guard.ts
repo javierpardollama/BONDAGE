@@ -21,7 +21,7 @@ export class SignInGuard implements CanActivate {
 
     canActivate() {
 
-        this.User = JSON.parse(localStorage.getItem('User'));
+        this.GetLocalUser();
 
         if (this.User === null) {
             this.router.navigateByUrl('auth/signin');
@@ -30,5 +30,10 @@ export class SignInGuard implements CanActivate {
         }
 
         return this.Activated;
+    }
+
+    // Get User from Storage
+    public GetLocalUser() {
+        this.User = JSON.parse(localStorage.getItem('User'));
     }
 }
