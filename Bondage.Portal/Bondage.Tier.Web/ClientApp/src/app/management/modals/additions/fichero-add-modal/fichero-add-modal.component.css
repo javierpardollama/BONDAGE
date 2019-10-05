@@ -19,6 +19,11 @@ background-image: url('/iconos/Name_500px.png');
 background-size: cover;
 }
 
+.modal-file-image{
+background-image: url('/iconos/Archive_500px.png');
+background-size: cover;
+}
+
 .modal-user-image{
 background-image: url('/iconos/User_500px.png');
 background-size: cover;
