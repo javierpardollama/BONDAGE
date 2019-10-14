@@ -4,9 +4,9 @@ using Bondage.Tier.ViewModels.Interfaces.Views;
 
 namespace Bondage.Tier.ViewModels.Classes.Views
 {
-    public class ViewFichero : IViewKey, IViewBase
+    public class ViewArchive : IViewKey, IViewBase
     {
-        public ViewFichero()
+        public ViewArchive()
         {
         }
 

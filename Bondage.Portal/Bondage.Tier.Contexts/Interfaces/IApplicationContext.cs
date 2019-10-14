@@ -23,7 +23,7 @@ namespace Bondage.Tier.Contexts.Interfaces
 
         DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
-        DbSet<Fichero> Fichero { get; set; }
+        DbSet<Archive> Archive { get; set; }
 
         int SaveChanges();
 

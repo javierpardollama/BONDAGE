@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FicheroUpdateModalComponent } from './fichero-update-modal.component';
+import { ArchiveUpdateModalComponent } from './archive-update-modal.component';
 
-describe('FicheroUpdateModalComponent', () => {
-  let component: FicheroUpdateModalComponent;
-  let fixture: ComponentFixture<FicheroUpdateModalComponent>;
+describe('ArchiveUpdateModalComponent', () => {
+  let component: ArchiveUpdateModalComponent;
+  let fixture: ComponentFixture<ArchiveUpdateModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FicheroUpdateModalComponent ]
+      declarations: [ ArchiveUpdateModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FicheroUpdateModalComponent);
+    fixture = TestBed.createComponent(ArchiveUpdateModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -68,18 +68,18 @@ import {
 
 // App-Grid
 import {
-  FicheroGridComponent
-} from './management/grids/fichero-grid/fichero-grid.component';
+  ArchiveGridComponent
+} from './management/grids/archive-grid/archive-grid.component';
 
 // App-Modal-Adition
 import {
-  FicheroAddModalComponent
-} from './management/modals/additions/fichero-add-modal/fichero-add-modal.component';
+  ArchiveAddModalComponent
+} from './management/modals/additions/archive-add-modal/archive-add-modal.component';
 
 // App-Modal-Update
 import {
-  FicheroUpdateModalComponent
-} from './management/modals/updates/fichero-update-modal/fichero-update-modal.component';
+  ArchiveUpdateModalComponent
+} from './management/modals/updates/archive-update-modal/archive-update-modal.component';
 
 @NgModule({
   declarations: [
@@ -95,11 +95,11 @@ import {
     ResetPasswordSecurityComponent,
     ChangeEmailSecurityComponent,
     // App-Grid
-    FicheroGridComponent,
+    ArchiveGridComponent,
     // App-Modal-Adition
-    FicheroAddModalComponent,
+    ArchiveAddModalComponent,
     // App-Modal-Update
-    FicheroUpdateModalComponent],
+    ArchiveUpdateModalComponent],
   imports: [
     // Angular Material
     BrowserAnimationsModule,
@@ -157,16 +157,16 @@ import {
         pathMatch: 'full'
       },
       {
-        path: 'management/ficheros',
-        component: FicheroGridComponent,
+        path: 'management/archives',
+        component: ArchiveGridComponent,
         pathMatch: 'full',
         canActivate: [SignInGuard]
       },
     ])
   ],
   entryComponents: [
-    FicheroAddModalComponent,
-    FicheroUpdateModalComponent
+    ArchiveAddModalComponent,
+    ArchiveUpdateModalComponent
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

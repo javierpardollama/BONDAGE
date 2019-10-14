@@ -1,8 +1,9 @@
 import { ViewApplicationUser } from './../views/viewapplicationuser';
-import { UpdateBase } from './updatebase';
 
-export interface UpdateFichero extends UpdateBase {
+export interface CryptoViewArchive {
+    Id: number;
     By: ViewApplicationUser;
-    Data: ArrayBuffer;
+    Data: File;
     Name: string;
+    LastModified: Date;
 }

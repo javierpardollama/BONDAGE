@@ -5,9 +5,9 @@ using Bondage.Tier.Entities.Interfaces;
 
 namespace Bondage.Tier.Entities.Classes
 {
-    public class Fichero : IKey, IBase
+    public class Archive : IKey, IBase
     {
-        public Fichero()
+        public Archive()
         {
         }
 

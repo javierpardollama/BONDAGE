@@ -2,9 +2,9 @@
 
 namespace Bondage.Tier.ViewModels.Classes.Updates
 {
-    public class UpdateFichero : UpdateBase
+    public class UpdateArchive : UpdateBase
     {
-        public UpdateFichero()
+        public UpdateArchive()
         {
         }
 

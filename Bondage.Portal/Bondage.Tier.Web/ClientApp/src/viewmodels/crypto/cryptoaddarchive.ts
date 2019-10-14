@@ -1,7 +1,7 @@
 import { ViewApplicationUser } from './../views/viewapplicationuser';
 
-export interface AddFichero {
+export interface CryptoAddArchive {
     By: ViewApplicationUser;
-    Data: ArrayBuffer;
+    Data: File;
     Name: string;
 }

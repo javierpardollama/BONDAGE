@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FicheroGridComponent } from './fichero-grid.component';
+import { ArchiveAddModalComponent } from './archive-add-modal.component';
 
-describe('FicheroGridComponent', () => {
-  let component: FicheroGridComponent;
-  let fixture: ComponentFixture<FicheroGridComponent>;
+describe('ArchiveAddModalComponent', () => {
+  let component: ArchiveAddModalComponent;
+  let fixture: ComponentFixture<ArchiveAddModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FicheroGridComponent ]
+      declarations: [ ArchiveAddModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FicheroGridComponent);
+    fixture = TestBed.createComponent(ArchiveAddModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

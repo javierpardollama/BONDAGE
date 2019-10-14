@@ -12,34 +12,35 @@ using Bondage.Tier.Services.Interfaces;
 using Bondage.Tier.ViewModels.Classes.Additions;
 using Bondage.Tier.ViewModels.Classes.Updates;
 using Bondage.Tier.ViewModels.Classes.Views;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Bondage.Tier.Services.Classes
 {
-    public class FicheroService : BaseService, IFicheroService
+    public class ArchiveService : BaseService, IArchiveService
     {
         private readonly UserManager<ApplicationUser> UserManager;
 
-        public FicheroService(UserManager<ApplicationUser> userManager,
+        public ArchiveService(UserManager<ApplicationUser> userManager,
                               IApplicationContext context,
                               IMapper mapper,
-                              ILogger<FicheroService> logger) : base(context, mapper, logger)
+                              ILogger<ArchiveService> logger) : base(context, mapper, logger)
         {
             UserManager = userManager;
         }
 
-        public async Task<Fichero> FindFicheroById(int id)
+        public async Task<Archive> FindArchiveById(int id)
         {
-            Fichero fichero = await Context.Fichero
-                 .TagWith("FindFicheroById")
+            Archive archive = await Context.Archive
+                 .TagWith("FindArchiveById")
                  .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (fichero == null)
+            if (archive == null)
             {
                 // Log
-                string logData = fichero.GetType().Name
+                string logData = archive.GetType().Name
                     + " with Id "
                     + id
                     + " was not found at "
@@ -47,55 +48,55 @@ namespace Bondage.Tier.Services.Classes
 
                 Logger.WriteGetItemNotFoundLog(logData);
 
-                throw new Exception(fichero.GetType().Name
+                throw new Exception(archive.GetType().Name
                     + " with Id "
                     + id
                     + " does not exist");
             }
 
-            return fichero;
+            return archive;
         }
 
-        public async Task RemoveFicheroById(int id)
+        public async Task RemoveArchiveById(int id)
         {
-            Fichero fichero = await FindFicheroById(id);
+            Archive archive = await FindArchiveById(id);
 
-            Context.Fichero.Remove(fichero);
+            Context.Archive.Remove(archive);
 
             await Context.SaveChangesAsync();
 
             // Log
-            string logData = fichero.GetType().Name
+            string logData = archive.GetType().Name
                 + " with Id "
-                + fichero.Id
+                + archive.Id
                 + " was removed at "
                 + DateTime.Now.ToShortTimeString();
 
             Logger.WriteDeleteItemLog(logData);
         }
 
-        public async Task<IList<ViewFichero>> FindAllFichero()
+        public async Task<IList<ViewArchive>> FindAllArchive()
         {
-            ICollection<Fichero> ficheros = await Context.Fichero
-                .TagWith("FindAllFichero")
+            ICollection<Archive> archives = await Context.Archive
+                .TagWith("FindAllArchive")
                 .AsQueryable()
                 .Include(x => x.By)
                 .ToListAsync();
 
-            return Mapper.Map<IList<ViewFichero>>(ficheros);
+            return Mapper.Map<IList<ViewArchive>>(archives);
         }
 
-        public async Task<IList<ViewFichero>> FindAllFicheroByApplicationUserId(int id)
+        public async Task<IList<ViewArchive>> FindAllArchiveByApplicationUserId(int id)
         {
-            ICollection<Fichero> ficheros = await Context.Fichero
-               .TagWith("FindAllFicheroByApplicationUserId")
+            ICollection<Archive> archives = await Context.Archive
+               .TagWith("FindAllArchiveByApplicationUserId")
                .AsQueryable()
                .AsNoTracking()
                .Include(x => x.By)
                .Where(x => x.By.Id == id)
                .ToListAsync();
 
-            return Mapper.Map<IList<ViewFichero>>(ficheros);
+            return Mapper.Map<IList<ViewArchive>>(archives);
         }
 
         public async Task<ApplicationUser> FindApplicationUserByEmail(string email)
@@ -128,81 +129,81 @@ namespace Bondage.Tier.Services.Classes
             return applicationUser;
         }
 
-        public async Task<ViewFichero> AddFichero(AddFichero viewModel)
+        public async Task<ViewArchive> AddArchive(AddArchive viewModel)
         {
             await CheckName(viewModel);
 
-            Fichero fichero = new Fichero
+            Archive archive = new Archive
             {
                 Name = viewModel.Name,
                 Data = viewModel.Data,
                 By = await FindApplicationUserByEmail(viewModel.By.Email)
             };
 
-            await Context.Fichero.AddAsync(fichero);
+            await Context.Archive.AddAsync(archive);
 
             await Context.SaveChangesAsync();
 
             // Log
-            string logData = fichero.GetType().Name
+            string logData = archive.GetType().Name
                 + " with Id "
-                + fichero.Id
+                + archive.Id
                 + " was added at "
                 + DateTime.Now.ToShortTimeString();
 
             Logger.WriteInsertItemLog(logData);
 
-            return Mapper.Map<ViewFichero>(fichero);
+            return Mapper.Map<ViewArchive>(archive);
         }
 
-        public async Task<ViewFichero> UpdateFichero(UpdateFichero viewModel)
+        public async Task<ViewArchive> UpdateArchive(UpdateArchive viewModel)
         {
-            Fichero fichero = await FindFicheroById(viewModel.Id);
-            fichero.Name = viewModel.Name;
-            fichero.Data = viewModel.Data;
-            fichero.By = await FindApplicationUserByEmail(viewModel.By.Email);
+            Archive archive = await FindArchiveById(viewModel.Id);
+            archive.Name = viewModel.Name;
+            archive.Data = viewModel.Data;
+            archive.By = await FindApplicationUserByEmail(viewModel.By.Email);
 
-            Context.Fichero.Update(fichero);
+            Context.Archive.Update(archive);
 
             await Context.SaveChangesAsync();
 
             // Log
-            string logData = fichero.GetType().Name
+            string logData = archive.GetType().Name
                 + " with Id "
-                + fichero.Id
+                + archive.Id
                 + " was modified at "
                 + DateTime.Now.ToShortTimeString();
 
             Logger.WriteUpdateItemLog(logData);
 
-            return Mapper.Map<ViewFichero>(fichero);
+            return Mapper.Map<ViewArchive>(archive);
         }
 
-        public async Task<Fichero> CheckName(AddFichero viewModel)
+        public async Task<Archive> CheckName(AddArchive viewModel)
         {
-            Fichero fichero = await Context.Fichero
+            Archive archive = await Context.Archive
                  .TagWith("CheckName")
                  .AsNoTracking()
                  .FirstOrDefaultAsync(x => x.Name == viewModel.Name);
 
-            if (fichero != null)
+            if (archive != null)
             {
                 // Log
-                string logData = fichero.GetType().Name
+                string logData = archive.GetType().Name
                     + " with Name "
-                    + fichero.Name
+                    + archive.Name
                     + " was already found at "
                     + DateTime.Now.ToShortTimeString();
 
                 Logger.WriteGetItemFoundLog(logData);
 
-                throw new Exception(fichero.GetType().Name
+                throw new Exception(archive.GetType().Name
                     + " with Name "
                     + viewModel.Name
                     + " already exists");
             }
 
-            return fichero;
+            return archive;
         }
 
     }

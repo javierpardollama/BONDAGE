@@ -2,9 +2,9 @@
 
 namespace Bondage.Tier.ViewModels.Classes.Additions
 {
-    public class AddFichero
+    public class AddArchive
     {
-        public AddFichero()
+        public AddArchive()
         {
         }
 

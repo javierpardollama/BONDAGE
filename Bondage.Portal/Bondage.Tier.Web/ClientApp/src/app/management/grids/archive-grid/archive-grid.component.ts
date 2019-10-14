@@ -11,41 +11,41 @@ import {
   MatDialog
 } from '@angular/material';
 
-import { ViewFichero } from './../../../../viewmodels/views/viewfichero';
+import { ViewArchive } from './../../../../viewmodels/views/viewarchive';
 
-import { ViewApplicationUser } from './../../../../viewmodels/views/viewapplicationuser';
+import { ViewApplicationUser } from '../../../../viewmodels/views/viewapplicationuser';
 
-import { FicheroService } from './../../../../services/fichero.service';
-
-import {
-  FicheroUpdateModalComponent
-} from './../../modals/updates/fichero-update-modal/fichero-update-modal.component';
+import { ArchiveService } from './../../../../services/archive.service';
 
 import {
-  FicheroAddModalComponent
-} from './../../modals/additions/fichero-add-modal/fichero-add-modal.component';
+  ArchiveUpdateModalComponent
+} from '../../modals/updates/archive-update-modal/archive-update-modal.component';
+
+import {
+  ArchiveAddModalComponent
+} from '../../modals/additions/archive-add-modal/archive-add-modal.component';
 
 @Component({
-  selector: 'app-fichero-grid',
-  templateUrl: './fichero-grid.component.html',
-  styleUrls: ['./fichero-grid.component.css']
+  selector: 'app-archive-grid',
+  templateUrl: './archive-grid.component.html',
+  styleUrls: ['./archive-grid.component.css']
 })
-export class FicheroGridComponent implements OnInit {
+export class ArchiveGridComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  public ELEMENT_DATA: ViewFichero[];
+  public ELEMENT_DATA: ViewArchive[];
 
   public displayedColumns: string[] = ['Id', 'Name', 'LastModified'];
 
-  public dataSource: MatTableDataSource<ViewFichero>;
+  public dataSource: MatTableDataSource<ViewArchive>;
 
   public User: ViewApplicationUser;
 
   // Constructor
   constructor(
-    private ficheroService: FicheroService,
+    private archiveService: ArchiveService,
     public matDialog: MatDialog) {
 
   }
@@ -53,7 +53,7 @@ export class FicheroGridComponent implements OnInit {
   // Life Cicle
   ngOnInit() {
     this.GetLocalUser();
-    this.FindAllFicheroByApplicationUserId();
+    this.FindAllArchiveByApplicationUserId();
   }
 
   // Get User from Storage
@@ -62,8 +62,8 @@ export class FicheroGridComponent implements OnInit {
   }
 
   // Get Data from Service
-  public FindAllFicheroByApplicationUserId() {
-    this.ficheroService.FindAllFicheroByApplicationUserId(this.User.Id).subscribe(poblaciones => {
+  public FindAllArchiveByApplicationUserId() {
+    this.archiveService.FindAllArchiveByApplicationUserId(this.User.Id).subscribe(poblaciones => {
       this.ELEMENT_DATA = poblaciones;
 
       this.SetupMyTableSettings();
@@ -84,24 +84,24 @@ export class FicheroGridComponent implements OnInit {
   }
 
   // Get Record from Table
-  public GetRecord(row: ViewFichero) {
-    const dialogRef = this.matDialog.open(FicheroUpdateModalComponent, {
+  public GetRecord(row: ViewArchive) {
+    const dialogRef = this.matDialog.open(ArchiveUpdateModalComponent, {
       width: '450px',
       data: row
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.FindAllFicheroByApplicationUserId();
+      this.FindAllArchiveByApplicationUserId();
     });
   }
 
   public AddRecord() {
-    const dialogRef = this.matDialog.open(FicheroAddModalComponent, {
+    const dialogRef = this.matDialog.open(ArchiveAddModalComponent, {
       width: '450px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.FindAllFicheroByApplicationUserId();
+      this.FindAllArchiveByApplicationUserId();
     });
   }
 }

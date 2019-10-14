@@ -16,7 +16,7 @@ namespace Bondage.Tier.Contexts.Extensions
             @this.Entity<ApplicationUserLogin>().HasQueryFilter(p => !p.Deleted);
             @this.Entity<ApplicationUserRole>().HasQueryFilter(p => !p.Deleted);
             @this.Entity<ApplicationUserToken>().HasQueryFilter(p => !p.Deleted);
-            @this.Entity<Fichero>().HasQueryFilter(p => !p.Deleted);
+            @this.Entity<Archive>().HasQueryFilter(p => !p.Deleted);
         }
     }
 }
