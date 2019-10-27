@@ -102,7 +102,6 @@ namespace Bondage.Tier.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCustomizedExceptionMiddlewares();
-
             }
             else
             {
