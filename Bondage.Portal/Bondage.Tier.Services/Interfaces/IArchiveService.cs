@@ -20,9 +20,15 @@ namespace Bondage.Tier.Services.Interfaces
 
         Task<ApplicationUser> FindApplicationUserByEmail(string email);
 
+        Task<ApplicationUser> FindApplicationUserById(int id);
+
         Task<ViewArchive> AddArchive(AddArchive viewModel);
 
+        void AddApplicationUserArchive(AddArchive viewModel, Archive entity);
+
         Task<ViewArchive> UpdateArchive(UpdateArchive viewModel);
+
+        void UpdateApplicationUserArchive(UpdateArchive viewModel, Archive entity);
 
         Task<Archive> CheckName(AddArchive viewModel);
     }

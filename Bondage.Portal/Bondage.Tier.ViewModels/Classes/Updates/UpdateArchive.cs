@@ -1,4 +1,5 @@
-﻿using Bondage.Tier.ViewModels.Classes.Views;
+﻿using System.Collections.Generic;
+using Bondage.Tier.ViewModels.Classes.Views;
 
 namespace Bondage.Tier.ViewModels.Classes.Updates
 {
@@ -13,5 +14,7 @@ namespace Bondage.Tier.ViewModels.Classes.Updates
         public string Name { get; set; }
 
         public byte[] Data { get; set; }
+
+        public virtual ICollection<int> ApplicationUsersId { get; set; }
     }
 }

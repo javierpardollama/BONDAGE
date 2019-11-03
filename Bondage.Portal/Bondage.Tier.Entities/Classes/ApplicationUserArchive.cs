@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Bondage.Tier.Entities.Interfaces;
 
 namespace Bondage.Tier.Entities.Classes
 {
-    public class Archive : IKey, IBase
+    public class ApplicationUserArchive : IKey, IBase
     {
-        public Archive()
+        public ApplicationUserArchive()
         {
         }
 
@@ -23,15 +23,9 @@ namespace Bondage.Tier.Entities.Classes
         [Required]
         public bool Deleted { get; set; }
 
-        public byte[] Data { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
-        [Required]
-        public virtual ApplicationUser By { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        public virtual ICollection<ApplicationUserArchive> ApplicationUserArchives { get; set; }
+        public virtual Archive Archive { get; set; }
 
     }
 }

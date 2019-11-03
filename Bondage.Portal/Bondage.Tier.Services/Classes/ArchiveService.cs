@@ -129,6 +129,36 @@ namespace Bondage.Tier.Services.Classes
             return applicationUser;
         }
 
+        public async Task<ApplicationUser> FindApplicationUserById(int id)
+        {
+            ApplicationUser applicationUser = await UserManager.Users
+                .TagWith("FindApplicationUserById")
+                .AsQueryable()
+                .Include(x => x.ApplicationUserTokens)
+                .Include(x => x.ApplicationUserRoles)
+                .ThenInclude(x => x.ApplicationRole)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (applicationUser == null)
+            {
+                // Log
+                string logData = applicationUser.GetType().Name
+                    + " with Id "
+                    + id
+                    + " was not found at "
+                    + DateTime.Now.ToShortTimeString();
+
+                Logger.WriteGetItemNotFoundLog(logData);
+
+                throw new Exception(applicationUser.GetType().Name
+                    + " with Id "
+                    + id
+                    + " does not exist");
+            }
+
+            return applicationUser;
+        }
+
         public async Task<ViewArchive> AddArchive(AddArchive viewModel)
         {
             await CheckName(viewModel);
@@ -137,10 +167,13 @@ namespace Bondage.Tier.Services.Classes
             {
                 Name = viewModel.Name,
                 Data = viewModel.Data,
-                By = await FindApplicationUserByEmail(viewModel.By.Email)
+                By = await FindApplicationUserByEmail(viewModel.By.Email),
+                ApplicationUserArchives = new List<ApplicationUserArchive>()
             };
 
             await Context.Archive.AddAsync(archive);
+
+            AddApplicationUserArchive(viewModel, archive);
 
             await Context.SaveChangesAsync();
 
@@ -156,14 +189,34 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewArchive>(archive);
         }
 
+        public void AddApplicationUserArchive(AddArchive viewModel,
+                                             Archive entity)
+        {
+            viewModel.ApplicationUsersId.AsQueryable().ToList().ForEach(async x =>
+            {
+                ApplicationUser applicationUser = await FindApplicationUserById(x);
+
+                ApplicationUserArchive arenalPoblacion = new ApplicationUserArchive
+                {
+                    Archive = entity,
+                    ApplicationUser = applicationUser,
+                };
+
+                entity.ApplicationUserArchives.Add(arenalPoblacion);
+            });
+        }
+
         public async Task<ViewArchive> UpdateArchive(UpdateArchive viewModel)
         {
             Archive archive = await FindArchiveById(viewModel.Id);
             archive.Name = viewModel.Name;
             archive.Data = viewModel.Data;
             archive.By = await FindApplicationUserByEmail(viewModel.By.Email);
+            archive.ApplicationUserArchives = new List<ApplicationUserArchive>();
 
             Context.Archive.Update(archive);
+
+            UpdateApplicationUserArchive(viewModel, archive);
 
             await Context.SaveChangesAsync();
 
@@ -177,6 +230,22 @@ namespace Bondage.Tier.Services.Classes
             Logger.WriteUpdateItemLog(logData);
 
             return Mapper.Map<ViewArchive>(archive);
+        }
+
+        public void UpdateApplicationUserArchive(UpdateArchive viewModel, Archive entity)
+        {
+            viewModel.ApplicationUsersId.AsQueryable().ToList().ForEach(async x =>
+            {
+                ApplicationUser applicationUser = await FindApplicationUserById(x);
+
+                ApplicationUserArchive arenalPoblacion = new ApplicationUserArchive
+                {
+                    Archive = entity,
+                    ApplicationUser = applicationUser,
+                };
+
+                entity.ApplicationUserArchives.Add(arenalPoblacion);
+            });
         }
 
         public async Task<Archive> CheckName(AddArchive viewModel)

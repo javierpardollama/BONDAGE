@@ -18,6 +18,8 @@ namespace Bondage.Tier.Mappings.Classes
             CreateMap<ApplicationUserToken, ViewApplicationUserToken>();
 
             CreateMap<Archive, ViewArchive>();
+
+            CreateMap<ApplicationUserArchive, ViewApplicationUserArchive>();
         }
     }
 }

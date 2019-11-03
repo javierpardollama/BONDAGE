@@ -33,6 +33,9 @@ namespace Bondage.Tier.Contexts.Classes
 
         public DbSet<Archive> Archive { get; set; }
 
+        public DbSet<ApplicationUserArchive> ApplicationUserArchive { get; set; }
+
+
         public override int SaveChanges()
         {
             UpdateSoftStatus();

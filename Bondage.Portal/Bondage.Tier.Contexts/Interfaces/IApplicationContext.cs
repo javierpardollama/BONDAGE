@@ -25,6 +25,8 @@ namespace Bondage.Tier.Contexts.Interfaces
 
         DbSet<Archive> Archive { get; set; }
 
+        DbSet<ApplicationUserArchive> ApplicationUserArchive { get; set; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();
