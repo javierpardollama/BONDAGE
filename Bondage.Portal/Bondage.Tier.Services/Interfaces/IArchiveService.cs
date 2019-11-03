@@ -31,5 +31,8 @@ namespace Bondage.Tier.Services.Interfaces
         void UpdateApplicationUserArchive(UpdateArchive viewModel, Archive entity);
 
         Task<Archive> CheckName(AddArchive viewModel);
+
+        Task<Archive> CheckName(UpdateArchive viewModel);
+
     }
 }

@@ -208,6 +208,8 @@ namespace Bondage.Tier.Services.Classes
 
         public async Task<ViewArchive> UpdateArchive(UpdateArchive viewModel)
         {
+            await CheckName(viewModel);
+
             Archive archive = await FindArchiveById(viewModel.Id);
             archive.Name = viewModel.Name;
             archive.Data = viewModel.Data;
@@ -275,5 +277,32 @@ namespace Bondage.Tier.Services.Classes
             return archive;
         }
 
+
+        public async Task<Archive> CheckName(UpdateArchive viewModel)
+        {
+            Archive archive = await Context.Archive
+                 .TagWith("CheckName")
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(x => x.Name == viewModel.Name && x.Id != viewModel.Id);
+
+            if (archive != null)
+            {
+                // Log
+                string logData = archive.GetType().Name
+                    + " with Name "
+                    + archive.Name
+                    + " was already found at "
+                    + DateTime.Now.ToShortTimeString();
+
+                Logger.WriteGetItemFoundLog(logData);
+
+                throw new Exception(archive.GetType().Name
+                    + " with Name "
+                    + viewModel.Name
+                    + " already exists");
+            }
+
+            return archive;
+        }
     }
 }
