@@ -47,6 +47,11 @@ export class ArchiveService extends BaseService {
             .pipe(catchError(this.HandleError<ViewArchive[]>('FindAllArchiveByApplicationUserId', [])));
     }
 
+    public FindAllSharedArchiveByApplicationUserId(id: number): Observable<ViewArchive[]> {
+        return this.httpClient.get<ViewArchive[]>('api/archive/findallsharedarchivebyapplicationuserid/' + id)
+            .pipe(catchError(this.HandleError<ViewArchive[]>('FindAllSharedArchiveByApplicationUserId', [])));
+    }
+
     public AddArchive(viewModel: AddArchive): Observable<ViewArchive> {
         return this.httpClient.post<ViewArchive>('api/archive/addarchive', viewModel)
             .pipe(catchError(this.HandleError<ViewArchive>('AddArchive', undefined)));

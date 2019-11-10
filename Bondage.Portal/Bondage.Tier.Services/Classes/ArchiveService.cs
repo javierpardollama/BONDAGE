@@ -99,6 +99,23 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<IList<ViewArchive>>(archives);
         }
 
+        public async Task<IList<ViewArchive>> FindAllSharedArchiveByApplicationUserId(int id)
+        {
+            ICollection<Archive> archives = await Context.ApplicationUserArchive
+               .TagWith("FindAllSharedArchiveByApplicationUserId")
+               .AsQueryable()
+               .AsNoTracking()
+               .Include(x => x.ApplicationUser)
+               .Include(x => x.Archive)
+               .Where(x => x.ApplicationUser.Id == id)
+               .Select(x => x.Archive)
+               .AsQueryable()
+               .Include(x=>x.By)
+               .ToListAsync();
+
+            return Mapper.Map<IList<ViewArchive>>(archives);
+        }
+
         public async Task<ApplicationUser> FindApplicationUserByEmail(string email)
         {
             ApplicationUser applicationUser = await UserManager.Users

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Bondage.Tier.ViewModels.Interfaces.Views;
 
 namespace Bondage.Tier.ViewModels.Classes.Views
 {
     public class ViewApplicationUserArchive : IViewBase, IViewKey
     {
-        public ViewApplicationUserArchive() 
+        public ViewApplicationUserArchive()
         {
         }
 
