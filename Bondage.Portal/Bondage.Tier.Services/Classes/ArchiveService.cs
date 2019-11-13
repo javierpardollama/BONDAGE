@@ -110,7 +110,7 @@ namespace Bondage.Tier.Services.Classes
                .Where(x => x.ApplicationUser.Id == id)
                .Select(x => x.Archive)
                .AsQueryable()
-               .Include(x=>x.By)
+               .Include(x => x.By)
                .ToListAsync();
 
             return Mapper.Map<IList<ViewArchive>>(archives);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+
 using Bondage.Tier.ViewModels.Interfaces.Views;
 
 namespace Bondage.Tier.ViewModels.Classes.Views
