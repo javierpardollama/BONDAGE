@@ -170,7 +170,7 @@ namespace Bondage.Tier.Contexts.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fichero",
+                name: "Archive",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -183,13 +183,41 @@ namespace Bondage.Tier.Contexts.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fichero", x => x.Id);
+                    table.PrimaryKey("PK_Archive", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Fichero_ApplicationUser_ById",
+                        name: "FK_Archive_ApplicationUser_ById",
                         column: x => x.ById,
                         principalTable: "ApplicationUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationUserArchive",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LastModified = table.Column<DateTime>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false),
+                    ApplicationUserId = table.Column<int>(nullable: true),
+                    ArchiveId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUserArchive", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserArchive_ApplicationUser_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "ApplicationUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserArchive_Archive_ArchiveId",
+                        column: x => x.ArchiveId,
+                        principalTable: "Archive",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -213,6 +241,16 @@ namespace Bondage.Tier.Contexts.Migrations
                 column: "NormalizedUserName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserArchive_ApplicationUserId",
+                table: "ApplicationUserArchive",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserArchive_ArchiveId",
+                table: "ApplicationUserArchive",
+                column: "ArchiveId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ApplicationUserClaim_UserId",
                 table: "ApplicationUserClaim",
                 column: "UserId");
@@ -228,8 +266,8 @@ namespace Bondage.Tier.Contexts.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fichero_ById",
-                table: "Fichero",
+                name: "IX_Archive_ById",
+                table: "Archive",
                 column: "ById");
         }
 
@@ -237,6 +275,9 @@ namespace Bondage.Tier.Contexts.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ApplicationRoleClaim");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationUserArchive");
 
             migrationBuilder.DropTable(
                 name: "ApplicationUserClaim");
@@ -251,7 +292,7 @@ namespace Bondage.Tier.Contexts.Migrations
                 name: "ApplicationUserToken");
 
             migrationBuilder.DropTable(
-                name: "Fichero");
+                name: "Archive");
 
             migrationBuilder.DropTable(
                 name: "ApplicationRole");

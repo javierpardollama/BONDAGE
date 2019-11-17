@@ -150,6 +150,33 @@ namespace Bondage.Tier.Contexts.Migrations
                     b.ToTable("ApplicationUser");
                 });
 
+            modelBuilder.Entity("Bondage.Tier.Entities.Classes.ApplicationUserArchive", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ApplicationUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ArchiveId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ArchiveId");
+
+                    b.ToTable("ApplicationUserArchive");
+                });
+
             modelBuilder.Entity("Bondage.Tier.Entities.Classes.ApplicationUserClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -251,7 +278,7 @@ namespace Bondage.Tier.Contexts.Migrations
                     b.ToTable("ApplicationUserToken");
                 });
 
-            modelBuilder.Entity("Bondage.Tier.Entities.Classes.Fichero", b =>
+            modelBuilder.Entity("Bondage.Tier.Entities.Classes.Archive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -277,7 +304,7 @@ namespace Bondage.Tier.Contexts.Migrations
 
                     b.HasIndex("ById");
 
-                    b.ToTable("Fichero");
+                    b.ToTable("Archive");
                 });
 
             modelBuilder.Entity("Bondage.Tier.Entities.Classes.ApplicationRoleClaim", b =>
@@ -287,6 +314,17 @@ namespace Bondage.Tier.Contexts.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Bondage.Tier.Entities.Classes.ApplicationUserArchive", b =>
+                {
+                    b.HasOne("Bondage.Tier.Entities.Classes.ApplicationUser", "ApplicationUser")
+                        .WithMany("ApplicationUserArchives")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Bondage.Tier.Entities.Classes.Archive", "Archive")
+                        .WithMany("ApplicationUserArchives")
+                        .HasForeignKey("ArchiveId");
                 });
 
             modelBuilder.Entity("Bondage.Tier.Entities.Classes.ApplicationUserClaim", b =>
@@ -331,7 +369,7 @@ namespace Bondage.Tier.Contexts.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Bondage.Tier.Entities.Classes.Fichero", b =>
+            modelBuilder.Entity("Bondage.Tier.Entities.Classes.Archive", b =>
                 {
                     b.HasOne("Bondage.Tier.Entities.Classes.ApplicationUser", "By")
                         .WithMany()

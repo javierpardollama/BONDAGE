@@ -30,7 +30,8 @@ import {
   MatButtonModule,
   MatSnackBarModule,
   MatAutocompleteModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTabsModule
 } from '@angular/material';
 
 // Guards
@@ -71,6 +72,11 @@ import {
   ArchiveGridComponent
 } from './management/grids/archive-grid/archive-grid.component';
 
+import {
+  ArchiveSharedGridComponent
+} from './management/grids/archive-shared-grid/archive-shared-grid.component';
+
+
 // App-Modal-Adition
 import {
   ArchiveAddModalComponent
@@ -96,6 +102,7 @@ import {
     ChangeEmailSecurityComponent,
     // App-Grid
     ArchiveGridComponent,
+    ArchiveSharedGridComponent,
     // App-Modal-Adition
     ArchiveAddModalComponent,
     // App-Modal-Update
@@ -116,6 +123,7 @@ import {
     MatTableModule,
     MatSortModule,
     MatFormFieldModule,
+    MatTabsModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -159,6 +167,12 @@ import {
       {
         path: 'management/archives',
         component: ArchiveGridComponent,
+        pathMatch: 'full',
+        canActivate: [SignInGuard]
+      },
+      {
+        path: 'management/sharedarchives',
+        component: ArchiveSharedGridComponent,
         pathMatch: 'full',
         canActivate: [SignInGuard]
       },
