@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ViewTab } from '../viewmodels/views/viewtab';
 
 @Component({
   selector: 'app-root',
@@ -8,28 +9,29 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  navLinks: any[];
-  
-  activeLinkIndex = 0;
+  NavTabs: ViewTab[];
+
+  ActiveTabIndex = 0;
 
   // Constructor
   constructor(private router: Router) {
-    this.navLinks = [
+    this.NavTabs = [
       {
-        label: 'Archives',
-        link: './management/archives',
-        index: 0
+        Label: 'Archives',
+        Link: './management/archives',
+        Index: 0
       }, {
-        label: 'Shared Archives',
-        link: './management/sharedarchives',
-        index: 1
+        Label: 'Shared Archives',
+        Link: './management/sharedarchives',
+        Index: 1
       }
     ];
   }
+
   // Life Cicle
   ngOnInit() {
     this.router.events.subscribe((res) => {
-      this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.link === '.' + this.router.url));
+      this.ActiveTabIndex = this.NavTabs.indexOf(this.NavTabs.find(tab => tab.Link === '.' + this.router.url));
     });
   }
 }

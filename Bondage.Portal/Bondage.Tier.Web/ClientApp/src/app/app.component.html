@@ -6,9 +6,9 @@
   </app-nav-menu>
 
   <nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive"
+    <a mat-tab-link *ngFor="let tab of NavTabs" [routerLink]="tab.Link" routerLinkActive #rla="routerLinkActive"
       [active]="rla.isActive">
-      {{link.label}}
+      {{tab.Label}}
     </a>
   </nav>
 
