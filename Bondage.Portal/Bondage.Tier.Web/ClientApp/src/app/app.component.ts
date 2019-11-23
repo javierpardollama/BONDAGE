@@ -10,7 +10,7 @@ import { NavigationService } from './../services/navigation.service';
 })
 export class AppComponent implements OnInit {
 
-  NavTabs: ViewTab[];
+  NavigationTabs: ViewTab[];
 
   ActiveTabIndex = 0;
 
@@ -18,13 +18,13 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private navigationService: NavigationService) {
-    this.NavTabs = this.navigationService.GetArchiveManagementNavigationTabs();
+    this.NavigationTabs = this.navigationService.GetArchiveManagementNavigationTabs();
   }
 
   // Life Cicle
   ngOnInit() {
     this.router.events.subscribe((res) => {
-      this.ActiveTabIndex = this.NavTabs.indexOf(this.NavTabs.find(tab => tab.Link === '.' + this.router.url));
+      this.ActiveTabIndex = this.NavigationTabs.indexOf(this.NavigationTabs.find(tab => tab.Link === '.' + this.router.url));
     });
   }
 }
