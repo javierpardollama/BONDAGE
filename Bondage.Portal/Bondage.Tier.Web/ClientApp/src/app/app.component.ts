@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ViewTab } from '../viewmodels/views/viewtab';
+import { ViewTab } from './../viewmodels/views/viewtab';
+import { NavigationService } from './../services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -14,18 +15,10 @@ export class AppComponent implements OnInit {
   ActiveTabIndex = 0;
 
   // Constructor
-  constructor(private router: Router) {
-    this.NavTabs = [
-      {
-        Label: 'Archives',
-        Link: './management/archives',
-        Index: 0
-      }, {
-        Label: 'Shared Archives',
-        Link: './management/sharedarchives',
-        Index: 1
-      }
-    ];
+  constructor(
+    private router: Router,
+    private navigationService: NavigationService) {
+    this.NavTabs = this.navigationService.GetArchiveManagementNavigationTabs();
   }
 
   // Life Cicle
