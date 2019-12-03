@@ -114,13 +114,13 @@ namespace Bondage.Tier.Web
 
             app.UseCors("Authentication");
 
-            app.UseAuthorization();
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
