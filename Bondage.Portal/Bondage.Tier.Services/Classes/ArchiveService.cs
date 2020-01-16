@@ -183,14 +183,16 @@ namespace Bondage.Tier.Services.Classes
             Archive archive = new Archive
             {
                 Name = viewModel.Name,
-                Data = viewModel.Data,
                 By = await FindApplicationUserByEmail(viewModel.By.Email),
-                ApplicationUserArchives = new List<ApplicationUserArchive>()
+                ApplicationUserArchives = new List<ApplicationUserArchive>(),
+                ArchiveVersions = new List<ArchiveVersion>()
             };
 
             await Context.Archive.AddAsync(archive);
 
             AddApplicationUserArchive(viewModel, archive);
+
+            AddArchiveVersion(viewModel, archive);
 
             await Context.SaveChangesAsync();
 
@@ -223,19 +225,31 @@ namespace Bondage.Tier.Services.Classes
             });
         }
 
+        public void AddArchiveVersion(AddArchive viewModel, Archive entity)
+        {
+            ArchiveVersion archiveVersion = new ArchiveVersion
+            {
+                Archive = entity,
+                Data = viewModel.Data,
+            };
+
+            entity.ArchiveVersions.Add(archiveVersion);
+        }
+
         public async Task<ViewArchive> UpdateArchive(UpdateArchive viewModel)
         {
             await CheckName(viewModel);
 
             Archive archive = await FindArchiveById(viewModel.Id);
             archive.Name = viewModel.Name;
-            archive.Data = viewModel.Data;
             archive.By = await FindApplicationUserByEmail(viewModel.By.Email);
             archive.ApplicationUserArchives = new List<ApplicationUserArchive>();
 
             Context.Archive.Update(archive);
 
             UpdateApplicationUserArchive(viewModel, archive);
+
+            UpdateArchiveVersion(viewModel, archive);
 
             await Context.SaveChangesAsync();
 
@@ -265,6 +279,17 @@ namespace Bondage.Tier.Services.Classes
 
                 entity.ApplicationUserArchives.Add(arenalPoblacion);
             });
+        }
+
+        public void UpdateArchiveVersion(UpdateArchive viewModel, Archive entity)
+        {
+            ArchiveVersion archiveVersion = new ArchiveVersion
+            {
+                Archive = entity,
+                Data = viewModel.Data,
+            };
+
+            entity.ArchiveVersions.Add(archiveVersion);
         }
 
         public async Task<Archive> CheckName(AddArchive viewModel)

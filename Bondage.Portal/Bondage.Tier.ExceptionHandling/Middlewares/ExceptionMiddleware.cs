@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 using Bondage.Tier.ViewModels.Classes.Views;
+
 using Microsoft.AspNetCore.Http;
 
 namespace Bondage.Tier.ExceptionHandling.Middlewares

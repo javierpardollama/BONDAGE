@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 using Bondage.Tier.ViewModels.Interfaces.Views;
@@ -20,11 +21,16 @@ namespace Bondage.Tier.ViewModels.Classes.Views
 
         [XmlElement("by")]
         public virtual ViewApplicationUser By { get; set; }
-
-        [XmlIgnore]
-        public byte[] Data { get; set; }
-
+        
         [XmlElement("name")]
         public string Name { get; set; }
+
+        [XmlArray("application-user-archives")]
+        public virtual ICollection<ViewApplicationUserArchive> ApplicationUserArchives { get; set; }
+
+
+        [XmlArray("archive-versions")]
+        public virtual ICollection<ViewArchiveVersion> ArchiveVersions { get; set; }
+
     }
 }

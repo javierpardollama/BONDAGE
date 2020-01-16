@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Bondage.Tier.ViewModels.Classes.Views;
 
 namespace Bondage.Tier.ViewModels.Classes.Updates

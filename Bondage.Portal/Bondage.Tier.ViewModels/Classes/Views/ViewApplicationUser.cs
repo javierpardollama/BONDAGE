@@ -37,5 +37,9 @@ namespace Bondage.Tier.ViewModels.Classes.Views
 
         [XmlElement("application-user-token")]
         public virtual ViewApplicationUserToken ApplicationUserToken => ApplicationUserTokens?.AsQueryable().LastOrDefault();
+
+        [XmlArray("application-user-archives")]
+        public virtual ICollection<ViewApplicationUserArchive> ApplicationUserArchives { get; set; }
+
     }
 }

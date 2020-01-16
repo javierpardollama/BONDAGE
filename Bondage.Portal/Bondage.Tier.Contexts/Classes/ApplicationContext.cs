@@ -35,6 +35,7 @@ namespace Bondage.Tier.Contexts.Classes
 
         public virtual DbSet<ApplicationUserArchive> ApplicationUserArchive { get; set; }
 
+        public virtual DbSet<ArchiveVersion> ArchiveVersion { get; set; }
 
         public override int SaveChanges()
         {
