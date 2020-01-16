@@ -21,7 +21,7 @@ namespace Bondage.Tier.ViewModels.Classes.Views
 
         [XmlElement("by")]
         public virtual ViewApplicationUser By { get; set; }
-        
+
         [XmlElement("name")]
         public string Name { get; set; }
 
