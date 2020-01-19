@@ -1,10 +1,10 @@
-import { AddArchive } from '../viewmodels/additions/addarchive';
+import { AddArchive } from './../viewmodels/additions/addarchive';
 
-import { UpdateArchive } from '../viewmodels/updates/updatearchive';
+import { UpdateArchive } from './../viewmodels/updates/updatearchive';
 
-import { BinaryAddArchive } from '../viewmodels/binary/binaryaddarchive';
+import { BinaryAddArchive } from './../viewmodels/binary/binaryaddarchive';
 
-import { BinaryUpdateArchive } from '../viewmodels/binary/binaryupdatearchive';
+import { BinaryUpdateArchive } from './../viewmodels/binary/binaryupdatearchive';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -55,7 +55,7 @@ export class BinaryService extends BaseService {
 
         let buffer: ArrayBuffer | string;
 
-        reader.onloadend = (event) => {
+        reader.onloadend = () => {
             buffer = reader.result;
         };
 

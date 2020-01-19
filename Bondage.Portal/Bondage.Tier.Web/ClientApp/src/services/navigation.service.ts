@@ -1,4 +1,4 @@
-import { ViewTab } from '../viewmodels/views/viewtab';
+import { ViewTab } from './../viewmodels/views/viewtab';
 
 import { Injectable } from '@angular/core';
 

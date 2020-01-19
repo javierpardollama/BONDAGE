@@ -13,17 +13,17 @@ import {
 
 import { ViewArchive } from './../../../../viewmodels/views/viewarchive';
 
-import { ViewApplicationUser } from '../../../../viewmodels/views/viewapplicationuser';
+import { ViewApplicationUser } from './../../../../viewmodels/views/viewapplicationuser';
 
 import { ArchiveService } from './../../../../services/archive.service';
 
 import {
   ArchiveUpdateModalComponent
-} from '../../modals/updates/archive-update-modal/archive-update-modal.component';
+} from './../../modals/updates/archive-update-modal/archive-update-modal.component';
 
 import {
   ArchiveAddModalComponent
-} from '../../modals/additions/archive-add-modal/archive-add-modal.component';
+} from './../../modals/additions/archive-add-modal/archive-add-modal.component';
 
 @Component({
   selector: 'app-archive-grid',
