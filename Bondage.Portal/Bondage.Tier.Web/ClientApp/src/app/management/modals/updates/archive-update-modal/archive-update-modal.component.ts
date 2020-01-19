@@ -16,9 +16,7 @@ import {
   Validators
 } from '@angular/forms';
 
-import { CryptoUpdateArchive } from './../../../../../viewmodels/crypto/cryptoupdatearchive';
-
-import { CryptoViewArchive } from './../../../../../viewmodels/crypto/cryptoviewarchive';
+import { BinaryUpdateArchive } from './../../../../../viewmodels/binary/binaryupdatearchive';
 
 import { ViewArchive } from './../../../../../viewmodels/views/viewarchive';
 
@@ -26,7 +24,7 @@ import { ViewApplicationUser } from '../../../../../viewmodels/views/viewapplica
 
 import { ArchiveService } from './../../../../../services/archive.service';
 
-import { CryptoService } from './../../../../../services/crypto.service';
+import { BinaryService } from './../../../../../services/binary.service';
 
 import { TextAppVariants } from './../../../../../variants/text.app.variants';
 
@@ -43,11 +41,9 @@ export class ArchiveUpdateModalComponent implements OnInit {
 
   public User: ViewApplicationUser;
 
-  public DecodedArchive: CryptoViewArchive;
-
   // Constructor
   constructor(
-    private cryptoService: CryptoService,
+    private binaryService: BinaryService,
     private archiveService: ArchiveService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ArchiveUpdateModalComponent>,
@@ -58,47 +54,40 @@ export class ArchiveUpdateModalComponent implements OnInit {
   // Life Cicle
   ngOnInit() {
     this.GetLocalUser();
-    this.DecodeInjectedata();
     this.CreateForm();
   }
 
   // Form
   CreateForm() {
     this.formGroup = this.formBuilder.group({
-      Id: [this.DecodedArchive.Id, [Validators.required]],
-      Name: [this.DecodedArchive.Name,
+      Id: [this.data.Id, [Validators.required]],
+      Name: [this.data.Name,
       [Validators.required]],
-      Data: [this.DecodedArchive.Data,
+      Data: [TextAppVariants.AppEmptyCoreText,
       [Validators.required]],
       By: [this.User, [Validators.required]]
     });
   }
 
   // Form Actions
-  onSubmit(viewModel: CryptoUpdateArchive) {
-    this.cryptoService.EncodeUpdateArchive(viewModel).subscribe(updateArchive => {
-      this.archiveService.UpdateArchive(updateArchive).subscribe(viewArchive => {
+  onSubmit(viewModel: BinaryUpdateArchive) {
 
-        if (viewArchive !== undefined) {
-          this.matSnackBar.open(
-            TextAppVariants.AppOperationSuccessCoreText,
-            TextAppVariants.AppOkButtonText,
-            { duration: TimeAppVariants.AppToastSecondTicks * TimeAppVariants.AppTimeSecondTicks });
-        }
+    this.archiveService.UpdateArchive(this.binaryService.EncodeUpdateArchive(viewModel)).subscribe(viewArchive => {
 
-        this.dialogRef.close();
-      });
-    })
+      if (viewArchive !== undefined) {
+        this.matSnackBar.open(
+          TextAppVariants.AppOperationSuccessCoreText,
+          TextAppVariants.AppOkButtonText,
+          { duration: TimeAppVariants.AppToastSecondTicks * TimeAppVariants.AppTimeSecondTicks });
+      }
+
+      this.dialogRef.close();
+    });
+
   }
 
   // Get User from Storage
   public GetLocalUser() {
     this.User = JSON.parse(localStorage.getItem('User'));
-  }
-
-  public DecodeInjectedata() {
-    this.cryptoService.DecodeViewArchive(this.data).subscribe(cryptoViewArchive => {
-      this.DecodedArchive = cryptoViewArchive;
-    });
   }
 }

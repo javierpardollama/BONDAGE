@@ -14,15 +14,15 @@ import {
   Validators
 } from '@angular/forms';
 
-import { CryptoAddArchive } from './../../../../../viewmodels/crypto/cryptoaddarchive';
+import { BinaryAddArchive } from './../../../../../viewmodels/binary/binaryaddarchive';
 
-import { ViewApplicationUser } from '../../../../../viewmodels/views/viewapplicationuser';
+import { ViewApplicationUser } from './../../../../../viewmodels/views/viewapplicationuser';
 
 import { ArchiveService } from './../../../../../services/archive.service';
 
-import { CryptoService } from './../../../../../services/crypto.service';
+import { BinaryService } from './../../../../../services/binary.service';
 
-import { TextAppVariants } from '../../../../../variants/text.app.variants';
+import { TextAppVariants } from './../../../../../variants/text.app.variants';
 
 import { TimeAppVariants } from './../../../../../variants/time.app.variants';
 
@@ -39,7 +39,7 @@ export class ArchiveAddModalComponent implements OnInit {
 
   // Constructor
   constructor(
-    private cryptoService: CryptoService,
+    private binaryService: BinaryService,
     private archiveService: ArchiveService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ArchiveAddModalComponent>,
@@ -64,21 +64,19 @@ export class ArchiveAddModalComponent implements OnInit {
   }
 
   // Form Actions
-  onSubmit(viewModel: CryptoAddArchive) {
+  onSubmit(viewModel: BinaryAddArchive) {
 
-    this.cryptoService.EncodeAddArchive(viewModel).subscribe(addArchive => {
-      this.archiveService.AddArchive(addArchive).subscribe(viewArchive => {
+    this.archiveService.AddArchive(this.binaryService.EncodeAddArchive(viewModel)).subscribe(viewArchive => {
 
-        if (viewArchive !== undefined) {
-          this.matSnackBar.open(
-            TextAppVariants.AppOperationSuccessCoreText,
-            TextAppVariants.AppOkButtonText,
-            { duration: TimeAppVariants.AppToastSecondTicks * TimeAppVariants.AppTimeSecondTicks });
-        }
+      if (viewArchive !== undefined) {
+        this.matSnackBar.open(
+          TextAppVariants.AppOperationSuccessCoreText,
+          TextAppVariants.AppOkButtonText,
+          { duration: TimeAppVariants.AppToastSecondTicks * TimeAppVariants.AppTimeSecondTicks });
+      }
 
-        this.dialogRef.close();
-      });
-    })
+      this.dialogRef.close();
+    });
   }
 
   // Get User from Storage

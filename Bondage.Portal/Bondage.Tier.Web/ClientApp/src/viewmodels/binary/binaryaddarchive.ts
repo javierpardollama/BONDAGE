@@ -1,7 +1,7 @@
 import { ViewApplicationUser } from '../views/viewapplicationuser';
 
-export interface AddArchive {
+export interface BinaryAddArchive {
     By: ViewApplicationUser;
-    Data: ArrayBuffer | string;
+    Data: File;
     Name: string;
 }

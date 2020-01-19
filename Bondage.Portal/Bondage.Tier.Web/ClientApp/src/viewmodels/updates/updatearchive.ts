@@ -3,6 +3,6 @@ import { UpdateBase } from './updatebase';
 
 export interface UpdateArchive extends UpdateBase {
     By: ViewApplicationUser;
-    Data: ArrayBuffer;
+    Data: ArrayBuffer | string;
     Name: string;
 }

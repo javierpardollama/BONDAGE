@@ -4,10 +4,6 @@ import { UpdateArchive } from './../viewmodels/updates/updatearchive';
 
 import { ViewArchive } from './../viewmodels/views/viewarchive';
 
-import { CryptoAddArchive } from './../viewmodels/crypto/cryptoaddarchive';
-
-import { CryptoUpdateArchive } from './../viewmodels/crypto/cryptoupdatearchive';
-
 import { HttpClient } from '@angular/common/http';
 
 import { MatSnackBar } from '@angular/material';
