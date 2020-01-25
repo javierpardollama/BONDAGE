@@ -116,6 +116,21 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<IList<ViewArchive>>(archives);
         }
 
+        public async Task<IList<ViewArchiveVersion>> FindAllArchiveVersionByArchiveId(int id) 
+        {
+            ICollection<ArchiveVersion> versions = await Context.ArchiveVersion
+               .TagWith("FindAllArchiveVersionByArchiveId")
+               .AsQueryable()
+               .AsNoTracking()               
+               .Include(x => x.Archive)
+               .ThenInclude(x => x.By)
+               .Where(x => x.Archive.Id == id)               
+               .AsQueryable()
+               .ToListAsync();
+
+            return Mapper.Map<IList<ViewArchiveVersion>>(versions);
+        }
+
         public async Task<ApplicationUser> FindApplicationUserByEmail(string email)
         {
             ApplicationUser applicationUser = await UserManager.Users

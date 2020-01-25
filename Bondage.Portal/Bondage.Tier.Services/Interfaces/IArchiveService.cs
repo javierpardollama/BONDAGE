@@ -20,6 +20,8 @@ namespace Bondage.Tier.Services.Interfaces
 
         Task<IList<ViewArchive>> FindAllSharedArchiveByApplicationUserId(int id);
 
+        Task<IList<ViewArchiveVersion>> FindAllArchiveVersionByArchiveId(int id);
+
         Task<ApplicationUser> FindApplicationUserByEmail(string email);
 
         Task<ApplicationUser> FindApplicationUserById(int id);

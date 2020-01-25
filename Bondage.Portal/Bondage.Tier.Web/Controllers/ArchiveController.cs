@@ -29,6 +29,10 @@ namespace Bondage.Tier.Web.Controllers
         public async Task<IActionResult> FindAllSharedArchiveByApplicationUserId(int id) => new JsonResult(value: await Service.FindAllSharedArchiveByApplicationUserId(id));
 
         [HttpGet]
+        [Route("findallarchiveversionbyarchiveid/{id}")]
+        public async Task<IActionResult> FindAllArchiveVersionByArchiveId(int id) => new JsonResult(value: await Service.FindAllArchiveVersionByArchiveId(id));
+
+        [HttpGet]
         [Route("findallarchive")]
         public async Task<IActionResult> FindAllArchive() => new JsonResult(value: await Service.FindAllArchive());
 
