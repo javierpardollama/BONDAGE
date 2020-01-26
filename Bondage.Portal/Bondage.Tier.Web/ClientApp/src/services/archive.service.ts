@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { BaseService } from './base.service';
+import { ViewArchiveVersion } from 'src/viewmodels/views/viewarchiveversion';
 
 @Injectable({
     providedIn: 'root',
@@ -46,6 +47,11 @@ export class ArchiveService extends BaseService {
     public FindAllSharedArchiveByApplicationUserId(id: number): Observable<ViewArchive[]> {
         return this.httpClient.get<ViewArchive[]>('api/archive/findallsharedarchivebyapplicationuserid/' + id)
             .pipe(catchError(this.HandleError<ViewArchive[]>('FindAllSharedArchiveByApplicationUserId', [])));
+    }
+
+    public FindAllArchiveVersionByArchiveId(id: number): Observable<ViewArchiveVersion[]> {
+        return this.httpClient.get<ViewArchiveVersion[]>('api/archive/findallarchiveversionbyarchiveid/' + id)
+            .pipe(catchError(this.HandleError<ViewArchiveVersion[]>('FindAllArchiveVersionByArchiveId', [])));
     }
 
     public AddArchive(viewModel: AddArchive): Observable<ViewArchive> {
