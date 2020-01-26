@@ -24,7 +24,7 @@ namespace Bondage.Tier.ViewModels.Classes.Views
         public string Email { get; set; }
 
         [XmlElement("initial")]
-        public string Initial => Email.Substring(0, 1).ToUpper();
+        public string Initial => Email?.Substring(0, 1).ToUpper();
 
         [XmlArray("application-user-roles")]
         public virtual ICollection<ViewApplicationUserRole> ApplicationUserRoles { get; set; }

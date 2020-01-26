@@ -20,5 +20,8 @@ namespace Bondage.Tier.ViewModels.Classes.Views
 
         [XmlElement("archive")]
         public virtual ViewArchive Archive { get; set; }
+
+        [XmlElement("name")]
+        public string Name => Archive?.Name;
     }
 }
