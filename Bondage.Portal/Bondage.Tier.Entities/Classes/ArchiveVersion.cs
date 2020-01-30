@@ -23,7 +23,14 @@ namespace Bondage.Tier.Entities.Classes
         [Required]
         public bool Deleted { get; set; }
 
+        [Required]
         public byte[] Data { get; set; }
+
+        [Required]
+        public float Size { get; set; }
+
+        [Required]
+        public string Type { get; set; }
 
         [Required]
         public virtual Archive Archive { get; set; }

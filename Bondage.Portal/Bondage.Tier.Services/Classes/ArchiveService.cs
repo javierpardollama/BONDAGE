@@ -116,15 +116,15 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<IList<ViewArchive>>(archives);
         }
 
-        public async Task<IList<ViewArchiveVersion>> FindAllArchiveVersionByArchiveId(int id) 
+        public async Task<IList<ViewArchiveVersion>> FindAllArchiveVersionByArchiveId(int id)
         {
             ICollection<ArchiveVersion> versions = await Context.ArchiveVersion
                .TagWith("FindAllArchiveVersionByArchiveId")
                .AsQueryable()
-               .AsNoTracking()               
+               .AsNoTracking()
                .Include(x => x.Archive)
                .ThenInclude(x => x.By)
-               .Where(x => x.Archive.Id == id)               
+               .Where(x => x.Archive.Id == id)
                .AsQueryable()
                .ToListAsync();
 
@@ -246,6 +246,8 @@ namespace Bondage.Tier.Services.Classes
             {
                 Archive = entity,
                 Data = viewModel.Data,
+                Size = viewModel.Size,
+                Type = viewModel.Type
             };
 
             entity.ArchiveVersions.Add(archiveVersion);
@@ -302,6 +304,8 @@ namespace Bondage.Tier.Services.Classes
             {
                 Archive = entity,
                 Data = viewModel.Data,
+                Size = viewModel.Size,
+                Type = viewModel.Type
             };
 
             entity.ArchiveVersions.Add(archiveVersion);

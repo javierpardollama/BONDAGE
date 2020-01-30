@@ -16,6 +16,10 @@ namespace Bondage.Tier.ViewModels.Classes.Updates
 
         public byte[] Data { get; set; }
 
+        public float Size { get; set; }
+
+        public string Type { get; set; }
+
         public virtual ICollection<int> ApplicationUsersId { get; set; }
     }
 }

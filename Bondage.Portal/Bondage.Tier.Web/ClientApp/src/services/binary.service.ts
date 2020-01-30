@@ -31,7 +31,9 @@ export class BinaryService extends BaseService {
         {
             By: viewModel.By,
             Data: this.ArchiveDataToBinary(viewModel.Data),
-            Name: viewModel.Name,
+            Size: viewModel.Data.size,
+            Name: viewModel.Data.name,
+            Type: viewModel.Data.type
         };
 
         return resultModel;
@@ -43,7 +45,9 @@ export class BinaryService extends BaseService {
             Id: viewModel.Id,
             By: viewModel.By,
             Data: this.ArchiveDataToBinary(viewModel.Data),
-            Name: viewModel.Name,
+            Name: viewModel.Data.name,
+            Size: viewModel.Data.size,
+            Type: viewModel.Data.type
         };
 
         return resultModel;

@@ -4,5 +4,4 @@ export interface BinaryUpdateArchive {
     Id: number;
     By: ViewApplicationUser;
     Data: File;
-    Name: string;
 }
