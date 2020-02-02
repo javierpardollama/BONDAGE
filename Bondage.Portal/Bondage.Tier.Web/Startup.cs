@@ -35,6 +35,9 @@ namespace Bondage.Tier.Web
 
         public JwtSettings JwtSettings { get; private set; }
 
+        public IcoSettings IcoSettings { get; private set; }
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -74,6 +77,10 @@ namespace Bondage.Tier.Web
             // Register the Jwt Settings to the configuration container.
             JwtSettings = new JwtSettings();
             Configuration.GetSection("Jwt").Bind(JwtSettings);
+
+            // Register the Ico Settings to the configuration container.
+            IcoSettings = new IcoSettings();
+            Configuration.GetSection("Ico").Bind(IcoSettings);
 
             // Add customized Authentication to the services container.
             services.AddCustomizedAuthentication(JwtSettings);

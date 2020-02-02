@@ -21,6 +21,8 @@ namespace Bondage.Tier.Services.Classes
 
         protected readonly JwtSettings JwtSettings;
 
+        protected readonly IcoSettings IcoSettings;
+
         public BaseService(IApplicationContext context,
                            IMapper mapper,
                            ILogger logger)
@@ -45,6 +47,9 @@ namespace Bondage.Tier.Services.Classes
 
             JwtSettings = new JwtSettings();
             Configuration.GetSection("Jwt").Bind(JwtSettings);
+
+            IcoSettings = new IcoSettings();
+            Configuration.GetSection("Ico").Bind(JwtSettings);
         }
     }
 }
