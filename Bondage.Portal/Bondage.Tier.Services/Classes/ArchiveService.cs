@@ -80,6 +80,7 @@ namespace Bondage.Tier.Services.Classes
             ICollection<Archive> archives = await Context.Archive
                 .TagWith("FindAllArchive")
                 .AsQueryable()
+                .AsNoTracking()
                 .Include(x => x.By)
                 .ToListAsync();
 
@@ -110,7 +111,6 @@ namespace Bondage.Tier.Services.Classes
                .ThenInclude(x => x.By)
                .Where(x => x.ApplicationUser.Id == id)
                .Select(x => x.Archive)
-               .AsQueryable()
                .ToListAsync();
 
             return Mapper.Map<IList<ViewArchive>>(archives);
@@ -125,7 +125,6 @@ namespace Bondage.Tier.Services.Classes
                .Include(x => x.Archive)
                .ThenInclude(x => x.By)
                .Where(x => x.Archive.Id == id)
-               .AsQueryable()
                .ToListAsync();
 
             return Mapper.Map<IList<ViewArchiveVersion>>(versions);
