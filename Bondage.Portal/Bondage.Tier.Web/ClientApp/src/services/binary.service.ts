@@ -8,7 +8,7 @@ import { BinaryUpdateArchive } from './../viewmodels/binary/binaryupdatearchive'
 
 import { HttpClient } from '@angular/common/http';
 
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Injectable } from '@angular/core';
 
