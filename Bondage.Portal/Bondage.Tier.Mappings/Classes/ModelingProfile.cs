@@ -16,6 +16,8 @@ namespace Bondage.Tier.Mappings.Classes
             CreateMap<ApplicationUserRole, ViewApplicationUserRole>();
 
             CreateMap<ApplicationUserToken, ViewApplicationUserToken>();
+
+            CreateMap<Endeavour, ViewEndeavour>();
         }
     }
 }

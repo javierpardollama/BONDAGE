@@ -23,6 +23,8 @@ namespace Bondage.Tier.Contexts.Interfaces
 
         DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
+        DbSet<Endeavour> Endeavour { get; set; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

@@ -31,6 +31,8 @@ namespace Bondage.Tier.Contexts.Classes
 
         public virtual DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
+        public virtual DbSet<Endeavour> Endeavour { get; set; }
+
         public override int SaveChanges()
         {
             UpdateSoftStatus();
