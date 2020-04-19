@@ -27,7 +27,5 @@ namespace Bondage.Tier.Entities.Classes
         public virtual ICollection<ApplicationUserLogin> ApplicationUserLogins { get; set; }
 
         public virtual ICollection<ApplicationUserToken> ApplicationUserTokens { get; set; }
-
-        public virtual ICollection<ApplicationUserArchive> ApplicationUserArchives { get; set; }
     }
 }

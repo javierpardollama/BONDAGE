@@ -31,17 +31,17 @@ export class SecurityService extends BaseService {
   }
 
   public ResetPassword(viewModel: SecurityPasswordReset): Observable<ViewApplicationUser> {
-    return this.httpClient.put<ViewApplicationUser>('api/applicationuser/changepassword', viewModel)
+    return this.httpClient.put<ViewApplicationUser>('api/security/changepassword', viewModel)
       .pipe(catchError(this.HandleError<ViewApplicationUser>('ResetPassword', undefined)));
   }
 
   public ChangePassword(viewModel: SecurityPasswordChange): Observable<ViewApplicationUser> {
-    return this.httpClient.put<ViewApplicationUser>('api/applicationuser/changepassword', viewModel)
+    return this.httpClient.put<ViewApplicationUser>('api/security/changepassword', viewModel)
       .pipe(catchError(this.HandleError<ViewApplicationUser>('ChangePassword', undefined)));
   }
 
   public ChangeEmail(viewModel: SecurityEmailChange): Observable<ViewApplicationUser> {
-    return this.httpClient.put<ViewApplicationUser>('api/applicationuser/changeemail', viewModel)
+    return this.httpClient.put<ViewApplicationUser>('api/security/changeemail', viewModel)
       .pipe(catchError(this.HandleError<ViewApplicationUser>('ChangeEmail', undefined)));
   }
 }

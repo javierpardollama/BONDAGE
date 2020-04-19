@@ -31,12 +31,6 @@ namespace Bondage.Tier.Contexts.Classes
 
         public virtual DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
-        public virtual DbSet<Archive> Archive { get; set; }
-
-        public virtual DbSet<ApplicationUserArchive> ApplicationUserArchive { get; set; }
-
-        public virtual DbSet<ArchiveVersion> ArchiveVersion { get; set; }
-
         public override int SaveChanges()
         {
             UpdateSoftStatus();

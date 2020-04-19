@@ -65,25 +65,6 @@ import {
   ChangeEmailSecurityComponent
 } from './security/changeemail-security/changeemail-security.component';
 
-// App-Grid
-import {
-  ArchiveGridComponent
-} from './management/grids/archive-grid/archive-grid.component';
-
-import {
-  ArchiveSharedGridComponent
-} from './management/grids/archive-shared-grid/archive-shared-grid.component';
-
-// App-Modal-Adition
-import {
-  ArchiveAddModalComponent
-} from './management/modals/additions/archive-add-modal/archive-add-modal.component';
-
-// App-Modal-Update
-import {
-  ArchiveUpdateModalComponent
-} from './management/modals/updates/archive-update-modal/archive-update-modal.component';
-
 @NgModule({
   declarations: [
     // App
@@ -96,14 +77,7 @@ import {
     // App-Security
     ChangePasswordSecurityComponent,
     ResetPasswordSecurityComponent,
-    ChangeEmailSecurityComponent,
-    // App-Grid
-    ArchiveGridComponent,
-    ArchiveSharedGridComponent,
-    // App-Modal-Adition
-    ArchiveAddModalComponent,
-    // App-Modal-Update
-    ArchiveUpdateModalComponent],
+    ChangeEmailSecurityComponent,],
   imports: [
     // Angular Material
     BrowserAnimationsModule,
@@ -160,19 +134,7 @@ import {
         path: 'security/resetpassword',
         component: ResetPasswordSecurityComponent,
         pathMatch: 'full'
-      },
-      {
-        path: 'management/archives',
-        component: ArchiveGridComponent,
-        pathMatch: 'full',
-        canActivate: [SignInGuard]
-      },
-      {
-        path: 'management/sharedarchives',
-        component: ArchiveSharedGridComponent,
-        pathMatch: 'full',
-        canActivate: [SignInGuard]
-      },
+      },   
     ])
   ],
   providers: [{

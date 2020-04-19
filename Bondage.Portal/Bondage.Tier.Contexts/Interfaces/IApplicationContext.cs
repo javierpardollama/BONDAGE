@@ -23,12 +23,6 @@ namespace Bondage.Tier.Contexts.Interfaces
 
         DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
-        DbSet<Archive> Archive { get; set; }
-
-        DbSet<ApplicationUserArchive> ApplicationUserArchive { get; set; }
-
-        DbSet<ArchiveVersion> ArchiveVersion { get; set; }
-
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

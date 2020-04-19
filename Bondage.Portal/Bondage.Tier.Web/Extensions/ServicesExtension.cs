@@ -12,8 +12,6 @@ namespace Bondage.Tier.Web.Extensions
             @this.AddTransient<ITokenService, TokenService>();
             @this.AddTransient<IAuthService, AuthService>();
             @this.AddTransient<ISecurityService, SecurityService>();
-            @this.AddTransient<IArchiveService, ArchiveService>();
-
             // Add other services here
         }
     }
