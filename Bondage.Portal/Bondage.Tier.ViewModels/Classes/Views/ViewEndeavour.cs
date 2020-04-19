@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 
 using Bondage.Tier.ViewModels.Interfaces.Views;
@@ -25,7 +23,6 @@ namespace Bondage.Tier.ViewModels.Classes.Views
 
         [XmlElement("start")]
         public DateTime Start { get; set; }
-
 
         [XmlElement("finish")]
         public DateTime Finish { get; set; }

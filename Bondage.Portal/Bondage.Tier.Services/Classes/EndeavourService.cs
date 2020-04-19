@@ -17,27 +17,27 @@ using Microsoft.Extensions.Logging;
 
 namespace Bondage.Tier.Services.Classes
 {
-    public class EndeavourService : BaseService , IEndeavourService
+    public class EndeavourService : BaseService, IEndeavourService
     {
         public EndeavourService(
             IMapper mapper,
             ILogger<EndeavourService> logger) : base(mapper, logger)
-        {           
+        {
         }
 
-        public async Task<ICollection<ViewEndeavour>> FindAllEndeavour() 
+        public async Task<ICollection<ViewEndeavour>> FindAllEndeavour()
         {
             ICollection<Endeavour> endeavours = await Context.Endeavour
                            .TagWith("FindAllEndeavour")
                            .AsQueryable()
                            .AsNoTracking()
-                           .Include(x => x.ApplicationUser)                          
+                           .Include(x => x.ApplicationUser)
                            .ToListAsync();
 
             return Mapper.Map<IList<ViewEndeavour>>(endeavours);
         }
 
-        public async Task<ICollection<ViewEndeavour>> FindAllEndeavourByApplicationUserById(int id) 
+        public async Task<ICollection<ViewEndeavour>> FindAllEndeavourByApplicationUserById(int id)
         {
             ICollection<Endeavour> endeavours = await Context.Endeavour
                            .TagWith("FindAllEndeavourByApplicationUserById")
@@ -80,12 +80,12 @@ namespace Bondage.Tier.Services.Classes
             return applicationUser;
         }
 
-        public async Task<ViewEndeavour> Start(AddEndeavour viewModel) 
+        public async Task<ViewEndeavour> Start(AddEndeavour viewModel)
         {
             Endeavour endeavour = new Endeavour
             {
                 Start = DateTime.Now,
-                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId)                
+                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId)
             };
 
             try
@@ -96,7 +96,7 @@ namespace Bondage.Tier.Services.Classes
             }
             catch (DbUpdateConcurrencyException)
             {
-               
+
             }
 
             // Log
@@ -111,7 +111,7 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEndeavour>(endeavour);
         }
 
-        public async Task<ViewEndeavour> Finish(UpdateEndeavour viewModel) 
+        public async Task<ViewEndeavour> Finish(UpdateEndeavour viewModel)
         {
             Endeavour endeavour = await FindEndeavourById(viewModel.Id);
             endeavour.Finish = DateTime.Now;
@@ -140,7 +140,7 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEndeavour>(endeavour);
         }
 
-        public async Task RemoveEndeavourById(int id) 
+        public async Task RemoveEndeavourById(int id)
         {
             try
             {
@@ -165,7 +165,7 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
-        public async Task<Endeavour> FindEndeavourById(int id) 
+        public async Task<Endeavour> FindEndeavourById(int id)
         {
             Endeavour endeavour = await Context.Endeavour
                 .TagWith("FindEndeavourById")

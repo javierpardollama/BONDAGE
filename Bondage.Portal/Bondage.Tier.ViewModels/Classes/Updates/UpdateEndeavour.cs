@@ -2,7 +2,7 @@
 {
     public class UpdateEndeavour : UpdateBase
     {
-        public UpdateEndeavour() 
+        public UpdateEndeavour()
         {
         }
 

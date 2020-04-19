@@ -2,7 +2,7 @@
 {
     public class AddEndeavour
     {
-        public AddEndeavour() 
+        public AddEndeavour()
         {
         }
 
