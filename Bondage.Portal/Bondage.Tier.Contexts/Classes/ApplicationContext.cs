@@ -33,6 +33,8 @@ namespace Bondage.Tier.Contexts.Classes
 
         public virtual DbSet<Endeavour> Endeavour { get; set; }
 
+        public virtual DbSet<Kind> Kind { get; set; }
+
         public override int SaveChanges()
         {
             UpdateSoftStatus();

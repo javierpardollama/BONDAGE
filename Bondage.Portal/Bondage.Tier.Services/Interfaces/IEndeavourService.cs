@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 using Bondage.Tier.Entities.Classes;
 using Bondage.Tier.ViewModels.Classes.Additions;
-using Bondage.Tier.ViewModels.Classes.Updates;
 using Bondage.Tier.ViewModels.Classes.Views;
 
 namespace Bondage.Tier.Services.Interfaces
@@ -18,10 +17,17 @@ namespace Bondage.Tier.Services.Interfaces
 
         Task<ViewEndeavour> Start(AddEndeavour viewModel);
 
-        Task<ViewEndeavour> Finish(UpdateEndeavour viewModel);
+        Task<ViewEndeavour> Pause(AddEndeavour viewModel);
+
+        Task<ViewEndeavour> Resume(AddEndeavour viewModel);
+
+        Task<ViewEndeavour> Stop(AddEndeavour viewModel);
 
         Task RemoveEndeavourById(int id);
 
         Task<Endeavour> FindEndeavourById(int id);
+
+        Task<Kind> FindKindById(int id);
+
     }
 }

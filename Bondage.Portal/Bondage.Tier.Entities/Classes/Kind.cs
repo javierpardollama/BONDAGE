@@ -6,7 +6,7 @@ using Bondage.Tier.Entities.Interfaces;
 
 namespace Bondage.Tier.Entities.Classes
 {
-    public partial class Endeavour : IKey, IBase
+    public partial class Kind : IKey, IBase
     {
         [Required]
         [Key]
@@ -20,12 +20,6 @@ namespace Bondage.Tier.Entities.Classes
         public bool Deleted { get; set; }
 
         [Required]
-        public DateTime? Date { get; set; }
-
-        [Required]
-        public virtual ApplicationUser ApplicationUser { get; set; }
-
-        [Required]
-        public virtual Kind Kind { get; set; }
+        public string Name { get; set; }
     }
 }

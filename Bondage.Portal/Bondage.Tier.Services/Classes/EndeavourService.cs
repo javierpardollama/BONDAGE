@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
+using Bondage.Tier.Constants.Enums;
 using Bondage.Tier.Entities.Classes;
 using Bondage.Tier.Logging.Classes;
 using Bondage.Tier.Services.Interfaces;
 using Bondage.Tier.ViewModels.Classes.Additions;
-using Bondage.Tier.ViewModels.Classes.Updates;
 using Bondage.Tier.ViewModels.Classes.Views;
 
 using Microsoft.EntityFrameworkCore;
@@ -84,8 +84,9 @@ namespace Bondage.Tier.Services.Classes
         {
             Endeavour endeavour = new Endeavour
             {
-                Start = DateTime.Now,
-                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId)
+                Date = DateTime.Now,
+                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
+                Kind = await FindKindById((int)EndeavourKinds.Start)
             };
 
             try
@@ -111,15 +112,18 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEndeavour>(endeavour);
         }
 
-        public async Task<ViewEndeavour> Finish(UpdateEndeavour viewModel)
+        public async Task<ViewEndeavour> Pause(AddEndeavour viewModel)
         {
-            Endeavour endeavour = await FindEndeavourById(viewModel.Id);
-            endeavour.Finish = DateTime.Now;
-            endeavour.ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId);
+            Endeavour endeavour = new Endeavour
+            {
+                Date = DateTime.Now,
+                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
+                Kind = await FindKindById((int)EndeavourKinds.Pause)
+            };
 
             try
             {
-                Context.Endeavour.Update(endeavour);
+                await Context.Endeavour.AddAsync(endeavour);
 
                 await Context.SaveChangesAsync();
             }
@@ -132,10 +136,74 @@ namespace Bondage.Tier.Services.Classes
             string logData = endeavour.GetType().Name
                 + " with Id "
                 + endeavour.Id
-                + " was modified at "
+                + " was added at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteUpdateItemLog(logData);
+            Logger.WriteInsertItemLog(logData);
+
+            return Mapper.Map<ViewEndeavour>(endeavour);
+        }
+
+        public async Task<ViewEndeavour> Resume(AddEndeavour viewModel)
+        {
+            Endeavour endeavour = new Endeavour
+            {
+                Date = DateTime.Now,
+                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
+                Kind = await FindKindById((int)EndeavourKinds.Resume)
+            };
+
+            try
+            {
+                await Context.Endeavour.AddAsync(endeavour);
+
+                await Context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+            }
+
+            // Log
+            string logData = endeavour.GetType().Name
+                + " with Id "
+                + endeavour.Id
+                + " was added at "
+                + DateTime.Now.ToShortTimeString();
+
+            Logger.WriteInsertItemLog(logData);
+
+            return Mapper.Map<ViewEndeavour>(endeavour);
+        }
+
+        public async Task<ViewEndeavour> Stop(AddEndeavour viewModel)
+        {
+            Endeavour endeavour = new Endeavour
+            {
+                Date = DateTime.Now,
+                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
+                Kind = await FindKindById((int)EndeavourKinds.Stop)
+            };
+
+            try
+            {
+                await Context.Endeavour.AddAsync(endeavour);
+
+                await Context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+            }
+
+            // Log
+            string logData = endeavour.GetType().Name
+                + " with Id "
+                + endeavour.Id
+                + " was added at "
+                + DateTime.Now.ToShortTimeString();
+
+            Logger.WriteInsertItemLog(logData);
 
             return Mapper.Map<ViewEndeavour>(endeavour);
         }
@@ -190,5 +258,32 @@ namespace Bondage.Tier.Services.Classes
 
             return endeavour;
         }
+
+        public async Task<Kind> FindKindById(int id)
+        {
+            Kind kind = await Context.Kind
+                .TagWith("FindKindById")
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (kind == null)
+            {
+                // Log
+                string logData = kind.GetType().Name
+                    + " with Id "
+                    + id
+                    + " was not found at "
+                    + DateTime.Now.ToShortTimeString();
+
+                Logger.WriteGetItemNotFoundLog(logData);
+
+                throw new Exception(kind.GetType().Name
+                    + " with Id "
+                    + id
+                    + " does not exist");
+            }
+
+            return kind;
+        }
+
     }
 }

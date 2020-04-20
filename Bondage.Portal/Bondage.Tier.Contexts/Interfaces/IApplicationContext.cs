@@ -25,6 +25,8 @@ namespace Bondage.Tier.Contexts.Interfaces
 
         DbSet<Endeavour> Endeavour { get; set; }
 
+        DbSet<Kind> Kind { get; set; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

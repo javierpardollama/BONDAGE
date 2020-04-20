@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 
 using Bondage.Tier.Services.Interfaces;
 using Bondage.Tier.ViewModels.Classes.Additions;
-using Bondage.Tier.ViewModels.Classes.Updates;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bondage.Tier.Web.Controllers
 {
-    [Route("api/security")]
+    [Route("api/endeavour")]
     [Produces("application/json")]
     [Authorize]
     [ApiController]
@@ -32,10 +31,17 @@ namespace Bondage.Tier.Web.Controllers
         [Route("start")]
         public async Task<IActionResult> Start([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Start(viewModel));
 
-        [HttpPut]
-        [Route("finish")]
-        public async Task<IActionResult> Finish([FromBody]UpdateEndeavour viewModel) => new JsonResult(value: await Service.Finish(viewModel));
+        [HttpPost]
+        [Route("pause")]
+        public async Task<IActionResult> Pause([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Start(viewModel));
 
+        [HttpPost]
+        [Route("resume")]
+        public async Task<IActionResult> Resume([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Start(viewModel));
+
+        [HttpPost]
+        [Route("stop")]
+        public async Task<IActionResult> Stop([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Start(viewModel));
 
         [HttpDelete]
         [Route("removeendeavourbyid/{id}")]
