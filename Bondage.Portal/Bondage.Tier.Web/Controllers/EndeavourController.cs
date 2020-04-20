@@ -33,15 +33,15 @@ namespace Bondage.Tier.Web.Controllers
 
         [HttpPost]
         [Route("pause")]
-        public async Task<IActionResult> Pause([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Start(viewModel));
+        public async Task<IActionResult> Pause([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Pause(viewModel));
 
         [HttpPost]
         [Route("resume")]
-        public async Task<IActionResult> Resume([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Start(viewModel));
+        public async Task<IActionResult> Resume([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Resume(viewModel));
 
         [HttpPost]
         [Route("stop")]
-        public async Task<IActionResult> Stop([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Start(viewModel));
+        public async Task<IActionResult> Stop([FromBody]AddEndeavour viewModel) => new JsonResult(value: await Service.Stop(viewModel));
 
         [HttpDelete]
         [Route("removeendeavourbyid/{id}")]
