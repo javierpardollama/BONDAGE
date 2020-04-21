@@ -18,7 +18,7 @@ import { BaseService } from './base.service';
     providedIn: 'root',
 })
 
-export class effortService extends BaseService {
+export class EffortService extends BaseService {
 
     public constructor(
         protected httpClient: HttpClient,

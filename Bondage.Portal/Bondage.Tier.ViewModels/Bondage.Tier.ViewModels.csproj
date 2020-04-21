@@ -9,5 +9,9 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bondage.Tier.Constants\Bondage.Tier.Constants.csproj" />
+  </ItemGroup>
+
 
 </Project>
