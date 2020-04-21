@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bondage.Tier.Constants\Bondage.Tier.Constants.csproj" />
     <ProjectReference Include="..\Bondage.Tier.Entities\Bondage.Tier.Entities.csproj" />
     <ProjectReference Include="..\Bondage.Tier.ViewModels\Bondage.Tier.ViewModels.csproj" />
   </ItemGroup>
