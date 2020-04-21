@@ -195,7 +195,7 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEffort>(effort);
         }
 
-        public async Task AddStartBreak(Effort entity) => Context.Break.Add(
+        public async Task AddStartBreak(Effort entity) => await Context.Break.AddAsync(
             new Break
             {
                 Date = DateTime.Now,
@@ -203,7 +203,7 @@ namespace Bondage.Tier.Services.Classes
                 Kind = await FindKindById((int)EffortKinds.Start)
             });
 
-        public async Task AddPauseBreak(Effort entity) => Context.Break.Add(
+        public async Task AddPauseBreak(Effort entity) => await Context.Break.AddAsync(
             new Break
             {
                 Date = DateTime.Now,
@@ -211,7 +211,7 @@ namespace Bondage.Tier.Services.Classes
                 Kind = await FindKindById((int)EffortKinds.Pause)
             });
 
-        public async Task AddResumeBreak(Effort entity) => Context.Break.Add(
+        public async Task AddResumeBreak(Effort entity) => await Context.Break.AddAsync(
             new Break
             {
                 Date = DateTime.Now,
@@ -219,7 +219,7 @@ namespace Bondage.Tier.Services.Classes
                 Kind = await FindKindById((int)EffortKinds.Resume)
             });
 
-        public async Task AddStopBreak(Effort entity) => Context.Break.Add(
+        public async Task AddStopBreak(Effort entity) => await Context.Break.AddAsync(
              new Break
              {
                  Date = DateTime.Now,
