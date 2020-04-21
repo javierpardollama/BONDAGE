@@ -17,37 +17,39 @@ using Microsoft.Extensions.Logging;
 
 namespace Bondage.Tier.Services.Classes
 {
-    public class EndeavourService : BaseService, IEndeavourService
+    public class EffortService : BaseService, IEffortService
     {
-        public EndeavourService(
+        public EffortService(
             IMapper mapper,
-            ILogger<EndeavourService> logger) : base(mapper, logger)
+            ILogger<EffortService> logger) : base(mapper, logger)
         {
         }
 
-        public async Task<ICollection<ViewEndeavour>> FindAllEndeavour()
+        public async Task<ICollection<ViewEffort>> FindAllEffort()
         {
-            ICollection<Endeavour> endeavours = await Context.Endeavour
-                           .TagWith("FindAllEndeavour")
+            ICollection<Effort> efforts = await Context.Effort
+                           .TagWith("FindAllEffort")
                            .AsQueryable()
                            .AsNoTracking()
+                           .Include(x => x.Breaks)
                            .Include(x => x.ApplicationUser)
                            .ToListAsync();
 
-            return Mapper.Map<IList<ViewEndeavour>>(endeavours);
+            return Mapper.Map<IList<ViewEffort>>(efforts);
         }
 
-        public async Task<ICollection<ViewEndeavour>> FindAllEndeavourByApplicationUserById(int id)
+        public async Task<ICollection<ViewEffort>> FindAllEffortByApplicationUserById(int id)
         {
-            ICollection<Endeavour> endeavours = await Context.Endeavour
-                           .TagWith("FindAllEndeavourByApplicationUserById")
+            ICollection<Effort> efforts = await Context.Effort
+                           .TagWith("FindAllEffortByApplicationUserById")
                            .AsQueryable()
                            .AsNoTracking()
+                           .Include(x => x.Breaks)
                            .Include(x => x.ApplicationUser)
                            .Where(x => x.ApplicationUser.Id == id)
                            .ToListAsync();
 
-            return Mapper.Map<IList<ViewEndeavour>>(endeavours);
+            return Mapper.Map<IList<ViewEffort>>(efforts);
         }
 
         public async Task<ApplicationUser> FindApplicationUserById(int id)
@@ -80,18 +82,18 @@ namespace Bondage.Tier.Services.Classes
             return applicationUser;
         }
 
-        public async Task<ViewEndeavour> Start(AddEndeavour viewModel)
+        public async Task<ViewEffort> Start(AddEffort viewModel)
         {
-            Endeavour endeavour = new Endeavour
+            Effort effort = new Effort
             {
-                Date = DateTime.Now,
                 ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
-                Kind = await FindKindById((int)EndeavourKinds.Start)
             };
 
             try
             {
-                await Context.Endeavour.AddAsync(endeavour);
+                await Context.Effort.AddAsync(effort);
+
+                await AddStartBreak(effort);
 
                 await Context.SaveChangesAsync();
             }
@@ -101,29 +103,24 @@ namespace Bondage.Tier.Services.Classes
             }
 
             // Log
-            string logData = endeavour.GetType().Name
+            string logData = effort.GetType().Name
                 + " with Id "
-                + endeavour.Id
+                + effort.Id
                 + " was added at "
                 + DateTime.Now.ToShortTimeString();
 
             Logger.WriteInsertItemLog(logData);
 
-            return Mapper.Map<ViewEndeavour>(endeavour);
+            return Mapper.Map<ViewEffort>(effort);
         }
 
-        public async Task<ViewEndeavour> Pause(AddEndeavour viewModel)
+        public async Task<ViewEffort> Pause(AddBreak viewModel)
         {
-            Endeavour endeavour = new Endeavour
-            {
-                Date = DateTime.Now,
-                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
-                Kind = await FindKindById((int)EndeavourKinds.Pause)
-            };
+            Effort effort = await FindEffortById(viewModel.EffortId);
 
             try
             {
-                await Context.Endeavour.AddAsync(endeavour);
+                await AddPauseBreak(effort);
 
                 await Context.SaveChangesAsync();
             }
@@ -133,29 +130,24 @@ namespace Bondage.Tier.Services.Classes
             }
 
             // Log
-            string logData = endeavour.GetType().Name
+            string logData = effort.GetType().Name
                 + " with Id "
-                + endeavour.Id
-                + " was added at "
+                + effort.Id
+                + " was updated at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(logData);
+            Logger.WriteUpdateItemLog(logData);
 
-            return Mapper.Map<ViewEndeavour>(endeavour);
+            return Mapper.Map<ViewEffort>(effort);
         }
 
-        public async Task<ViewEndeavour> Resume(AddEndeavour viewModel)
+        public async Task<ViewEffort> Resume(AddBreak viewModel)
         {
-            Endeavour endeavour = new Endeavour
-            {
-                Date = DateTime.Now,
-                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
-                Kind = await FindKindById((int)EndeavourKinds.Resume)
-            };
+            Effort effort = await FindEffortById(viewModel.EffortId);
 
             try
             {
-                await Context.Endeavour.AddAsync(endeavour);
+                await AddResumeBreak(effort);
 
                 await Context.SaveChangesAsync();
             }
@@ -165,29 +157,24 @@ namespace Bondage.Tier.Services.Classes
             }
 
             // Log
-            string logData = endeavour.GetType().Name
+            string logData = effort.GetType().Name
                 + " with Id "
-                + endeavour.Id
-                + " was added at "
+                + effort.Id
+                + " was updated at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(logData);
+            Logger.WriteUpdateItemLog(logData);
 
-            return Mapper.Map<ViewEndeavour>(endeavour);
+            return Mapper.Map<ViewEffort>(effort);
         }
 
-        public async Task<ViewEndeavour> Stop(AddEndeavour viewModel)
+        public async Task<ViewEffort> Stop(AddBreak viewModel)
         {
-            Endeavour endeavour = new Endeavour
-            {
-                Date = DateTime.Now,
-                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
-                Kind = await FindKindById((int)EndeavourKinds.Stop)
-            };
+            Effort effort = await FindEffortById(viewModel.EffortId);
 
             try
             {
-                await Context.Endeavour.AddAsync(endeavour);
+                await AddStopBreak(effort);
 
                 await Context.SaveChangesAsync();
             }
@@ -197,31 +184,63 @@ namespace Bondage.Tier.Services.Classes
             }
 
             // Log
-            string logData = endeavour.GetType().Name
+            string logData = effort.GetType().Name
                 + " with Id "
-                + endeavour.Id
-                + " was added at "
+                + effort.Id
+                + " was updated at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(logData);
+            Logger.WriteUpdateItemLog(logData);
 
-            return Mapper.Map<ViewEndeavour>(endeavour);
+            return Mapper.Map<ViewEffort>(effort);
         }
 
-        public async Task RemoveEndeavourById(int id)
+        public async Task AddStartBreak(Effort entity) => Context.Break.Add(
+            new Break
+            {
+                Date = DateTime.Now,
+                Effort = entity,
+                Kind = await FindKindById((int)EffortKinds.Start)
+            });
+
+        public async Task AddPauseBreak(Effort entity) => Context.Break.Add(
+            new Break
+            {
+                Date = DateTime.Now,
+                Effort = entity,
+                Kind = await FindKindById((int)EffortKinds.Pause)
+            });
+
+        public async Task AddResumeBreak(Effort entity) => Context.Break.Add(
+            new Break
+            {
+                Date = DateTime.Now,
+                Effort = entity,
+                Kind = await FindKindById((int)EffortKinds.Resume)
+            });
+
+        public async Task AddStopBreak(Effort entity) => Context.Break.Add(
+             new Break
+             {
+                 Date = DateTime.Now,
+                 Effort = entity,
+                 Kind = await FindKindById((int)EffortKinds.Stop)
+             });
+
+        public async Task RemoveEffortById(int id)
         {
             try
             {
-                Endeavour endeavour = await FindEndeavourById(id);
+                Effort effort = await FindEffortById(id);
 
-                Context.Endeavour.Remove(endeavour);
+                Context.Effort.Remove(effort);
 
                 await Context.SaveChangesAsync();
 
                 // Log
-                string logData = endeavour.GetType().Name
+                string logData = effort.GetType().Name
                     + " with Id "
-                    + endeavour.Id
+                    + effort.Id
                     + " was removed at "
                     + DateTime.Now.ToShortTimeString();
 
@@ -229,20 +248,20 @@ namespace Bondage.Tier.Services.Classes
             }
             catch (DbUpdateConcurrencyException)
             {
-                await FindEndeavourById(id);
+                await FindEffortById(id);
             }
         }
 
-        public async Task<Endeavour> FindEndeavourById(int id)
+        public async Task<Effort> FindEffortById(int id)
         {
-            Endeavour endeavour = await Context.Endeavour
-                .TagWith("FindEndeavourById")
+            Effort effort = await Context.Effort
+                .TagWith("FindEffortById")
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (endeavour == null)
+            if (effort == null)
             {
                 // Log
-                string logData = endeavour.GetType().Name
+                string logData = effort.GetType().Name
                     + " with Id "
                     + id
                     + " was not found at "
@@ -250,13 +269,13 @@ namespace Bondage.Tier.Services.Classes
 
                 Logger.WriteGetItemNotFoundLog(logData);
 
-                throw new Exception(endeavour.GetType().Name
+                throw new Exception(effort.GetType().Name
                     + " with Id "
                     + id
                     + " does not exist");
             }
 
-            return endeavour;
+            return effort;
         }
 
         public async Task<Kind> FindKindById(int id)

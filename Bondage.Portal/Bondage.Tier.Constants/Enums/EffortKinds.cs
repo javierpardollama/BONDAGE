@@ -1,6 +1,6 @@
 ﻿namespace Bondage.Tier.Constants.Enums
 {
-    public enum EndeavourKinds
+    public enum EffortKinds
     {
         Start = 1,
         Pause = 2,

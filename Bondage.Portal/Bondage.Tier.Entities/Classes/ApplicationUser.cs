@@ -28,6 +28,6 @@ namespace Bondage.Tier.Entities.Classes
 
         public virtual ICollection<ApplicationUserToken> ApplicationUserTokens { get; set; }
 
-        public virtual ICollection<Endeavour> Endeavours { get; set; }
+        public virtual ICollection<Effort> Endeavours { get; set; }
     }
 }

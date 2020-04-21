@@ -1,8 +1,8 @@
 ﻿namespace Bondage.Tier.ViewModels.Classes.Additions
 {
-    public class AddEndeavour
+    public class AddEffort
     {
-        public AddEndeavour()
+        public AddEffort()
         {
         }
 

@@ -23,7 +23,9 @@ namespace Bondage.Tier.Contexts.Interfaces
 
         DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
-        DbSet<Endeavour> Endeavour { get; set; }
+        DbSet<Effort> Effort { get; set; }
+
+        DbSet<Break> Break { get; set; }
 
         DbSet<Kind> Kind { get; set; }
 

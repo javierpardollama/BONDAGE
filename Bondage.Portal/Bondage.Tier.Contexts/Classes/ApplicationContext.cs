@@ -31,7 +31,9 @@ namespace Bondage.Tier.Contexts.Classes
 
         public virtual DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
-        public virtual DbSet<Endeavour> Endeavour { get; set; }
+        public virtual DbSet<Effort> Endeavour { get; set; }
+
+        public virtual DbSet<Break> Break { get; set; }
 
         public virtual DbSet<Kind> Kind { get; set; }
 
