@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 
 using Bondage.Tier.Constants.Enums;
+using Bondage.Tier.Contexts.Interfaces;
 using Bondage.Tier.Entities.Classes;
 using Bondage.Tier.Logging.Classes;
 using Bondage.Tier.Services.Interfaces;
@@ -20,8 +21,9 @@ namespace Bondage.Tier.Services.Classes
     public class EffortService : BaseService, IEffortService
     {
         public EffortService(
+            IApplicationContext context,
             IMapper mapper,
-            ILogger<EffortService> logger) : base(mapper, logger)
+            ILogger<EffortService> logger) : base(context, mapper, logger)
         {
         }
 
