@@ -36,5 +36,9 @@ namespace Bondage.Tier.Services.Interfaces
         Task<Effort> FindEffortById(int id);
 
         Task<Kind> FindKindById(int id);
+
+        Task<Effort> CheckDate(AddEffort viewModel);
+
+        Task<Effort> CheckDate(AddBreak viewModel);
     }
 }

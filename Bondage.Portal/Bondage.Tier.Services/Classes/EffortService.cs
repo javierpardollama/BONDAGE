@@ -86,6 +86,8 @@ namespace Bondage.Tier.Services.Classes
 
         public async Task<ViewEffort> Start(AddEffort viewModel)
         {
+            await CheckDate(viewModel);
+
             Effort effort = new Effort
             {
                 ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
@@ -172,6 +174,8 @@ namespace Bondage.Tier.Services.Classes
 
         public async Task<ViewEffort> Stop(AddBreak viewModel)
         {
+            await CheckDate(viewModel);
+
             Effort effort = await FindEffortById(viewModel.EffortId);
 
             try
@@ -306,5 +310,85 @@ namespace Bondage.Tier.Services.Classes
             return kind;
         }
 
+        public async Task<Effort> CheckDate(AddEffort viewModel)
+        {
+            Effort effort = await Context.Effort
+                            .AsNoTracking()
+                            .TagWith("CheckDate")
+                            .AsQueryable()
+                            .Include(x => x.ApplicationUser)
+                            .Include(x => x.Breaks)
+                            .ThenInclude(x => x.Kind)
+                            .FirstOrDefaultAsync(x => 
+                            x.ApplicationUser.Id == viewModel.ApplicationUserId
+                            && x.LastModified.Year == DateTime.Now.Year
+                            && x.LastModified.Month == DateTime.Now.Month
+                            && x.LastModified.Day == DateTime.Now.Day
+                            && x.Breaks.Any(x => x.Kind.Id == (int)EffortKinds.Start 
+                            && x.Date.HasValue
+                            && x.Date.Value.Year == DateTime.Now.Year
+                            && x.Date.Value.Month == DateTime.Now.Month
+                            && x.Date.Value.Day == DateTime.Now.Day));
+
+            if (effort != null)
+            {
+                // Log
+                string logData = effort.GetType().Name
+                    + " with Application User "
+                    + effort.ApplicationUser.Id
+                    + " was already found at "
+                    + DateTime.Now.ToShortTimeString();
+
+                Logger.WriteGetItemFoundLog(logData);
+
+                throw new Exception(effort.GetType().Name
+                    + " with Application User "
+                    + viewModel.ApplicationUserId
+                    + " already exists");
+            }
+
+            return effort;
+        }
+
+        public async Task<Effort> CheckDate(AddBreak viewModel)
+        {
+            Effort effort = await Context.Effort
+                            .AsNoTracking()
+                            .TagWith("CheckDate")
+                            .AsQueryable()
+                            .Include(x => x.ApplicationUser)
+                            .Include(x => x.Breaks)
+                            .ThenInclude(x => x.Kind)
+                            .FirstOrDefaultAsync(x =>
+                             x.ApplicationUser.Id == viewModel.ApplicationUserId
+                             && x.Id == viewModel.EffortId
+                             && x.LastModified.Year == DateTime.Now.Year
+                             && x.LastModified.Month == DateTime.Now.Month
+                             && x.LastModified.Day == DateTime.Now.Day
+                             && x.Breaks.Any(x => x.Kind.Id == (int)EffortKinds.Stop
+                             && x.Date.HasValue
+                             && x.Date.Value.Year == DateTime.Now.Year
+                             && x.Date.Value.Month == DateTime.Now.Month
+                             && x.Date.Value.Day == DateTime.Now.Day));
+
+            if (effort != null)
+            {
+                // Log
+                string logData = effort.GetType().Name
+                    + " with Application User "
+                    + effort.ApplicationUser.Id
+                    + " was already found at "
+                    + DateTime.Now.ToShortTimeString();
+
+                Logger.WriteGetItemFoundLog(logData);
+
+                throw new Exception(effort.GetType().Name
+                    + " with Application User "
+                    + viewModel.ApplicationUserId
+                    + " already exists");
+            }
+
+            return effort;
+        }
     }
 }

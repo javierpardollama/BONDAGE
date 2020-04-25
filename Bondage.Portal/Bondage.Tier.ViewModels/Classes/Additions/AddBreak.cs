@@ -7,5 +7,7 @@
         }
 
         public int EffortId { get; set; }
+
+        public int ApplicationUserId { get; set; }
     }
 }
