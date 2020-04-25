@@ -15,7 +15,13 @@ namespace Bondage.Tier.Services.Interfaces
 
         Task<ApplicationUser> FindApplicationUserById(int id);
 
-        Task<ViewEffort> Start(AddEffort viewModel);
+        Task<Effort> FindEffortByApplicationUserIdAndDate(AddBreak viewModel);
+
+        Task<Break> FindActiveBreak(AddBreak viewModel);
+
+        void UpdateBreakAsInactive(Break entity);
+
+        Task<ViewEffort> Start(AddBreak viewModel);
 
         Task<ViewEffort> Pause(AddBreak viewModel);
 
@@ -35,10 +41,6 @@ namespace Bondage.Tier.Services.Interfaces
 
         Task<Effort> FindEffortById(int id);
 
-        Task<Kind> FindKindById(int id);
-
-        Task<Effort> CheckDate(AddEffort viewModel);
-
-        Task<Effort> CheckDate(AddBreak viewModel);
+        Task<Kind> FindKindById(int id);       
     }
 }

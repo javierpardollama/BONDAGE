@@ -32,5 +32,8 @@ namespace Bondage.Tier.ViewModels.Classes.Views
 
         [XmlElement("stop")]
         public DateTime? Stop => Breaks?.AsQueryable().FirstOrDefault(x => x.Kind.Id == (int)EffortKinds.Stop).Date;
+
+        [XmlElement("current")]
+        public ViewBreak Current => Breaks?.AsQueryable().FirstOrDefault(x => x.Active);
     }
 }

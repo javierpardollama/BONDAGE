@@ -29,7 +29,7 @@ namespace Bondage.Tier.Web.Controllers
 
         [HttpPost]
         [Route("start")]
-        public async Task<IActionResult> Start([FromBody]AddEffort viewModel) => new JsonResult(value: await Service.Start(viewModel));
+        public async Task<IActionResult> Start([FromBody]AddBreak viewModel) => new JsonResult(value: await Service.Start(viewModel));
 
         [HttpPost]
         [Route("pause")]

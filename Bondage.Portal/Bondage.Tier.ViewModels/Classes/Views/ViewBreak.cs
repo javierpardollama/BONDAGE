@@ -19,7 +19,10 @@ namespace Bondage.Tier.ViewModels.Classes.Views
         public DateTime LastModified { get; set; }
 
         [XmlElement("last-modified")]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
+
+        [XmlElement("active")]
+        public bool Active { get; set; }
 
         [XmlElement("effort")]
         public virtual ViewEffort Effort { get; set; }

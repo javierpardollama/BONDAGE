@@ -23,6 +23,9 @@ namespace Bondage.Tier.Entities.Classes
         public DateTime? Date { get; set; }
 
         [Required]
+        public bool Active { get; set; }
+
+        [Required]
         public virtual Effort Effort { get; set; }
 
         [Required]
