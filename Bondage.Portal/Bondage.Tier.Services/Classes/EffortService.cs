@@ -21,15 +21,15 @@ namespace Bondage.Tier.Services.Classes
     public class EffortService : BaseService, IEffortService
     {
         public EffortService(
-            IApplicationContext context,
-            IMapper mapper,
-            ILogger<EffortService> logger) : base(context, mapper, logger)
+            IApplicationContext @context,
+            IMapper @mapper,
+            ILogger<EffortService> @logger) : base(@context, @mapper, @logger)
         {
         }
 
         public async Task<ICollection<ViewEffort>> FindAllEffort()
         {
-            ICollection<Effort> efforts = await Context.Effort
+            ICollection<Effort> @efforts = await Context.Effort
                            .TagWith("FindAllEffort")
                            .AsQueryable()
                            .AsNoTracking()
@@ -37,77 +37,77 @@ namespace Bondage.Tier.Services.Classes
                            .Include(x => x.ApplicationUser)
                            .ToListAsync();
 
-            return Mapper.Map<IList<ViewEffort>>(efforts);
+            return Mapper.Map<IList<ViewEffort>>(@efforts);
         }
 
-        public async Task<ICollection<ViewEffort>> FindAllEffortByApplicationUserById(int id)
+        public async Task<ICollection<ViewEffort>> FindAllEffortByApplicationUserById(int @id)
         {
-            ICollection<Effort> efforts = await Context.Effort
+            ICollection<Effort> @efforts = await Context.Effort
                            .TagWith("FindAllEffortByApplicationUserById")
                            .AsQueryable()
                            .AsNoTracking()
                            .Include(x => x.Breaks)
                            .Include(x => x.ApplicationUser)
-                           .Where(x => x.ApplicationUser.Id == id)
+                           .Where(x => x.ApplicationUser.Id == @id)
                            .ToListAsync();
 
-            return Mapper.Map<IList<ViewEffort>>(efforts);
+            return Mapper.Map<IList<ViewEffort>>(@efforts);
         }
 
-        public async Task<ApplicationUser> FindApplicationUserById(int id)
+        public async Task<ApplicationUser> FindApplicationUserById(int @id)
         {
-            ApplicationUser applicationUser = await Context.ApplicationUser
+            ApplicationUser @applicationUser = await Context.ApplicationUser
                .TagWith("FindApplicationUserById")
                .AsQueryable()
                .Include(x => x.ApplicationUserTokens)
                .Include(x => x.ApplicationUserRoles)
                .ThenInclude(x => x.ApplicationRole)
-               .FirstOrDefaultAsync(x => x.Id == id);
+               .FirstOrDefaultAsync(x => x.Id == @id);
 
-            if (applicationUser == null)
+            if (@applicationUser == null)
             {
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
-                    + applicationUser.Email
+                    + @applicationUser.Email
                     + " was not found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemNotFoundLog(logData);
+                Logger.WriteGetItemNotFoundLog(@logData);
 
-                throw new Exception(applicationUser.GetType().Name
+                throw new Exception(@applicationUser.GetType().Name
                     + " with Email "
-                    + applicationUser.Email
+                    + @applicationUser.Email
                     + " does not exist");
             }
 
-            return applicationUser;
+            return @applicationUser;
         }
 
-        public async Task<Effort> FindEffortByApplicationUserIdAndDate(AddBreak viewModel)
+        public async Task<Effort> FindEffortByApplicationUserIdAndDate(AddBreak @viewModel)
         {
-            Effort effort = await Context.Effort
+            Effort @effort = await Context.Effort
               .AsNoTracking()
               .AsQueryable()
               .TagWith("FindEffortByApplicationUserIdAndDate")
               .Include(x => x.ApplicationUser)
               .Include(x => x.Breaks)
               .ThenInclude(x => x.Kind)
-              .Where(x => x.ApplicationUser.Id == viewModel.ApplicationUserId)
+              .Where(x => x.ApplicationUser.Id == @viewModel.ApplicationUserId)
               .FirstOrDefaultAsync(x => x.LastModified.Date == DateTime.Now.Date);
 
-            if (effort != null)
+            if (@effort != null)
             {
                 // Log
-                string logData = effort.GetType().Name
+                string @logData = @effort.GetType().Name
                     + " with Date "
-                    + effort.LastModified.ToShortDateString()
+                    + @effort.LastModified.ToShortDateString()
                     + " was found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemNotFoundLog(logData);
+                Logger.WriteGetItemNotFoundLog(@logData);
 
-                throw new Exception(effort.GetType().Name
+                throw new Exception(@effort.GetType().Name
                      + " with Date "
                      + effort.LastModified.ToShortDateString()
                      + " was started");
@@ -116,9 +116,9 @@ namespace Bondage.Tier.Services.Classes
             return effort;
         }
 
-        public async Task<Break> FindActiveBreak(AddBreak viewModel)
+        public async Task<Break> FindActiveBreak(AddBreak @viewModel)
         {
-            Break entity = await Context.Break
+            Break @break = await Context.Break
               .AsNoTracking()
               .AsQueryable()
               .TagWith("FindActiveBreak")
@@ -128,272 +128,272 @@ namespace Bondage.Tier.Services.Classes
               .ThenInclude(x => x.Breaks)
               .ThenInclude(x => x.Kind)
               .Include(x => x.Kind)
-              .Where(x => x.Effort.ApplicationUser.Id == viewModel.ApplicationUserId)
+              .Where(x => x.Effort.ApplicationUser.Id == @viewModel.ApplicationUserId)
               .Where(x => x.Effort.LastModified.Date == DateTime.Now.Date)
               .FirstOrDefaultAsync(s => s.Active);
 
-            if (entity == null)
+            if (@break == null)
             {
                 // Log
-                string logData = entity.Effort.GetType().Name
+                string @logData = @break.Effort.GetType().Name
                     + " with Date "
-                    + entity.Effort.LastModified.ToShortDateString()
+                    + @break.Effort.LastModified.ToShortDateString()
                     + " was not found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemNotFoundLog(logData);
+                Logger.WriteGetItemNotFoundLog(@logData);
 
-                throw new Exception(entity.Effort.GetType().Name
+                throw new Exception(@break.Effort.GetType().Name
                  + " with Date "
-                 + entity.Effort.LastModified.ToShortDateString()
+                 + @break.Effort.LastModified.ToShortDateString()
                  + " was not started");
             }
 
-            return entity;
+            return @break;
         }
 
-        public void UpdateBreakAsInactive(Break entity)
+        public void UpdateBreakAsInactive(Break @break)
         {
-            entity.Active = false;
+            @break.Active = false;
 
-            Context.Break.Update(entity);
+            Context.Break.Update(@break);
         }
 
-        public async Task<ViewEffort> Start(AddBreak viewModel)
+        public async Task<ViewEffort> Start(AddBreak @viewModel)
         {
-            await FindEffortByApplicationUserIdAndDate(viewModel);
+            await FindEffortByApplicationUserIdAndDate(@viewModel);
 
-            Effort effort = new Effort
+            Effort @effort = new Effort
             {
-                ApplicationUser = await FindApplicationUserById(viewModel.ApplicationUserId),
+                ApplicationUser = await FindApplicationUserById(@viewModel.ApplicationUserId),
             };
 
-            await Context.Effort.AddAsync(effort);
+            await Context.Effort.AddAsync(@effort);
 
-            await AddStartBreak(effort);
+            await AddStartBreak(@effort);
 
             await Context.SaveChangesAsync();
 
             // Log
-            string logData = effort.GetType().Name
+            string @logData = @effort.GetType().Name
                 + " with Id "
-                + effort.Id
+                + @effort.Id
                 + " was added at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(logData);
+            Logger.WriteInsertItemLog(@logData);
 
-            return Mapper.Map<ViewEffort>(effort);
+            return Mapper.Map<ViewEffort>(@effort);
         }
 
-        public async Task<ViewEffort> Pause(AddBreak viewModel)
+        public async Task<ViewEffort> Pause(AddBreak @viewModel)
         {
-            Break entity = await FindActiveBreak(viewModel);
+            Break @break = await FindActiveBreak(@viewModel);
 
-            if (entity.Kind.Id.Equals((int)EffortKinds.Start) || entity.Kind.Id.Equals((int)EffortKinds.Resume))
+            if (@break.Kind.Id.Equals((int)EffortKinds.Start) || @break.Kind.Id.Equals((int)EffortKinds.Resume))
             {
-                UpdateBreakAsInactive(entity);
+                UpdateBreakAsInactive(@break);
 
-                await AddPauseBreak(entity.Effort);
+                await AddPauseBreak(@break.Effort);
 
                 await Context.SaveChangesAsync();
 
                 // Log
-                string logData = entity.GetType().Name
+                string @logData = @break.GetType().Name
                     + " with Id "
-                    + entity.Id
+                    + @break.Id
                     + " was updated at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteUpdateItemLog(logData);
+                Logger.WriteUpdateItemLog(@logData);
             }
             else
             {
-                throw new Exception(entity.Effort.GetType().Name
+                throw new Exception(@break.Effort.GetType().Name
                   + " with Date "
-                  + entity.Effort.LastModified.ToShortDateString()
+                  + @break.Effort.LastModified.ToShortDateString()
                   + " was not started");
             }
 
 
-            return Mapper.Map<ViewEffort>(entity.Effort);
+            return Mapper.Map<ViewEffort>(@break.Effort);
         }
 
-        public async Task<ViewEffort> Resume(AddBreak viewModel)
+        public async Task<ViewEffort> Resume(AddBreak @viewModel)
         {
-            Break entity = await FindActiveBreak(viewModel);
+            Break @break = await FindActiveBreak(@viewModel);
 
-            if (entity.Kind.Id.Equals((int)EffortKinds.Pause))
+            if (@break.Kind.Id.Equals((int)EffortKinds.Pause))
             {
-                UpdateBreakAsInactive(entity);
+                UpdateBreakAsInactive(@break);
 
-                await AddResumeBreak(entity.Effort);
+                await AddResumeBreak(@break.Effort);
 
                 await Context.SaveChangesAsync();
 
                 // Log
-                string logData = entity.GetType().Name
+                string @logData = @break.GetType().Name
                     + " with Id "
-                    + entity.Id
+                    + @break.Id
                     + " was updated at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteUpdateItemLog(logData);
+                Logger.WriteUpdateItemLog(@logData);
             }
             else
             {
-                throw new Exception(entity.Effort.GetType().Name
+                throw new Exception(@break.Effort.GetType().Name
                  + " with Date "
-                 + entity.Effort.LastModified.ToShortDateString()
+                 + @break.Effort.LastModified.ToShortDateString()
                  + " was not paused");
             }
 
-            return Mapper.Map<ViewEffort>(entity.Effort);
+            return Mapper.Map<ViewEffort>(@break.Effort);
         }
 
-        public async Task<ViewEffort> Stop(AddBreak viewModel)
+        public async Task<ViewEffort> Stop(AddBreak @viewModel)
         {
-            Break entity = await FindActiveBreak(viewModel);
+            Break @break = await FindActiveBreak(@viewModel);
 
-            if (entity.Kind.Id.Equals((int)EffortKinds.Start) || entity.Kind.Id.Equals((int)EffortKinds.Resume))
+            if (@break.Kind.Id.Equals((int)EffortKinds.Start) || @break.Kind.Id.Equals((int)EffortKinds.Resume))
             {
-                UpdateBreakAsInactive(entity);
+                UpdateBreakAsInactive(@break);
 
-                await AddStopBreak(entity.Effort);
+                await AddStopBreak(@break.Effort);
 
                 await Context.SaveChangesAsync();
 
                 // Log
-                string logData = entity.GetType().Name
+                string @logData = @break.GetType().Name
                     + " with Id "
-                    + entity.Id
+                    + @break.Id
                     + " was updated at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteUpdateItemLog(logData);
+                Logger.WriteUpdateItemLog(@logData);
             }
             else
             {
-                throw new Exception(entity.Effort.GetType().Name
+                throw new Exception(@break.Effort.GetType().Name
                  + " with Date "
-                 + entity.Effort.LastModified.ToShortDateString()
+                 + @break.Effort.LastModified.ToShortDateString()
                  + " was not started");
             }
 
-            return Mapper.Map<ViewEffort>(entity.Effort);
+            return Mapper.Map<ViewEffort>(@break.Effort);
         }
 
-        public async Task AddStartBreak(Effort entity) => await Context.Break.AddAsync(
+        public async Task AddStartBreak(Effort @effort) => await Context.Break.AddAsync(
         new Break
         {
             Active = true,
             Date = DateTime.Now,
-            Effort = entity,
+            Effort = @effort,
             Kind = await FindKindById((int)EffortKinds.Start)
         });
 
-        public async Task AddPauseBreak(Effort entity) => await Context.Break.AddAsync(
+        public async Task AddPauseBreak(Effort @effort) => await Context.Break.AddAsync(
             new Break
             {
                 Active = true,
                 Date = DateTime.Now,
-                Effort = entity,
+                Effort = @effort,
                 Kind = await FindKindById((int)EffortKinds.Pause)
             });
 
-        public async Task AddResumeBreak(Effort entity) => await Context.Break.AddAsync(
+        public async Task AddResumeBreak(Effort @effort) => await Context.Break.AddAsync(
             new Break
             {
                 Active = true,
                 Date = DateTime.Now,
-                Effort = entity,
+                Effort = @effort,
                 Kind = await FindKindById((int)EffortKinds.Resume)
             });
 
-        public async Task AddStopBreak(Effort entity) => await Context.Break.AddAsync(
+        public async Task AddStopBreak(Effort @effort) => await Context.Break.AddAsync(
              new Break
              {
                  Active = true,
                  Date = DateTime.Now,
-                 Effort = entity,
+                 Effort = @effort,
                  Kind = await FindKindById((int)EffortKinds.Stop)
              });
 
-        public async Task RemoveEffortById(int id)
+        public async Task RemoveEffortById(int @id)
         {
             try
             {
-                Effort effort = await FindEffortById(id);
+                Effort @effort = await FindEffortById(@id);
 
-                Context.Effort.Remove(effort);
+                Context.Effort.Remove(@effort);
 
                 await Context.SaveChangesAsync();
 
                 // Log
-                string logData = effort.GetType().Name
+                string @logData = @effort.GetType().Name
                     + " with Id "
-                    + effort.Id
+                    + @effort.Id
                     + " was removed at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteDeleteItemLog(logData);
+                Logger.WriteDeleteItemLog(@logData);
             }
             catch (DbUpdateConcurrencyException)
             {
-                await FindEffortById(id);
+                await FindEffortById(@id);
             }
         }
 
-        public async Task<Effort> FindEffortById(int id)
+        public async Task<Effort> FindEffortById(int @id)
         {
-            Effort effort = await Context.Effort
+            Effort @effort = await Context.Effort
                 .TagWith("FindEffortById")
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == @id);
 
-            if (effort == null)
+            if (@effort == null)
             {
                 // Log
-                string logData = effort.GetType().Name
+                string @logData = @effort.GetType().Name
                     + " with Id "
-                    + id
+                    + @id
                     + " was not found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemNotFoundLog(logData);
+                Logger.WriteGetItemNotFoundLog(@logData);
 
-                throw new Exception(effort.GetType().Name
+                throw new Exception(@effort.GetType().Name
                     + " with Id "
-                    + id
+                    + @id
                     + " does not exist");
             }
 
-            return effort;
+            return @effort;
         }
 
-        public async Task<Kind> FindKindById(int id)
+        public async Task<Kind> FindKindById(int @id)
         {
-            Kind kind = await Context.Kind
+            Kind @kind = await Context.Kind
                 .TagWith("FindKindById")
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == @id);
 
-            if (kind == null)
+            if (@kind == null)
             {
                 // Log
-                string logData = kind.GetType().Name
+                string @logData = @kind.GetType().Name
                     + " with Id "
-                    + id
+                    + @id
                     + " was not found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemNotFoundLog(logData);
+                Logger.WriteGetItemNotFoundLog(@logData);
 
-                throw new Exception(kind.GetType().Name
+                throw new Exception(@kind.GetType().Name
                     + " with Id "
-                    + id
+                    + @id
                     + " does not exist");
             }
 
-            return kind;
+            return @kind;
         }
     }
 }

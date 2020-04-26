@@ -11,36 +11,36 @@ namespace Bondage.Tier.Services.Interfaces
     {
         Task<ICollection<ViewEffort>> FindAllEffort();
 
-        Task<ICollection<ViewEffort>> FindAllEffortByApplicationUserById(int id);
+        Task<ICollection<ViewEffort>> FindAllEffortByApplicationUserById(int @id);
 
-        Task<ApplicationUser> FindApplicationUserById(int id);
+        Task<ApplicationUser> FindApplicationUserById(int @id);
 
-        Task<Effort> FindEffortByApplicationUserIdAndDate(AddBreak viewModel);
+        Task<Effort> FindEffortByApplicationUserIdAndDate(AddBreak @viewModel);
 
-        Task<Break> FindActiveBreak(AddBreak viewModel);
+        Task<Break> FindActiveBreak(AddBreak @viewModel);
 
-        void UpdateBreakAsInactive(Break entity);
+        void UpdateBreakAsInactive(Break @break);
 
-        Task<ViewEffort> Start(AddBreak viewModel);
+        Task<ViewEffort> Start(AddBreak @viewModel);
 
-        Task<ViewEffort> Pause(AddBreak viewModel);
+        Task<ViewEffort> Pause(AddBreak @viewModel);
 
-        Task<ViewEffort> Resume(AddBreak viewModel);
+        Task<ViewEffort> Resume(AddBreak @viewModel);
 
-        Task<ViewEffort> Stop(AddBreak viewModel);
+        Task<ViewEffort> Stop(AddBreak @viewModel);
 
-        Task AddStartBreak(Effort entity);
+        Task AddStartBreak(Effort @effort);
 
-        Task AddPauseBreak(Effort entity);
+        Task AddPauseBreak(Effort @effort);
 
-        Task AddResumeBreak(Effort entity);
+        Task AddResumeBreak(Effort @effort);
 
-        Task AddStopBreak(Effort entity);
+        Task AddStopBreak(Effort @effort);
 
-        Task RemoveEffortById(int id);
+        Task RemoveEffortById(int @id);
 
-        Task<Effort> FindEffortById(int id);
+        Task<Effort> FindEffortById(int @id);
 
-        Task<Kind> FindKindById(int id);       
+        Task<Kind> FindKindById(int @id);       
     }
 }

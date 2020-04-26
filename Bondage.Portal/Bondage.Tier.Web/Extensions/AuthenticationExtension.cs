@@ -10,7 +10,7 @@ namespace Bondage.Tier.Web.Extensions
 {
     public static class AuthenticationExtension
     {
-        public static void AddCustomizedAuthentication(this IServiceCollection @this, JwtSettings JwtSettings)
+        public static void AddCustomizedAuthentication(this IServiceCollection @this, JwtSettings @jwtSettings)
         {
             @this.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
@@ -22,9 +22,9 @@ namespace Bondage.Tier.Web.Extensions
                        ValidateLifetime = true,
                        ValidateIssuerSigningKey = true,
 
-                       ValidIssuer = JwtSettings.JwtIssuer,
-                       ValidAudience = JwtSettings.JwtAudience,
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtSettings.JwtKey))
+                       ValidIssuer = @jwtSettings.JwtIssuer,
+                       ValidAudience = @jwtSettings.JwtAudience,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(@jwtSettings.JwtKey))
                    };
                });
         }

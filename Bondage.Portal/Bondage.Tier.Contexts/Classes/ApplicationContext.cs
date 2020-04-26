@@ -13,7 +13,7 @@ namespace Bondage.Tier.Contexts.Classes
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser, ApplicationRole, int, ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>, IApplicationContext
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> @options) : base(@options)
         {
         }
 
@@ -31,7 +31,7 @@ namespace Bondage.Tier.Contexts.Classes
 
         public virtual DbSet<ApplicationUserToken> ApplicationUserToken { get; set; }
 
-        public virtual DbSet<Effort> Endeavour { get; set; }
+        public virtual DbSet<Effort> Effort { get; set; }
 
         public virtual DbSet<Break> Break { get; set; }
 
@@ -76,9 +76,9 @@ namespace Bondage.Tier.Contexts.Classes
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder @modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(@modelBuilder);
 
             modelBuilder.AddCustomizedIdentities();
 

@@ -13,34 +13,34 @@ namespace Bondage.Tier.ExceptionHandling.Middlewares
     {
         private readonly RequestDelegate Request;
 
-        public ExceptionMiddleware(RequestDelegate request) => Request = request;
+        public ExceptionMiddleware(RequestDelegate @request) => Request = @request;
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext @context)
         {
             try
             {
-                await Request(context);
+                await Request(@context);
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(@context, ex);
             }
         }
 
         private static Task HandleExceptionAsync(
-            HttpContext context,
-            Exception exception)
+            HttpContext @context,
+            Exception @exception)
         {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            @context.Response.ContentType = "application/json";
+            @context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            ViewException viewException = new ViewException
+            ViewException @viewException = new ViewException
             {
-                StatusCode = context.Response.StatusCode,
-                Message = exception.Message
+                StatusCode = @context.Response.StatusCode,
+                Message = @exception.Message
             };
 
-            return context.Response.WriteAsync(JsonSerializer.Serialize(viewException, new JsonSerializerOptions() { WriteIndented = true }));
+            return @context.Response.WriteAsync(JsonSerializer.Serialize(@viewException, new JsonSerializerOptions() { WriteIndented = true }));
         }
     }
 }

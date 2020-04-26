@@ -8,4 +8,5 @@ export interface ViewEffort extends ViewKey, ViewBase {
     Start: Date;
     Stop: Date;
     Breaks: ViewBreak[];
+    Current: ViewBreak;
 }

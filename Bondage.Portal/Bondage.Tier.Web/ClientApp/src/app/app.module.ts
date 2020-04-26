@@ -45,6 +45,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 import { HomeComponent } from './home/home.component';
 
+import { FooterComponent } from './footer/footer.component';
+
 // App-Auth
 import {
   JoinInAuthComponent
@@ -65,6 +67,7 @@ import {
   ChangeEmailSecurityComponent
 } from './security/changeemail-security/changeemail-security.component';
 
+
 @NgModule({
   declarations: [
     // App
@@ -77,7 +80,8 @@ import {
     // App-Security
     ChangePasswordSecurityComponent,
     ResetPasswordSecurityComponent,
-    ChangeEmailSecurityComponent,],
+    ChangeEmailSecurityComponent,
+    FooterComponent,],
   imports: [
     // Angular Material
     BrowserAnimationsModule,

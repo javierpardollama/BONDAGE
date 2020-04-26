@@ -26,45 +26,45 @@ namespace Bondage.Tier.Services.Classes
 
         private readonly ITokenService TokenService;
 
-        public AuthService(IMapper mapper,
-                           ILogger<AuthService> logger,
-                           UserManager<ApplicationUser> userManager,
-                           SignInManager<ApplicationUser> signInManager,
-                           ITokenService tokenService) : base(mapper, logger)
+        public AuthService(IMapper @mapper,
+                           ILogger<AuthService> @logger,
+                           UserManager<ApplicationUser> @userManager,
+                           SignInManager<ApplicationUser> @signInManager,
+                           ITokenService @tokenService) : base(@mapper, @logger)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
-            TokenService = tokenService;
+            UserManager = @userManager;
+            SignInManager = @signInManager;
+            TokenService = @tokenService;
         }
 
-        public async Task<ViewApplicationUser> SignIn(AuthSignIn viewModel)
+        public async Task<ViewApplicationUser> SignIn(AuthSignIn @viewModel)
         {
-            SignInResult signInResult = await SignInManager.PasswordSignInAsync(viewModel.Email,
-                                                                                viewModel.Password,
+            SignInResult @signInResult = await SignInManager.PasswordSignInAsync(@viewModel.Email,
+                                                                                @viewModel.Password,
                                                                                 false,
                                                                                 true);
 
-            if (signInResult.Succeeded)
+            if (@signInResult.Succeeded)
             {
-                ApplicationUser applicationUser = await FindApplicationUserByEmail(viewModel.Email);
+                ApplicationUser @applicationUser = await FindApplicationUserByEmail(@viewModel.Email);
 
-                applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
+                @applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
                 {
-                    ApplicationUser = applicationUser,
-                    UserId = applicationUser.Id,
-                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(applicationUser))
+                    ApplicationUser = @applicationUser,
+                    UserId = @applicationUser.Id,
+                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(@applicationUser))
                 });
 
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
-                    + applicationUser.Email
+                    + @applicationUser.Email
                     + " logged in at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteUserAuthenticatedLog(logData);
+                Logger.WriteUserAuthenticatedLog(@logData);
 
-                return Mapper.Map<ViewApplicationUser>(applicationUser);
+                return Mapper.Map<ViewApplicationUser>(@applicationUser);
             }
             else
             {
@@ -72,34 +72,34 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
-        public async Task<ViewApplicationUser> SignIn(AuthJoinIn viewModel)
+        public async Task<ViewApplicationUser> SignIn(AuthJoinIn @viewModel)
         {
-            SignInResult signInResult = await SignInManager.PasswordSignInAsync(viewModel.Email,
-                                                                                viewModel.Password,
+            SignInResult @signInResult = await SignInManager.PasswordSignInAsync(@viewModel.Email,
+                                                                                @viewModel.Password,
                                                                                 false,
                                                                                 true);
 
-            if (signInResult.Succeeded)
+            if (@signInResult.Succeeded)
             {
-                ApplicationUser applicationUser = await FindApplicationUserByEmail(viewModel.Email);
+                ApplicationUser @applicationUser = await FindApplicationUserByEmail(@viewModel.Email);
 
-                applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
+                @applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
                 {
-                    ApplicationUser = applicationUser,
-                    UserId = applicationUser.Id,
-                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(applicationUser))
+                    ApplicationUser = @applicationUser,
+                    UserId = @applicationUser.Id,
+                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(@applicationUser))
                 });
 
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
                     + applicationUser.Email
                     + " logged in at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteUserAuthenticatedLog(logData);
+                Logger.WriteUserAuthenticatedLog(@logData);
 
-                return Mapper.Map<ViewApplicationUser>(applicationUser);
+                return Mapper.Map<ViewApplicationUser>(@applicationUser);
             }
             else
             {
@@ -107,28 +107,28 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
-        public async Task<ViewApplicationUser> JoinIn(AuthJoinIn viewModel)
+        public async Task<ViewApplicationUser> JoinIn(AuthJoinIn @viewModel)
         {
-            await CheckEmail(viewModel);
+            await CheckEmail(@viewModel);
 
-            ApplicationUser applicationUser = new ApplicationUser
+            ApplicationUser @applicationUser = new ApplicationUser
             {
-                UserName = viewModel.Email,
-                Email = viewModel.Email,
+                UserName = @viewModel.Email,
+                Email = @viewModel.Email,
                 ConcurrencyStamp = DateTime.Now.ToBinary().ToString(),
                 SecurityStamp = DateTime.Now.ToBinary().ToString(),
-                NormalizedEmail = viewModel.Email,
-                NormalizedUserName = viewModel.Email,
+                NormalizedEmail = @viewModel.Email,
+                NormalizedUserName = @viewModel.Email,
                 LastModified = DateTime.Now,
                 Deleted = false
             };
 
-            IdentityResult identityResult = await UserManager.CreateAsync(applicationUser,
-                                                                          viewModel.Password);
+            IdentityResult @identityResult = await UserManager.CreateAsync(@applicationUser,
+                                                                          @viewModel.Password);
 
-            if (identityResult.Succeeded)
+            if (@identityResult.Succeeded)
             {
-                return await SignIn(viewModel);
+                return await SignIn(@viewModel);
             }
             else
             {
@@ -136,57 +136,57 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
-        public async Task<ApplicationUser> FindApplicationUserByEmail(string email)
+        public async Task<ApplicationUser> FindApplicationUserByEmail(string @email)
         {
-            ApplicationUser applicationUser = await UserManager.Users
+            ApplicationUser @applicationUser = await UserManager.Users
                 .TagWith("FindApplicationUserByEmail")
                 .AsQueryable()
                 .Include(x => x.ApplicationUserTokens)
                 .Include(x => x.ApplicationUserRoles)
                 .ThenInclude(x => x.ApplicationRole)
-                .FirstOrDefaultAsync(x => x.Email == email);
+                .FirstOrDefaultAsync(x => x.Email == @email);
 
-            if (applicationUser == null)
+            if (@applicationUser == null)
             {
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
-                    + email
+                    + @email
                     + " was not found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemNotFoundLog(logData);
+                Logger.WriteGetItemNotFoundLog(@logData);
 
-                throw new Exception(applicationUser.GetType().Name
+                throw new Exception(@applicationUser.GetType().Name
                     + " with Email "
-                    + email
+                    + @email
                     + " does not exist");
             }
 
             return applicationUser;
         }
 
-        public async Task<ApplicationUser> CheckEmail(AuthJoinIn viewModel)
+        public async Task<ApplicationUser> CheckEmail(AuthJoinIn @viewModel)
         {
-            ApplicationUser applicationUser = await UserManager.Users
+            ApplicationUser @applicationUser = await UserManager.Users
               .AsNoTracking()
               .TagWith("CheckEmail")
-              .FirstOrDefaultAsync(x => x.Email == viewModel.Email);
+              .FirstOrDefaultAsync(x => x.Email == @viewModel.Email);
 
-            if (applicationUser != null)
+            if (@applicationUser != null)
             {
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
-                    + viewModel.Email
+                    + @viewModel.Email
                       + " was already found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemFoundLog(logData);
+                Logger.WriteGetItemFoundLog(@logData);
 
-                throw new Exception(applicationUser.GetType().Name
+                throw new Exception(@applicationUser.GetType().Name
                     + " with Email "
-                    + viewModel.Email
+                    + @viewModel.Email
                     + " already exists");
             }
 

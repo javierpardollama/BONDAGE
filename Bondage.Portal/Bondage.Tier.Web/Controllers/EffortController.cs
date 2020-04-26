@@ -25,29 +25,29 @@ namespace Bondage.Tier.Web.Controllers
 
         [HttpGet]
         [Route("findalleffortbyapplicationuserbyid/{id}")]
-        public async Task<IActionResult> FindAllEffortByApplicationUserById(int id) => new JsonResult(value: await Service.FindAllEffortByApplicationUserById(id));
+        public async Task<IActionResult> FindAllEffortByApplicationUserById(int @id) => new JsonResult(value: await Service.FindAllEffortByApplicationUserById(@id));
 
         [HttpPost]
         [Route("start")]
-        public async Task<IActionResult> Start([FromBody]AddBreak viewModel) => new JsonResult(value: await Service.Start(viewModel));
+        public async Task<IActionResult> Start([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Start(@viewModel));
 
         [HttpPost]
         [Route("pause")]
-        public async Task<IActionResult> Pause([FromBody]AddBreak viewModel) => new JsonResult(value: await Service.Pause(viewModel));
+        public async Task<IActionResult> Pause([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Pause(@viewModel));
 
         [HttpPost]
         [Route("resume")]
-        public async Task<IActionResult> Resume([FromBody]AddBreak viewModel) => new JsonResult(value: await Service.Resume(viewModel));
+        public async Task<IActionResult> Resume([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Resume(@viewModel));
 
         [HttpPost]
         [Route("stop")]
-        public async Task<IActionResult> Stop([FromBody]AddBreak viewModel) => new JsonResult(value: await Service.Stop(viewModel));
+        public async Task<IActionResult> Stop([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Stop(@viewModel));
 
         [HttpDelete]
         [Route("removeeffortbyid/{id}")]
-        public async Task<IActionResult> RemoveEffortById(int id)
+        public async Task<IActionResult> RemoveEffortById(int @id)
         {
-            await Service.RemoveEffortById(id);
+            await Service.RemoveEffortById(@id);
 
             return new JsonResult((int)HttpStatusCode.OK);
         }

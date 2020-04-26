@@ -12,94 +12,94 @@ namespace Bondage.Tier.Logging.Classes
         private const LogLevel DefaultLogLevel = LogLevel.None;
 
         private static void Emit(this ILogger @this,
-                                 Enum appEventData,
-                                 string logData) => @this.Log(
-                GetApplicationEventLevel(appEventData),
-                GetApplicationEventCode(appEventData),
-                logData,
+                                 Enum @appEventData,
+                                 string @logData) => @this.Log(
+                GetApplicationEventLevel(@appEventData),
+                GetApplicationEventCode(@appEventData),
+                @logData,
                 DateTime.Now.ToShortDateString());
 
         public static void WriteGetItemNotFoundLog(this ILogger @this,
-                                                   string logData)
+                                                   string @logData)
         {
-            @this.Emit(ApplicationEvents.GetItemNotFound, logData);
+            @this.Emit(ApplicationEvents.GetItemNotFound, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WriteUpdateItemLog(this ILogger @this,
-                                              string logData)
+                                              string @logData)
         {
-            @this.Emit(ApplicationEvents.UpdateItem, logData);
+            @this.Emit(ApplicationEvents.UpdateItem, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WriteDeleteItemLog(this ILogger @this,
-                                              string logData)
+                                              string @logData)
         {
-            @this.Emit(ApplicationEvents.DeleteItem, logData);
+            @this.Emit(ApplicationEvents.DeleteItem, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WriteInsertItemLog(this ILogger @this,
-                                              string logData)
+                                              string @logData)
         {
-            @this.Emit(ApplicationEvents.InsertItem, logData);
+            @this.Emit(ApplicationEvents.InsertItem, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WriteGetItemFoundLog(this ILogger @this,
-                                                string logData)
+                                                string @logData)
         {
-            @this.Emit(ApplicationEvents.GetItemFound, logData);
+            @this.Emit(ApplicationEvents.GetItemFound, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WriteUserAuthenticatedLog(this ILogger @this,
-                                                     string logData)
+                                                     string @logData)
         {
-            @this.Emit(ApplicationEvents.UserAuthenticated, logData);
+            @this.Emit(ApplicationEvents.UserAuthenticated, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WriteUserNotAuthenticatedLog(this ILogger @this,
-                                                        string logData)
+                                                        string @logData)
         {
-            @this.Emit(ApplicationEvents.UserNotAuthenticated, logData);
+            @this.Emit(ApplicationEvents.UserNotAuthenticated, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WritePasswordRestoredLog(this ILogger @this,
-                                                        string logData)
+                                                        string @logData)
         {
-            @this.Emit(ApplicationEvents.PasswordRestored, logData);
+            @this.Emit(ApplicationEvents.PasswordRestored, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
         public static void WriteEmailRestoredLog(this ILogger @this,
-                                                       string logData)
+                                                       string @logData)
         {
-            @this.Emit(ApplicationEvents.EmailRestored, logData);
+            @this.Emit(ApplicationEvents.EmailRestored, @logData);
 
-            WriteDiagnostics(logData);
+            WriteDiagnostics(@logData);
         }
 
-        private static void WriteDiagnostics(string logData) => System.Diagnostics.Debug.WriteLine(logData);
+        private static void WriteDiagnostics(string @logData) => System.Diagnostics.Debug.WriteLine(@logData);
 
-        private static int GetApplicationEventCode(Enum appEventData) => (int)Convert.ChangeType(appEventData, appEventData.GetTypeCode());
+        private static int GetApplicationEventCode(Enum @appEventData) => (int)Convert.ChangeType(@appEventData, @appEventData.GetTypeCode());
 
-        private static LogLevel GetApplicationEventLevel(Enum appEventData)
+        private static LogLevel GetApplicationEventLevel(Enum @appEventData)
         {
-            if (LoggingProfile.LogLevelMapings.ContainsKey(appEventData))
+            if (LoggingProfile.LogLevelMapings.ContainsKey(@appEventData))
             {
-                return LoggingProfile.LogLevelMapings[appEventData];
+                return LoggingProfile.LogLevelMapings[@appEventData];
             }
             else
             {

@@ -7,4 +7,5 @@ export interface ViewBreak extends ViewKey, ViewBase {
     Date: Date;
     Effort: ViewEffort;
     Kind: ViewKind;
+    Active: boolean;
 }

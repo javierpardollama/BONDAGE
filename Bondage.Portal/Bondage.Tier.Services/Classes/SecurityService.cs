@@ -33,29 +33,29 @@ namespace Bondage.Tier.Services.Classes
 
         public async Task<ViewApplicationUser> ChangePassword(SecurityPasswordChange viewModel)
         {
-            ApplicationUser applicationUser = await FindApplicationUserByEmail(viewModel.ApplicationUser.Email);
+            ApplicationUser @applicationUser = await FindApplicationUserByEmail(viewModel.ApplicationUser.Email);
 
-            IdentityResult identityResult = await UserManager.ChangePasswordAsync(applicationUser, viewModel.CurrentPassword, viewModel.NewPassword);
+            IdentityResult @identityResult = await UserManager.ChangePasswordAsync(@applicationUser, viewModel.CurrentPassword, viewModel.NewPassword);
 
-            if (identityResult.Succeeded)
+            if (@identityResult.Succeeded)
             {
-                applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
+                @applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
                 {
-                    ApplicationUser = applicationUser,
-                    UserId = applicationUser.Id,
-                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(applicationUser))
+                    ApplicationUser = @applicationUser,
+                    UserId = @applicationUser.Id,
+                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(@applicationUser))
                 });
 
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
-                    + applicationUser.Email
+                    + @applicationUser.Email
                     + " restored its Password at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WritePasswordRestoredLog(logData);
+                Logger.WritePasswordRestoredLog(@logData);
 
-                return Mapper.Map<ViewApplicationUser>(applicationUser);
+                return Mapper.Map<ViewApplicationUser>(@applicationUser);
             }
             else
             {
@@ -65,7 +65,7 @@ namespace Bondage.Tier.Services.Classes
 
         public async Task<ApplicationUser> FindApplicationUserByEmail(string email)
         {
-            ApplicationUser applicationUser = await UserManager.Users
+            ApplicationUser @applicationUser = await UserManager.Users
                 .TagWith("FindApplicationUserByEmail")
                 .AsQueryable()
                 .Include(x => x.ApplicationUserTokens)
@@ -73,51 +73,51 @@ namespace Bondage.Tier.Services.Classes
                 .ThenInclude(x => x.ApplicationRole)
                 .FirstOrDefaultAsync(x => x.Email == email);
 
-            if (applicationUser == null)
+            if (@applicationUser == null)
             {
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
                     + email
                     + " was not found at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteGetItemNotFoundLog(logData);
+                Logger.WriteGetItemNotFoundLog(@logData);
 
-                throw new Exception(applicationUser.GetType().Name
+                throw new Exception(@applicationUser.GetType().Name
                     + " with Email "
                     + email
                     + " does not exist");
             }
 
-            return applicationUser;
+            return @applicationUser;
         }
 
         public async Task<ViewApplicationUser> ResetPassword(SecurityPasswordReset viewModel)
         {
             ApplicationUser applicationUser = await FindApplicationUserByEmail(viewModel.Email);
 
-            IdentityResult identityResult = await UserManager.ResetPasswordAsync(applicationUser, await UserManager.GeneratePasswordResetTokenAsync(applicationUser), viewModel.NewPassword);
+            IdentityResult @identityResult = await UserManager.ResetPasswordAsync(@applicationUser, await UserManager.GeneratePasswordResetTokenAsync(applicationUser), viewModel.NewPassword);
 
-            if (identityResult.Succeeded)
+            if (@identityResult.Succeeded)
             {
-                applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
+                @applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
                 {
-                    ApplicationUser = applicationUser,
-                    UserId = applicationUser.Id,
-                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(applicationUser))
+                    ApplicationUser = @applicationUser,
+                    UserId = @applicationUser.Id,
+                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(@applicationUser))
                 });
 
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
-                    + applicationUser.Email
+                    + @applicationUser.Email
                     + " restored its Password at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WritePasswordRestoredLog(logData);
+                Logger.WritePasswordRestoredLog(@logData);
 
-                return Mapper.Map<ViewApplicationUser>(applicationUser);
+                return Mapper.Map<ViewApplicationUser>(@applicationUser);
             }
             else
             {
@@ -127,29 +127,29 @@ namespace Bondage.Tier.Services.Classes
 
         public async Task<ViewApplicationUser> ChangeEmail(SecurityEmailChange viewModel)
         {
-            ApplicationUser applicationUser = await FindApplicationUserByEmail(viewModel.ApplicationUser.Email);
+            ApplicationUser @applicationUser = await FindApplicationUserByEmail(viewModel.ApplicationUser.Email);
 
-            IdentityResult identityResult = await UserManager.ChangeEmailAsync(applicationUser, viewModel.NewEmail, await UserManager.GenerateChangeEmailTokenAsync(applicationUser, viewModel.NewEmail));
+            IdentityResult @identityResult = await UserManager.ChangeEmailAsync(@applicationUser, viewModel.NewEmail, await UserManager.GenerateChangeEmailTokenAsync(applicationUser, viewModel.NewEmail));
 
-            if (identityResult.Succeeded)
+            if (@identityResult.Succeeded)
             {
-                applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
+                @applicationUser.ApplicationUserTokens.Add(new ApplicationUserToken
                 {
-                    ApplicationUser = applicationUser,
-                    UserId = applicationUser.Id,
-                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(applicationUser))
+                    ApplicationUser = @applicationUser,
+                    UserId = @applicationUser.Id,
+                    Value = TokenService.WriteJwtToken(TokenService.GenerateJwtToken(@applicationUser))
                 });
 
                 // Log
-                string logData = applicationUser.GetType().Name
+                string @logData = @applicationUser.GetType().Name
                     + " with Email "
-                    + applicationUser.Email
+                    + @applicationUser.Email
                     + " restored its Email at "
                     + DateTime.Now.ToShortTimeString();
 
-                Logger.WriteEmailRestoredLog(logData);
+                Logger.WriteEmailRestoredLog(@logData);
 
-                return Mapper.Map<ViewApplicationUser>(applicationUser);
+                return Mapper.Map<ViewApplicationUser>(@applicationUser);
             }
             else
             {

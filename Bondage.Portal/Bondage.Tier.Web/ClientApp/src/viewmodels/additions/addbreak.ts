@@ -1,3 +1,3 @@
 export interface AddBreak {
-    EffortId: number;
+    ApplicationUserId: number;
 }

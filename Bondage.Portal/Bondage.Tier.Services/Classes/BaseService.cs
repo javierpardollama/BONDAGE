@@ -21,27 +21,27 @@ namespace Bondage.Tier.Services.Classes
 
         protected readonly JwtSettings JwtSettings;
 
-        public BaseService(IApplicationContext context,
-                           IMapper mapper,
-                           ILogger logger)
+        public BaseService(IApplicationContext @context,
+                           IMapper @mapper,
+                           ILogger @logger)
         {
-            Context = context;
-            Mapper = mapper;
-            Logger = logger;
+            Context = @context;
+            Mapper = @mapper;
+            Logger = @logger;
         }
 
-        public BaseService(IMapper mapper,
-                           ILogger logger)
+        public BaseService(IMapper @mapper,
+                           ILogger @logger)
         {
-            Mapper = mapper;
-            Logger = logger;
+            Mapper = @mapper;
+            Logger = @logger;
         }
 
         public BaseService(
-            IConfiguration configuration
+            IConfiguration @configuration
            )
         {
-            Configuration = configuration;
+            Configuration = @configuration;
 
             JwtSettings = new JwtSettings();
             Configuration.GetSection("Jwt").Bind(JwtSettings);
