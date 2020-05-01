@@ -121,5 +121,8 @@
       }
     }
   },
-  "defaultProject": "Bondage.Tier.Web"
+  "defaultProject": "Bondage.Tier.Web",
+  "cli": {
+    "analytics": false
+  }
 }

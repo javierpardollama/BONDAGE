@@ -1,7 +1,5 @@
 import { ViewEffort } from './../viewmodels/views/vieweffort';
 
-import { AddEffort } from './../viewmodels/additions/addeffort';
-
 import { AddBreak } from './../viewmodels/additions/addbreak';
 
 import { HttpClient } from '@angular/common/http';
@@ -36,7 +34,7 @@ export class EffortService extends BaseService {
             .pipe(catchError(this.HandleError<ViewEffort[]>('FindAllEffortByApplicationUserById', []))).toPromise();
     }
 
-    public Start(viewModel: AddEffort): Promise<ViewEffort> {
+    public Start(viewModel: AddBreak): Promise<ViewEffort> {
         return this.httpClient.post<ViewEffort>('api/effort/start', viewModel)
             .pipe(catchError(this.HandleError<ViewEffort>('Start', undefined))).toPromise();
     }

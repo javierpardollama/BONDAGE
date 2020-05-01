@@ -155,6 +155,7 @@ namespace Bondage.Tier.Services.Classes
         public void UpdateBreakAsInactive(Break @break)
         {
             @break.Active = false;
+            @break.Finish = DateTime.Now;
 
             Context.Break.Update(@break);
         }
@@ -287,7 +288,7 @@ namespace Bondage.Tier.Services.Classes
         new Break
         {
             Active = true,
-            Date = DateTime.Now,
+            Start = DateTime.Now,
             Effort = @effort,
             Kind = await FindKindById((int)EffortKinds.Start)
         });
@@ -296,7 +297,7 @@ namespace Bondage.Tier.Services.Classes
             new Break
             {
                 Active = true,
-                Date = DateTime.Now,
+                Start = DateTime.Now,
                 Effort = @effort,
                 Kind = await FindKindById((int)EffortKinds.Pause)
             });
@@ -305,7 +306,7 @@ namespace Bondage.Tier.Services.Classes
             new Break
             {
                 Active = true,
-                Date = DateTime.Now,
+                Start = DateTime.Now,
                 Effort = @effort,
                 Kind = await FindKindById((int)EffortKinds.Resume)
             });
@@ -314,7 +315,7 @@ namespace Bondage.Tier.Services.Classes
              new Break
              {
                  Active = true,
-                 Date = DateTime.Now,
+                 Start = DateTime.Now,
                  Effort = @effort,
                  Kind = await FindKindById((int)EffortKinds.Stop)
              });

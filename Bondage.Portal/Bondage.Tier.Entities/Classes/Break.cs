@@ -20,7 +20,10 @@ namespace Bondage.Tier.Entities.Classes
         public bool Deleted { get; set; }
 
         [Required]
-        public DateTime? Date { get; set; }
+        public DateTime? Start { get; set; }
+
+        [Required]
+        public DateTime? Finish { get; set; }
 
         [Required]
         public bool Active { get; set; }
