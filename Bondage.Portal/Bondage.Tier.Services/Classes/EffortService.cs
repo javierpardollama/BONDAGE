@@ -49,6 +49,7 @@ namespace Bondage.Tier.Services.Classes
                            .Include(x => x.Breaks)
                            .Include(x => x.ApplicationUser)
                            .Where(x => x.ApplicationUser.Id == @id)
+                           .OrderByDescending(x => x.LastModified)
                            .ToListAsync();
 
             return Mapper.Map<IList<ViewEffort>>(@efforts);
@@ -123,7 +124,7 @@ namespace Bondage.Tier.Services.Classes
               .AsQueryable()
               .TagWith("FindActiveBreak")
               .Include(x => x.Effort)
-              .ThenInclude(x=>x.ApplicationUser)
+              .ThenInclude(x => x.ApplicationUser)
               .Include(x => x.Effort)
               .ThenInclude(x => x.Breaks)
               .ThenInclude(x => x.Kind)

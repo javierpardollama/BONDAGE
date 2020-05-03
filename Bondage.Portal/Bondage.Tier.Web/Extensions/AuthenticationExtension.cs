@@ -8,9 +8,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Bondage.Tier.Web.Extensions
 {
+    /// <summary>
+    /// Represents a <see cref="ContextsExtension"/> class.
+    /// </summary>
     public static class AuthenticationExtension
     {
-        public static void AddCustomizedAuthentication(this IServiceCollection @this, JwtSettings @jwtSettings)
+        /// <summary>
+        /// Extends Customized Authentication
+        /// </summary>
+        /// <param name="this">Injected <see cref="IServiceCollection"/></param>
+        /// <param name="JwtSettings">Injected <see cref="JwtSettings"/></param>
+        public static void AddCustomizedAuthentication(this IServiceCollection @this, JwtSettings @JwtSettings)
         {
             @this.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
@@ -22,9 +30,9 @@ namespace Bondage.Tier.Web.Extensions
                        ValidateLifetime = true,
                        ValidateIssuerSigningKey = true,
 
-                       ValidIssuer = @jwtSettings.JwtIssuer,
-                       ValidAudience = @jwtSettings.JwtAudience,
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(@jwtSettings.JwtKey))
+                       ValidIssuer = @JwtSettings.JwtIssuer,
+                       ValidAudience = @JwtSettings.JwtAudience,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(@JwtSettings.JwtKey))
                    };
                });
         }

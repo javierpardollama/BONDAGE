@@ -9,24 +9,45 @@ using Microsoft.AspNetCore.Http;
 
 namespace Bondage.Tier.ExceptionHandling.Middlewares
 {
+    /// <summary>
+    /// Represents a <see cref="ExceptionMiddleware"/> class
+    /// </summary>
     public class ExceptionMiddleware
     {
+        /// <summary>
+        /// Instance of <see cref="RequestDelegate"/>
+        /// </summary>
         private readonly RequestDelegate Request;
 
+        /// <summary>
+        /// Initializes a new Instance of <see cref="ExceptionMiddleware"/>
+        /// </summary>
+        /// <param name="request">Injected <see cref="RequestDelegate"/></param>
         public ExceptionMiddleware(RequestDelegate @request) => Request = @request;
 
+        /// <summary>
+        /// Invoques Asynchronously
+        /// </summary>
+        /// <param name="context">Injected <see cref="HttpContext"/></param>
+        /// <returns>Instance of <see cref="Task"/></returns>
         public async Task InvokeAsync(HttpContext @context)
         {
             try
             {
                 await Request(@context);
             }
-            catch (Exception ex)
+            catch (Exception @exception)
             {
-                await HandleExceptionAsync(@context, ex);
+                await HandleExceptionAsync(@context, @exception);
             }
         }
 
+        /// <summary>
+        /// Handles Expception Asynchronously
+        /// </summary>
+        /// <param name="context">Injected <see cref="HttpContext"/></param>
+        /// <param name="exception">Injected <see cref="Exception"/></param>
+        /// <returns>Instance of <see cref="ViewException"/></returns>
         private static Task HandleExceptionAsync(
             HttpContext @context,
             Exception @exception)
@@ -36,7 +57,7 @@ namespace Bondage.Tier.ExceptionHandling.Middlewares
 
             ViewException @viewException = new ViewException
             {
-                StatusCode = @context.Response.StatusCode,
+                StatusCode = context.Response.StatusCode,
                 Message = @exception.Message
             };
 

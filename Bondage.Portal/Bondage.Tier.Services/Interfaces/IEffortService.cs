@@ -41,6 +41,6 @@ namespace Bondage.Tier.Services.Interfaces
 
         Task<Effort> FindEffortById(int @id);
 
-        Task<Kind> FindKindById(int @id);       
+        Task<Kind> FindKindById(int @id);
     }
 }
