@@ -56,6 +56,10 @@ import { SignInAuthComponent } from './auth/signin-auth/signin-auth.component';
 
 // App-Security
 import {
+  SecurityComponent
+} from './security/security.component';
+
+import {
   ChangePasswordSecurityComponent
 } from './security/changepassword-security/changepassword-security.component';
 
@@ -73,15 +77,17 @@ import {
     // App
     AppComponent,
     NavMenuComponent,
+    FooterComponent,
     HomeComponent,
     // App-Auth
     JoinInAuthComponent,
     SignInAuthComponent,
     // App-Security
+    SecurityComponent,
     ChangePasswordSecurityComponent,
     ResetPasswordSecurityComponent,
-    ChangeEmailSecurityComponent,
-    FooterComponent,],
+    ChangeEmailSecurityComponent
+  ],
   imports: [
     // Angular Material
     BrowserAnimationsModule,
@@ -123,6 +129,12 @@ import {
       },
       // App-Security
       {
+        path: 'security',
+        component: SecurityComponent,
+        pathMatch: 'full',
+        canActivate: [SignInGuard]
+      },
+      {
         path: 'security/changeemail',
         component: ChangeEmailSecurityComponent,
         pathMatch: 'full',
@@ -138,7 +150,7 @@ import {
         path: 'security/resetpassword',
         component: ResetPasswordSecurityComponent,
         pathMatch: 'full'
-      },   
+      },
     ])
   ],
   providers: [{
