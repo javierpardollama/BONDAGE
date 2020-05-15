@@ -52,19 +52,7 @@ namespace Bondage.Tier.Services.Classes
             Context = @context;
             Mapper = @mapper;
             Logger = @logger;
-        }
-
-        /// <summary>
-        /// Initializes a new Instance of <see cref="BaseService"/>
-        /// </summary>
-        /// <param name="mapper">Injected <see cref="IMapper"/></param>
-        /// <param name="logger">Injected <see cref="ILogger"/></param>
-        public BaseService(IMapper @mapper,
-                           ILogger @logger)
-        {
-            Mapper = @mapper;
-            Logger = @logger;
-        }
+        }      
 
         /// <summary>
         /// Initializes a new Instance of <see cref="BaseService"/>
