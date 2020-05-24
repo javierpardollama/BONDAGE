@@ -22,8 +22,14 @@ namespace Bondage.Tier.Services.Classes
     /// </summary>
     public class SecurityService : BaseService, ISecurityService
     {
+        /// <summary>
+        /// Instance of <see cref="UserManager{ApplicationUser}"/>
+        /// </summary>
         private readonly UserManager<ApplicationUser> UserManager;
 
+        /// <summary>
+        /// Instance of <see cref="ITokenService"/>
+        /// </summary>
         private readonly ITokenService TokenService;
 
         /// <summary>
@@ -48,7 +54,7 @@ namespace Bondage.Tier.Services.Classes
         /// Changes Password
         /// </summary>
         /// <param name="viewModel">Injected <see cref="SecurityPasswordChange"/></param>
-        /// <returns>Instance of <see cref="ViewApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ViewApplicationUser}"/></returns>
         public async Task<ViewApplicationUser> ChangePassword(SecurityPasswordChange @viewModel)
         {
             ApplicationUser @applicationUser = await FindApplicationUserByEmail(@viewModel.ApplicationUser.Email);
@@ -87,7 +93,7 @@ namespace Bondage.Tier.Services.Classes
         /// Finds Application User By Email
         /// </summary>
         /// <param name="email">Injected <see cref="string"/></param>
-        /// <returns>Instance of <see cref="ApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ApplicationUser}"/></returns>
         public async Task<ApplicationUser> FindApplicationUserByEmail(string @email)
         {
             ApplicationUser @applicationUser = await UserManager.Users
@@ -122,7 +128,7 @@ namespace Bondage.Tier.Services.Classes
         /// Resets Password
         /// </summary>
         /// <param name="viewModel">Injected <see cref="SecurityPasswordReset"/></param>
-        /// <returns>Instance of <see cref="ViewApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ViewApplicationUser}"/></returns>
         public async Task<ViewApplicationUser> ResetPassword(SecurityPasswordReset @viewModel)
         {
             ApplicationUser @applicationUser = await FindApplicationUserByEmail(@viewModel.Email);
@@ -161,7 +167,7 @@ namespace Bondage.Tier.Services.Classes
         /// Changes Email
         /// </summary>
         /// <param name="viewModel">Injected <see cref="SecurityEmailChange"/></param>
-        /// <returns>Instance of <see cref="ViewApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ViewApplicationUser}"/></returns>
         public async Task<ViewApplicationUser> ChangeEmail(SecurityEmailChange @viewModel)
         {
             ApplicationUser @applicationUser = await FindApplicationUserByEmail(@viewModel.ApplicationUser.Email);

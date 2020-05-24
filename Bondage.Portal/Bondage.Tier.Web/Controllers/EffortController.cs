@@ -32,7 +32,7 @@ namespace Bondage.Tier.Web.Controllers
         /// <summary>
         /// Finds All Effort
         /// </summary>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpGet]
         [Route("findalleffort")]
         public async Task<IActionResult> FindAllEffort() => new JsonResult(value: await Service.FindAllEffort());
@@ -41,7 +41,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Finds All Effort By Application User Id
         /// </summary>
         /// <param name="id">Injected <see cref="int"/></param>
-        /// <returns></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpGet]
         [Route("findalleffortbyapplicationuserbyid/{id}")]
         public async Task<IActionResult> FindAllEffortByApplicationUserById(int @id) => new JsonResult(value: await Service.FindAllEffortByApplicationUserById(@id));
@@ -50,7 +50,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Starts
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("start")]
         public async Task<IActionResult> Start([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Start(@viewModel));
@@ -59,7 +59,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Pauses
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("pause")]
         public async Task<IActionResult> Pause([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Pause(@viewModel));
@@ -68,7 +68,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Resumes
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("resume")]
         public async Task<IActionResult> Resume([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Resume(@viewModel));
@@ -77,7 +77,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Stops
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("stop")]
         public async Task<IActionResult> Stop([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Stop(@viewModel));
@@ -86,7 +86,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Removes Effort By Id
         /// </summary>
         /// <param name="id">Injected <see cref="int"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpDelete]
         [Route("removeeffortbyid/{id}")]
         public async Task<IActionResult> RemoveEffortById(int @id)

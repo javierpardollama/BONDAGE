@@ -50,7 +50,7 @@ namespace Bondage.Tier.Services.Tests.Classes
         public UserManager<ApplicationUser> UserManager;
 
         /// <summary>
-        /// Instance of <see cref="UserManager{ApplicationUser}"/>
+        /// Instance of <see cref="SignInManager{ApplicationUser}"/>
         /// </summary>
         public SignInManager<ApplicationUser> SignInManager;
 

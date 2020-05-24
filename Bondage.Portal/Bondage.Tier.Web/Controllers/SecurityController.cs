@@ -31,7 +31,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Resets Password
         /// </summary>
         /// <param name="viewModel">Injected <see cref="SecurityPasswordReset"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPut]
         [Route("resetpassword")]
         public async Task<IActionResult> ResetPassword([FromBody]SecurityPasswordReset @viewModel) => new JsonResult(value: await Service.ResetPassword(@viewModel));
@@ -40,7 +40,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Changes Password
         /// </summary>
         /// <param name="viewModel">Injected <see cref="SecurityPasswordChange"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPut]
         [Route("changepassword")]
         [Authorize]
@@ -50,7 +50,7 @@ namespace Bondage.Tier.Web.Controllers
         /// Changes Email
         /// </summary>>
         /// <param name="viewModel">Injected <see cref="SecurityEmailChange"/></param>
-        /// <returns>Instance of <see cref="JsonResult"/></returns>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPut]
         [Route("changeemail")]
         [Authorize]

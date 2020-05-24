@@ -24,10 +24,19 @@ namespace Bondage.Tier.Services.Classes
     /// </summary>
     public class AuthService : BaseService, IAuthService
     {
+        /// <summary>
+        /// Instance of <see cref="SignInManager{ApplicationUser}"/>
+        /// </summary>
         private readonly SignInManager<ApplicationUser> SignInManager;
 
+        /// <summary>
+        /// Instance of <see cref="UserManager{ApplicationUser}"/>
+        /// </summary>
         private readonly UserManager<ApplicationUser> UserManager;
 
+        /// <summary>
+        /// Instance of <see cref="ITokenService"/>
+        /// </summary>
         private readonly ITokenService TokenService;
 
         /// <summary>
@@ -55,7 +64,7 @@ namespace Bondage.Tier.Services.Classes
         /// Signs In
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AuthSignIn"/></param>
-        /// <returns>Instance of <see cref="ViewApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ViewApplicationUser}"/></returns>
         public async Task<ViewApplicationUser> SignIn(AuthSignIn @viewModel)
         {
             SignInResult signInResult = await SignInManager.PasswordSignInAsync(@viewModel.Email,
@@ -97,7 +106,7 @@ namespace Bondage.Tier.Services.Classes
         /// Signs In
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AuthJoinIn"/></param>
-        /// <returns>Instance of <see cref="ViewApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ViewApplicationUser}"/></returns>
         public async Task<ViewApplicationUser> SignIn(AuthJoinIn @viewModel)
         {
             SignInResult @signInResult = await SignInManager.PasswordSignInAsync(@viewModel.Email,
@@ -139,7 +148,7 @@ namespace Bondage.Tier.Services.Classes
         /// Joins In
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AuthJoinIn"/></param>
-        /// <returns>Instance of <see cref="ViewApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ViewApplicationUser}"/></returns>
         public async Task<ViewApplicationUser> JoinIn(AuthJoinIn @viewModel)
         {
             await CheckEmail(@viewModel);
@@ -173,7 +182,7 @@ namespace Bondage.Tier.Services.Classes
         /// Finds Application User By Email
         /// </summary>
         /// <param name="email">Injected <see cref="string"/></param>
-        /// <returns>Instance of <see cref="ApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ApplicationUser}"/></returns>
         public async Task<ApplicationUser> FindApplicationUserByEmail(string @email)
         {
             ApplicationUser @applicationUser = await UserManager.Users
@@ -208,7 +217,7 @@ namespace Bondage.Tier.Services.Classes
         /// Checks Email
         /// </summary>
         /// <param name="viewModel">Injected <see cref="AuthJoinIn"/></param>
-        /// <returns>Instance of <see cref="ApplicationUser"/></returns>
+        /// <returns>Instance of <see cref="Task{ApplicationUser}"/></returns>
         public async Task<ApplicationUser> CheckEmail(AuthJoinIn @viewModel)
         {
             ApplicationUser @applicationUser = await UserManager.Users
