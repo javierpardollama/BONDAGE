@@ -3,25 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Constants", "Bondage.Tier.Constants\Bondage.Tier.Constants.csproj", "{7AE05D93-3CD0-4927-8C74-EECE5EC7340F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Constants", "Bondage.Tier.Constants\Bondage.Tier.Constants.csproj", "{7AE05D93-3CD0-4927-8C74-EECE5EC7340F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Contexts", "Bondage.Tier.Contexts\Bondage.Tier.Contexts.csproj", "{C950967E-4788-46AC-B9DE-435B32A0FAE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Contexts", "Bondage.Tier.Contexts\Bondage.Tier.Contexts.csproj", "{C950967E-4788-46AC-B9DE-435B32A0FAE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.ViewModels", "Bondage.Tier.ViewModels\Bondage.Tier.ViewModels.csproj", "{C00873B2-28CF-42CC-A23D-BAFAF3FD0F5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.ViewModels", "Bondage.Tier.ViewModels\Bondage.Tier.ViewModels.csproj", "{C00873B2-28CF-42CC-A23D-BAFAF3FD0F5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Settings", "Bondage.Tier.Settings\Bondage.Tier.Settings.csproj", "{D9FA33B5-41D5-417F-9B23-5242E250FC7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Settings", "Bondage.Tier.Settings\Bondage.Tier.Settings.csproj", "{D9FA33B5-41D5-417F-9B23-5242E250FC7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Entities", "Bondage.Tier.Entities\Bondage.Tier.Entities.csproj", "{8430319D-97EB-4F20-B331-FEE50E2756E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Entities", "Bondage.Tier.Entities\Bondage.Tier.Entities.csproj", "{8430319D-97EB-4F20-B331-FEE50E2756E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Mappings", "Bondage.Tier.Mappings\Bondage.Tier.Mappings.csproj", "{6C3E7568-8A72-461C-9DE9-EC8AFAD83EA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Mappings", "Bondage.Tier.Mappings\Bondage.Tier.Mappings.csproj", "{6C3E7568-8A72-461C-9DE9-EC8AFAD83EA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Services", "Bondage.Tier.Services\Bondage.Tier.Services.csproj", "{2781356A-3620-48F9-9958-8DCC40BD6F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Services", "Bondage.Tier.Services\Bondage.Tier.Services.csproj", "{2781356A-3620-48F9-9958-8DCC40BD6F97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Logging", "Bondage.Tier.Logging\Bondage.Tier.Logging.csproj", "{DC789C18-4171-4303-84B3-8F7C9BFB31C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Logging", "Bondage.Tier.Logging\Bondage.Tier.Logging.csproj", "{DC789C18-4171-4303-84B3-8F7C9BFB31C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.ExceptionHandling", "Bondage.Tier.ExceptionHandling\Bondage.Tier.ExceptionHandling.csproj", "{E47CDEFF-78D6-40E5-85AE-B21D83A369BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.ExceptionHandling", "Bondage.Tier.ExceptionHandling\Bondage.Tier.ExceptionHandling.csproj", "{E47CDEFF-78D6-40E5-85AE-B21D83A369BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Web", "Bondage.Tier.Web\Bondage.Tier.Web.csproj", "{E7C72683-2CCF-4CC0-8B23-6F21FB5E9E08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bondage.Tier.Web", "Bondage.Tier.Web\Bondage.Tier.Web.csproj", "{E7C72683-2CCF-4CC0-8B23-6F21FB5E9E08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bondage.Tier.Services.Tests", "Bondage.Tier.Services.Tests\Bondage.Tier.Services.Tests.csproj", "{04576F5B-F41A-4FE1-8D26-84233C1BDBBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{E7C72683-2CCF-4CC0-8B23-6F21FB5E9E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7C72683-2CCF-4CC0-8B23-6F21FB5E9E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7C72683-2CCF-4CC0-8B23-6F21FB5E9E08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04576F5B-F41A-4FE1-8D26-84233C1BDBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04576F5B-F41A-4FE1-8D26-84233C1BDBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04576F5B-F41A-4FE1-8D26-84233C1BDBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04576F5B-F41A-4FE1-8D26-84233C1BDBBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
