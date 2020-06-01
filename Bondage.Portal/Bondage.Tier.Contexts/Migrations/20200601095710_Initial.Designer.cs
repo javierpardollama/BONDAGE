@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bondage.Tier.Contexts.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200601094346_Initial")]
+    [Migration("20200601095710_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -269,7 +269,6 @@ namespace Bondage.Tier.Contexts.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("Finish")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("KindId")
@@ -279,7 +278,6 @@ namespace Bondage.Tier.Contexts.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Start")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

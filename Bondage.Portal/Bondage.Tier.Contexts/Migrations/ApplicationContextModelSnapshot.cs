@@ -267,7 +267,6 @@ namespace Bondage.Tier.Contexts.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("Finish")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("KindId")
@@ -277,7 +276,6 @@ namespace Bondage.Tier.Contexts.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Start")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

@@ -41,13 +41,11 @@ namespace Bondage.Tier.Entities.Classes
         /// <summary>
         /// Gets or Sets <see cref="Start"/>
         /// </summary>
-        [Required]
         public DateTime? Start { get; set; }
 
         /// <summary>
         /// Gets or Sets <see cref="Finish"/>
         /// </summary>
-        [Required]
         public DateTime? Finish { get; set; }
 
         /// <summary>

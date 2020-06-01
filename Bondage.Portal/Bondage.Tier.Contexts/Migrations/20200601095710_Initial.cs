@@ -213,8 +213,8 @@ namespace Bondage.Tier.Contexts.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     LastModified = table.Column<DateTime>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false),
-                    Start = table.Column<DateTime>(nullable: false),
-                    Finish = table.Column<DateTime>(nullable: false),
+                    Start = table.Column<DateTime>(nullable: true),
+                    Finish = table.Column<DateTime>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
                     EffortId = table.Column<int>(nullable: false),
                     KindId = table.Column<int>(nullable: false)
