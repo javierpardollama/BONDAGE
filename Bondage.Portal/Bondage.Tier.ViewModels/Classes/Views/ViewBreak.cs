@@ -34,13 +34,13 @@ namespace Bondage.Tier.ViewModels.Classes.Views
         /// Gets or Sets <see cref="Start"/>
         /// </summary>
         [XmlElement("start")]
-        public DateTime Start { get; set; }
+        public DateTime? Start { get; set; }
 
         /// <summary>
         /// Gets or Sets <see cref="Finish"/>
         /// </summary>
         [XmlElement("finish")]
-        public DateTime Finish { get; set; }
+        public DateTime? Finish { get; set; }
 
         /// <summary>
         /// Gets or Sets <see cref="Active"/>

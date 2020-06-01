@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bondage.Tier.Contexts.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200501124822_Initial")]
+    [Migration("20200601094346_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3");
+                .HasAnnotation("ProductVersion", "3.1.4");
 
             modelBuilder.Entity("Bondage.Tier.Entities.Classes.ApplicationRole", b =>
                 {
@@ -403,7 +403,7 @@ namespace Bondage.Tier.Contexts.Migrations
             modelBuilder.Entity("Bondage.Tier.Entities.Classes.Effort", b =>
                 {
                     b.HasOne("Bondage.Tier.Entities.Classes.ApplicationUser", "ApplicationUser")
-                        .WithMany("Endeavours")
+                        .WithMany("Efforts")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

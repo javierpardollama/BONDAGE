@@ -14,7 +14,7 @@ namespace Bondage.Tier.Contexts.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3");
+                .HasAnnotation("ProductVersion", "3.1.4");
 
             modelBuilder.Entity("Bondage.Tier.Entities.Classes.ApplicationRole", b =>
                 {
@@ -401,7 +401,7 @@ namespace Bondage.Tier.Contexts.Migrations
             modelBuilder.Entity("Bondage.Tier.Entities.Classes.Effort", b =>
                 {
                     b.HasOne("Bondage.Tier.Entities.Classes.ApplicationUser", "ApplicationUser")
-                        .WithMany("Endeavours")
+                        .WithMany("Efforts")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
