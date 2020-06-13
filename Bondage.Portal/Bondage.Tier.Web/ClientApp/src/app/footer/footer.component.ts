@@ -47,7 +47,6 @@ export class FooterComponent implements OnInit {
     this.GetCurrentStatus();
     this.isLoaded = true;
     this.isVisible = true;
-
   }
 
   // Get User from Storage
