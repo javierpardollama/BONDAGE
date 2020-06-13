@@ -6,7 +6,7 @@ import {
 import { ViewApplicationUser } from './../../viewmodels/views/viewapplicationuser';
 import { EffortService } from './../../services/effort.service';
 import { ViewEffort } from 'src/viewmodels/views/vieweffort';
-import { AddBreak } from 'src/viewmodels/additions/addbreak';
+import { AddEffort } from 'src/viewmodels/additions/addeffort';
 
 @Component({
   selector: 'app-footer',
@@ -17,9 +17,11 @@ export class FooterComponent implements OnInit {
 
   public isVisible = false;
 
+  public isLoaded = false;
+
   public User: ViewApplicationUser;
 
-  public Effort: ViewEffort;
+  Effort: ViewEffort;
 
   // Constructor
   constructor(private effortService: EffortService) {
@@ -32,13 +34,20 @@ export class FooterComponent implements OnInit {
   }
 
   display() {
-    this.GetLocalUser();
 
-    if (this.User !== null) {
-      this.isVisible = true;
+    if (!this.User && !this.isLoaded) {
+      this.Load();
     }
 
     return this.isVisible;
+  }
+
+  public Load() {
+    this.GetLocalUser();
+    this.GetCurrentStatus();
+    this.isLoaded = true;
+    this.isVisible = true;
+
   }
 
   // Get User from Storage
@@ -46,39 +55,43 @@ export class FooterComponent implements OnInit {
     this.User = JSON.parse(localStorage.getItem('User'));
   }
 
+  public async GetCurrentStatus() {
+    this.Effort = await this.effortService.FindLastActiveEffortByApplicationUserId(this.User.Id);
+  }
+
   public async Start() {
-    const model: AddBreak =
+    const model: AddEffort =
     {
       ApplicationUserId: this.User.Id
     };
 
-    await this.effortService.Start(model);
+    this.Effort = await this.effortService.Start(model);
   }
 
   public async Stop() {
-    const model: AddBreak =
+    const model: AddEffort =
     {
       ApplicationUserId: this.User.Id
     };
 
-    await this.effortService.Stop(model);
+    this.Effort = await this.effortService.Stop(model);
   }
 
   public async Pause() {
-    const model: AddBreak =
+    const model: AddEffort =
     {
       ApplicationUserId: this.User.Id
     };
 
-    await this.effortService.Pause(model);
+    this.Effort = await this.effortService.Pause(model);
   }
 
   public async Resume() {
-    const model: AddBreak =
+    const model: AddEffort =
     {
       ApplicationUserId: this.User.Id
     };
 
-    await this.effortService.Resume(model);
+    this.Effort = await this.effortService.Resume(model);
   }
 }

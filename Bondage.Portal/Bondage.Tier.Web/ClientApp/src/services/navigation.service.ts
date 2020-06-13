@@ -21,7 +21,7 @@ export class NavigationService {
                 Index: 1,
                 Class: 'home-menu-option-image home-menu-absence-image'
             },
-            , {
+            {
                 Label: 'Security',
                 Link: './security',
                 Index: 1,

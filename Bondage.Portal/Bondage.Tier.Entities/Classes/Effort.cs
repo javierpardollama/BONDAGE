@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -34,6 +33,16 @@ namespace Bondage.Tier.Entities.Classes
         public DateTime LastModified { get; set; }
 
         /// <summary>
+        /// Gets or Sets <see cref="Start"/>
+        /// </summary>
+        public DateTime? Start { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="Finish"/>
+        /// </summary>
+        public DateTime? Finish { get; set; }
+
+        /// <summary>
         /// Gets or Sets <see cref="Deleted"/>
         /// </summary>
         [Required]
@@ -46,8 +55,15 @@ namespace Bondage.Tier.Entities.Classes
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         /// <summary>
-        ///  Gets or Sets <see cref="Breaks"/>
+        ///  Gets or Sets <see cref="Kind"/>
         /// </summary>
-        public virtual ICollection<Break> Breaks { get; set; }
+        [Required]
+        public virtual Kind Kind { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="Active"/>
+        /// </summary>
+        [Required]
+        public bool Active { get; set; }
     }
 }

@@ -40,27 +40,27 @@ namespace Bondage.Tier.ViewModels.Classes.Views
         public virtual ViewApplicationUser ApplicationUser { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="Breaks"/>
-        /// </summary>
-        [XmlArray("breaks")]
-        public virtual ICollection<ViewBreak> Breaks { get; set; }
-
-        /// <summary>
         /// Gets or Sets <see cref="Start"/>
         /// </summary>
         [XmlElement("start")]
-        public DateTime? Start => Breaks?.AsQueryable().FirstOrDefault(x => x.Kind.Id == (int)EffortKinds.Start).Start;
+        public DateTime? Start { get; set; }
 
         /// <summary>
         /// Gets or Sets <see cref="Stop"/>
         /// </summary>
         [XmlElement("stop")]
-        public DateTime? Stop => Breaks?.AsQueryable().FirstOrDefault(x => x.Kind.Id == (int)EffortKinds.Stop).Start;
+        public DateTime? Finish { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="Current"/>
+        /// Gets or Sets <see cref="Kind"/>
         /// </summary>
-        [XmlElement("current")]
-        public ViewBreak Current => Breaks?.AsQueryable().FirstOrDefault(x => x.Active);
+        [XmlElement("kind")]
+        public ViewKind Kind { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="Active"/>
+        /// </summary>
+        [XmlElement("active")]
+        public bool Active { get; set; }
     }
 }

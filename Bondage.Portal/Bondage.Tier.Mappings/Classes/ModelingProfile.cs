@@ -25,8 +25,6 @@ namespace Bondage.Tier.Mappings.Classes
 
             CreateMap<Effort, ViewEffort>();
 
-            CreateMap<Break, ViewBreak>();
-
             CreateMap<Kind, ViewKind>();
         }
     }

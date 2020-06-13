@@ -1,12 +1,12 @@
 import { ViewKey } from './viewkey';
 import { ViewBase } from './viewbase';
 import { ViewApplicationUser } from './viewapplicationuser';
-import { ViewBreak } from './viewbreak';
+import { ViewKind } from './viewkind';
 
 export interface ViewEffort extends ViewKey, ViewBase {
     ApplicationUser: ViewApplicationUser;
     Start: Date;
-    Stop: Date;
-    Breaks: ViewBreak[];
-    Current: ViewBreak;
+    Finish: Date;
+    Kind: ViewKind;
+    Active: boolean;
 }

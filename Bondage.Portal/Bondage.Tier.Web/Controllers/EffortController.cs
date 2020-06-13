@@ -30,6 +30,15 @@ namespace Bondage.Tier.Web.Controllers
         public EffortController(IEffortService service) => Service = service;
 
         /// <summary>
+        /// Finds Last Active Effort By Application User Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
+        [HttpGet]
+        [Route("findlastactiveeffortbyapplicationuserid/{id}")]
+        public async Task<IActionResult> FindLastActiveEffortByApplicationUserId(int @id) => new JsonResult(value: await Service.FindLastActiveEffortByApplicationUserId(@id));
+
+        /// <summary>
         /// Finds All Effort
         /// </summary>
         /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
@@ -43,44 +52,44 @@ namespace Bondage.Tier.Web.Controllers
         /// <param name="id">Injected <see cref="int"/></param>
         /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpGet]
-        [Route("findalleffortbyapplicationuserbyid/{id}")]
-        public async Task<IActionResult> FindAllEffortByApplicationUserById(int @id) => new JsonResult(value: await Service.FindAllEffortByApplicationUserById(@id));
+        [Route("findalleffortbyapplicationuserid/{id}")]
+        public async Task<IActionResult> FindAllEffortByApplicationUserById(int @id) => new JsonResult(value: await Service.FindAllEffortByApplicationUserId(@id));
 
         /// <summary>
         /// Starts
         /// </summary>
-        /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
+        /// <param name="viewModel">Injected <see cref="AddEffort"/></param>
         /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("start")]
-        public async Task<IActionResult> Start([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Start(@viewModel));
+        public async Task<IActionResult> Start([FromBody] AddEffort @viewModel) => new JsonResult(value: await Service.Start(@viewModel));
 
         /// <summary>
         /// Pauses
         /// </summary>
-        /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
+        /// <param name="viewModel">Injected <see cref="AddEffort"/></param>
         /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("pause")]
-        public async Task<IActionResult> Pause([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Pause(@viewModel));
+        public async Task<IActionResult> Pause([FromBody] AddEffort @viewModel) => new JsonResult(value: await Service.Pause(@viewModel));
 
         /// <summary>
         /// Resumes
         /// </summary>
-        /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
+        /// <param name="viewModel">Injected <see cref="AddEffort"/></param>
         /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("resume")]
-        public async Task<IActionResult> Resume([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Resume(@viewModel));
+        public async Task<IActionResult> Resume([FromBody] AddEffort @viewModel) => new JsonResult(value: await Service.Resume(@viewModel));
 
         /// <summary>
         /// Stops
         /// </summary>
-        /// <param name="viewModel">Injected <see cref="AddBreak"/></param>
+        /// <param name="viewModel">Injected <see cref="AddEffort"/></param>
         /// <returns>Instance of <see cref="Task{JsonResult}"/></returns>
         [HttpPost]
         [Route("stop")]
-        public async Task<IActionResult> Stop([FromBody]AddBreak @viewModel) => new JsonResult(value: await Service.Stop(@viewModel));
+        public async Task<IActionResult> Stop([FromBody] AddEffort @viewModel) => new JsonResult(value: await Service.Stop(@viewModel));
 
         /// <summary>
         /// Removes Effort By Id

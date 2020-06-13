@@ -1,3 +1,3 @@
-export interface AddBreak {
+export interface AddEffort {
     ApplicationUserId: number;
 }

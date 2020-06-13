@@ -60,3 +60,11 @@ background-image: url('/iconos/Resume_500px.png');
 background-size: contain;
 background-color: #F08080;
 }    
+
+.nav-menu-current-status
+{
+text-align: center;
+color: #FFFFFF;
+display: block;
+font-size: 28px !important;
+}

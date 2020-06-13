@@ -1,14 +1,14 @@
 ﻿namespace Bondage.Tier.ViewModels.Classes.Additions
 {
     /// <summary>
-    /// Represents a <see cref="AddBreak"/> class
+    /// Represents a <see cref="AddEffort"/> class
     /// </summary>
-    public class AddBreak
+    public class AddEffort
     {
         /// <summary>
-        /// Initializes a new Instance of <see cref="AddBreak"/>
+        /// Initializes a new Instance of <see cref="AddEffort"/>
         /// </summary>
-        public AddBreak()
+        public AddEffort()
         {
         }
 

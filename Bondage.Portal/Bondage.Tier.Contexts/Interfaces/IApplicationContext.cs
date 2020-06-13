@@ -53,11 +53,6 @@ namespace Bondage.Tier.Contexts.Interfaces
         DbSet<Effort> Effort { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="DbSet{Break}"/>
-        /// </summary>
-        DbSet<Break> Break { get; set; }
-
-        /// <summary>
         /// Gets or Sets <see cref="DbSet{Kind}"/>
         /// </summary>
         DbSet<Kind> Kind { get; set; }

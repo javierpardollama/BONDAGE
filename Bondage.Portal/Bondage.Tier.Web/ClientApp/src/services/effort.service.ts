@@ -1,6 +1,6 @@
 import { ViewEffort } from './../viewmodels/views/vieweffort';
 
-import { AddBreak } from './../viewmodels/additions/addbreak';
+import { AddEffort } from '../viewmodels/additions/addeffort';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -24,32 +24,37 @@ export class EffortService extends BaseService {
         super(httpClient, matSnackBar);
     }
 
+    public FindLastActiveEffortByApplicationUserId(id: number): Promise<ViewEffort> {
+        return this.httpClient.get<ViewEffort>('api/effort/findlastactiveeffortbyapplicationuserid/' + id)
+            .pipe(catchError(this.HandleError<ViewEffort>('FindLastActiveEffortByApplicationUserId', undefined))).toPromise();
+    }
+
     public FindAllEffort(): Promise<ViewEffort[]> {
         return this.httpClient.get<ViewEffort[]>('api/effort/findalleffort')
             .pipe(catchError(this.HandleError<ViewEffort[]>('FindAllEffort', []))).toPromise();
     }
 
-    public FindAllEffortByApplicationUserById(id: number): Promise<ViewEffort[]> {
-        return this.httpClient.get<ViewEffort[]>('api/effort/findalleffortbyapplicationuserbyid/' + id)
-            .pipe(catchError(this.HandleError<ViewEffort[]>('FindAllEffortByApplicationUserById', []))).toPromise();
+    public FindAllEffortByApplicationUserId(id: number): Promise<ViewEffort[]> {
+        return this.httpClient.get<ViewEffort[]>('api/effort/findalleffortbyapplicationuserid/' + id)
+            .pipe(catchError(this.HandleError<ViewEffort[]>('FindAllEffortByApplicationUserId', []))).toPromise();
     }
 
-    public Start(viewModel: AddBreak): Promise<ViewEffort> {
+    public Start(viewModel: AddEffort): Promise<ViewEffort> {
         return this.httpClient.post<ViewEffort>('api/effort/start', viewModel)
             .pipe(catchError(this.HandleError<ViewEffort>('Start', undefined))).toPromise();
     }
 
-    public Pause(viewModel: AddBreak): Promise<ViewEffort> {
+    public Pause(viewModel: AddEffort): Promise<ViewEffort> {
         return this.httpClient.post<ViewEffort>('api/effort/pause', viewModel)
             .pipe(catchError(this.HandleError<ViewEffort>('Pause', undefined))).toPromise();
     }
 
-    public Resume(viewModel: AddBreak): Promise<ViewEffort> {
+    public Resume(viewModel: AddEffort): Promise<ViewEffort> {
         return this.httpClient.post<ViewEffort>('api/effort/resume', viewModel)
             .pipe(catchError(this.HandleError<ViewEffort>('Resume', undefined))).toPromise();
     }
 
-    public Stop(viewModel: AddBreak): Promise<ViewEffort> {
+    public Stop(viewModel: AddEffort): Promise<ViewEffort> {
         return this.httpClient.post<ViewEffort>('api/effort/stop', viewModel)
             .pipe(catchError(this.HandleError<ViewEffort>('Stop', undefined))).toPromise();
     }

@@ -65,11 +65,6 @@ namespace Bondage.Tier.Contexts.Classes
         public virtual DbSet<Effort> Effort { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="DbSet{Break}"/>
-        /// </summary>
-        public virtual DbSet<Break> Break { get; set; }
-
-        /// <summary>
         /// Gets or Sets <see cref="DbSet{Kind}"/>
         /// </summary>
         public virtual DbSet<Kind> Kind { get; set; }
