@@ -268,7 +268,7 @@ namespace Bondage.Tier.Services.Classes
         {
             Effort @effort = await this.FindFormerDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
 
-            if (effort != null)
+            if (@effort != null)
             {
                 if (@effort.Kind.Id.Equals((int)EffortKinds.Stop))
                 {
@@ -300,7 +300,9 @@ namespace Bondage.Tier.Services.Classes
         {
             await DeActivateStop(@viewmodel);
 
-            Effort @effort = await AddStartEffort(viewmodel);
+            Effort @effort = await AddStartEffort(@viewmodel);
+
+            await Context.SaveChangesAsync();
 
             // Log
             string @logData = @effort.GetType().Name
@@ -309,9 +311,7 @@ namespace Bondage.Tier.Services.Classes
                 + " was Added at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(@logData);
-
-            await Context.SaveChangesAsync();
+            Logger.WriteInsertItemLog(@logData);           
 
             return Mapper.Map<ViewEffort>(@effort);
         }
@@ -320,7 +320,7 @@ namespace Bondage.Tier.Services.Classes
         {
             Effort @effort = await this.FindCurrenDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
 
-            if (effort != null)
+            if (@effort != null)
             {
                 if (@effort.Kind.Id.Equals((int)EffortKinds.Start) || @effort.Kind.Id.Equals((int)EffortKinds.Resume))
                 {
@@ -366,7 +366,9 @@ namespace Bondage.Tier.Services.Classes
         {
             await DeActivateStart(@viewmodel);
 
-            Effort @effort = await AddPauseEffort(viewmodel);
+            Effort @effort = await AddPauseEffort(@viewmodel);
+
+            await Context.SaveChangesAsync();
 
             // Log
             string @logData = @effort.GetType().Name
@@ -375,9 +377,7 @@ namespace Bondage.Tier.Services.Classes
                 + " was added at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(@logData);
-
-            await Context.SaveChangesAsync();
+            Logger.WriteInsertItemLog(@logData);            
 
             return Mapper.Map<ViewEffort>(@effort);
         }
@@ -386,7 +386,7 @@ namespace Bondage.Tier.Services.Classes
         {
             Effort @effort = await this.FindCurrenDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
 
-            if (effort != null)
+            if (@effort != null)
             {
                 if (@effort.Kind.Id.Equals((int)EffortKinds.Pause))
                 {
@@ -432,7 +432,9 @@ namespace Bondage.Tier.Services.Classes
         {
             await DeActivatePause(@viewmodel);
 
-            Effort @effort = await AddResumeEffort(viewmodel);
+            Effort @effort = await AddResumeEffort(@viewmodel);
+
+            await Context.SaveChangesAsync();
 
             // Log
             string @logData = @effort.GetType().Name
@@ -441,9 +443,7 @@ namespace Bondage.Tier.Services.Classes
                 + " was added at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(@logData);
-
-            await Context.SaveChangesAsync();
+            Logger.WriteInsertItemLog(@logData);           
 
             return Mapper.Map<ViewEffort>(@effort);
         }
@@ -452,11 +452,11 @@ namespace Bondage.Tier.Services.Classes
         {
             Effort @effort = await FindCurrenDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
 
-            if (effort != null)
+            if (@effort != null)
             {
                 if (@effort.Kind.Id.Equals((int)EffortKinds.Resume) || @effort.Kind.Id.Equals((int)EffortKinds.Start))
                 {
-                    effort.ApplicationUser = await FindApplicationUserById(viewmodel.ApplicationUserId);
+                    effort.ApplicationUser = await FindApplicationUserById(@viewmodel.ApplicationUserId);
                     @effort.Active = false;
                     @effort.Finish = DateTime.Now;
 
@@ -499,7 +499,9 @@ namespace Bondage.Tier.Services.Classes
         {
             await DeActivateResume(@viewmodel);
 
-            Effort @effort = await AddStopEffort(viewmodel);
+            Effort @effort = await AddStopEffort(@viewmodel);
+
+            await Context.SaveChangesAsync();
 
             // Log
             string @logData = @effort.GetType().Name
@@ -508,9 +510,7 @@ namespace Bondage.Tier.Services.Classes
                 + " was added at "
                 + DateTime.Now.ToShortTimeString();
 
-            Logger.WriteInsertItemLog(@logData);
-
-            await Context.SaveChangesAsync();
+            Logger.WriteInsertItemLog(@logData);            
 
             return Mapper.Map<ViewEffort>(@effort);
         }

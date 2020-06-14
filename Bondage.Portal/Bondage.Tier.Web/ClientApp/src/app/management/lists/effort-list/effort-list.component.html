@@ -1,0 +1,33 @@
+<div *ngIf="!Efforts" class="spinner-container">
+    <div class="spinner"></div>
+</div>
+
+<div class="list-page">
+    <h4 class="breadcrumb">Management / Efforts</h4>
+
+    <div class="mat-elevation-z8">
+        <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let Effort of Efforts" (click)="onDelete(Effort.Id)">
+                <mat-card>
+                    <div>
+                        <span class="effort-status">
+                            {{Effort?.Start | date: 'MMM d, y'}}
+                        </span>
+                        <span class="effort-status">
+                            {{Effort?.Start | date: 'h:mm a'}}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="effort-status">
+                            {{Effort?.Finish | date: 'MMM d, y'}}
+                        </span>
+                        <span class="effort-status">
+                            {{Effort?.Finish | date: 'h:mm a'}}
+                        </span>
+                    </div>
+                </mat-card>
+            </mat-list-option>
+        </mat-selection-list>
+
+    </div>
+</div>

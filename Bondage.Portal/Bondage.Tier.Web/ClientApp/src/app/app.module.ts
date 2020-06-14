@@ -70,6 +70,7 @@ import {
 import {
   ChangeEmailSecurityComponent
 } from './security/changeemail-security/changeemail-security.component';
+import { EffortListComponent } from './management/lists/effort-list/effort-list.component';
 
 
 @NgModule({
@@ -86,7 +87,9 @@ import {
     SecurityComponent,
     ChangePasswordSecurityComponent,
     ResetPasswordSecurityComponent,
-    ChangeEmailSecurityComponent
+    ChangeEmailSecurityComponent,
+    // App-List
+    EffortListComponent
   ],
   imports: [
     // Angular Material
@@ -127,6 +130,14 @@ import {
         component: SignInAuthComponent,
         pathMatch: 'full'
       },
+      // App-List
+      {
+        path: 'effort',
+        component: EffortListComponent,
+        pathMatch: 'full',
+        canActivate: [SignInGuard]
+      },
+
       // App-Security
       {
         path: 'security',
