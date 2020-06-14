@@ -19,7 +19,7 @@ using Microsoft.Extensions.Logging;
 namespace Bondage.Tier.Services.Classes
 {
     /// <summary>
-    /// Represents a <see cref="EffortService"/> class. Inherits <see cref="BaseService"/>. Implemenets <see cref="IEffortService"/>
+    /// Represents a <see cref="EffortService"/> class. Inherits <see cref="BaseService"/>. Implements <see cref="IEffortService"/>
     /// </summary>
     public class EffortService : BaseService, IEffortService
     {
@@ -67,7 +67,7 @@ namespace Bondage.Tier.Services.Classes
             return await Context.Effort
               .AsNoTracking()
               .AsQueryable()
-              .TagWith("FindCurrentEffortByApplicationUserId")
+              .TagWith("FindCurrentDayActiveEffortByApplicationUserId")
               .Include(x => x.ApplicationUser)
               .Include(x => x.Kind)
               .Where(x => x.ApplicationUser.Id == @id)

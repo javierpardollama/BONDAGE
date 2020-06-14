@@ -18,7 +18,7 @@ using Microsoft.Extensions.Logging;
 namespace Bondage.Tier.Services.Classes
 {
     /// <summary>
-    /// Represents a <see cref="SecurityService"/> class. Inherits <see cref="BaseService"/>. Implemenets <see cref="ISecurityService"/>
+    /// Represents a <see cref="SecurityService"/> class. Inherits <see cref="BaseService"/>. Implements <see cref="ISecurityService"/>
     /// </summary>
     public class SecurityService : BaseService, ISecurityService
     {

@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Bondage.Tier.Services.Classes
 {
     /// <summary>
-    /// Represents a <see cref="TokenService"/> class. Inherits <see cref="BaseService"/>. Implemenets <see cref="ITokenService"/>
+    /// Represents a <see cref="TokenService"/> class. Inherits <see cref="BaseService"/>. Implements <see cref="ITokenService"/>
     /// </summary>
     public class TokenService : BaseService, ITokenService
     {

@@ -20,7 +20,7 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 namespace Bondage.Tier.Services.Classes
 {
     /// <summary>
-    /// Represents a <see cref="AuthService"/> class. Inherits <see cref="BaseService"/>. Implemenets <see cref="IAuthService"/>
+    /// Represents a <see cref="AuthService"/> class. Inherits <see cref="BaseService"/>. Implements <see cref="IAuthService"/>
     /// </summary>
     public class AuthService : BaseService, IAuthService
     {
@@ -67,12 +67,12 @@ namespace Bondage.Tier.Services.Classes
         /// <returns>Instance of <see cref="Task{ViewApplicationUser}"/></returns>
         public async Task<ViewApplicationUser> SignIn(AuthSignIn @viewModel)
         {
-            SignInResult signInResult = await SignInManager.PasswordSignInAsync(@viewModel.Email,
+            SignInResult @signInResult = await SignInManager.PasswordSignInAsync(@viewModel.Email,
                                                                                 @viewModel.Password,
                                                                                 false,
                                                                                 true);
 
-            if (signInResult.Succeeded)
+            if (@signInResult.Succeeded)
             {
                 ApplicationUser @applicationUser = await FindApplicationUserByEmail(@viewModel.Email);
 
