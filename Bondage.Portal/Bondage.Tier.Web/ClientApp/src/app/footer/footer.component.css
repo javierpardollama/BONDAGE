@@ -40,23 +40,23 @@ float:left;
 }
 
 .nav-menu-start-image{
-background-image: url('/iconos/Start_500px.png');
+background-image: url('/iconos/Action_Start_500px.png');
 background-size: contain;
 background-color: #F08080;
 }  
 
 .nav-menu-stop-image{
-background-image: url('/iconos/Stop_500px.png');
+background-image: url('/iconos/Action_Stop_500px.png');
 background-size: contain;
 background-color:   #FF0080 ;
 }     
 .nav-menu-pause-image{
-background-image: url('/iconos/Pause_500px.png');
+background-image: url('/iconos/Action_Pause_500px.png');
 background-size: contain;
 background-color: #F08080;
 }    
 .nav-menu-resume-image{
-background-image: url('/iconos/Resume_500px.png');
+background-image: url('/iconos/Action_Resume_500px.png');
 background-size: contain;
 background-color: #F08080;
 }    

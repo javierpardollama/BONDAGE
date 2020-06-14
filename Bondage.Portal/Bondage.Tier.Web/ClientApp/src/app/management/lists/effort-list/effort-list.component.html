@@ -9,6 +9,14 @@
         <mat-selection-list [multiple]="false">
             <mat-list-option *ngFor="let Effort of Efforts" (click)="onDelete(Effort.Id)">
                 <mat-card>
+                    <div *ngIf="Effort?.Kind.Name == Start" class="list-option-image list-start-image"
+                        aria-label="Status"></div>
+                    <div *ngIf="Effort?.Kind.Name == Stop" class="list-option-image list-stop-image"
+                        aria-label="Status"></div>
+                    <div *ngIf="Effort?.Kind.Name == Pause" class="list-option-image list-pause-image"
+                        aria-label="Status"></div>
+                    <div *ngIf="Effort?.Kind.Name == Resume" class="list-option-image list-resume-image"
+                        aria-label="Status"></div>
                     <div>
                         <span class="effort-status">
                             {{Effort?.Start | date: 'MMM d, y'}}
