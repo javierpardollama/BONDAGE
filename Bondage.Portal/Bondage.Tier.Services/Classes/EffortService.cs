@@ -18,8 +18,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Bondage.Tier.Services.Classes
 {
+    /// <summary>
+    /// Represents a <see cref="EffortService"/> class. Inherits <see cref="BaseService"/>. Implemenets <see cref="IEffortService"/>
+    /// </summary>
     public class EffortService : BaseService, IEffortService
     {
+        /// <summary>
+        /// Initializes a new Instance of <see cref="EffortService"/>
+        /// </summary>
+        /// <param name="context">Injected <see cref="IApplicationContext"/></param>
+        /// <param name="mapper">Injected <see cref="IMapper"/></param>
+        /// <param name="logger">Injected <see cref="ILogger{EffortService}"/></param>
         public EffortService(
             IApplicationContext @context,
             IMapper @mapper,
@@ -27,6 +36,11 @@ namespace Bondage.Tier.Services.Classes
         {
         }
 
+        /// <summary>
+        /// Finds Last Active Effort By Application User Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{ViewEffort}"/></returns>
         public async Task<ViewEffort> FindLastActiveEffortByApplicationUserId(int @id)
         {
             Effort @effort = await Context.Effort
@@ -43,7 +57,12 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEffort>(@effort);
         }
 
-        public async Task<Effort> FindCurrenDayActiveEffortByApplicationUserId(int @id)
+        /// <summary>
+        /// Finds Current Day Active Effort By Application User Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{Effort}"/></returns>
+        public async Task<Effort> FindCurrentDayActiveEffortByApplicationUserId(int @id)
         {
             return await Context.Effort
               .AsNoTracking()
@@ -57,6 +76,11 @@ namespace Bondage.Tier.Services.Classes
               .FirstOrDefaultAsync(x => x.LastModified.Date == DateTime.Now.Date);
         }
 
+        /// <summary>
+        /// Finds Former Day Active Effort By Application User Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> FindFormerDayActiveEffortByApplicationUserId(int @id)
         {
             return await Context.Effort
@@ -71,6 +95,10 @@ namespace Bondage.Tier.Services.Classes
               .FirstOrDefaultAsync(x => x.LastModified.Date.DayOfYear == DateTime.Now.Date.DayOfYear - 1);
         }
 
+        /// <summary>
+        /// Finds All Effort
+        /// </summary>
+        /// <returns>Instance of <see cref="Task{ICollection{ViewEffort}}"/></returns>
         public async Task<ICollection<ViewEffort>> FindAllEffort()
         {
             ICollection<Effort> @efforts = await Context.Effort
@@ -83,6 +111,11 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<IList<ViewEffort>>(@efforts);
         }
 
+        /// <summary>
+        /// Finds All Effort By Application User Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{ICollection{ViewEffort}}"/></returns>
         public async Task<ICollection<ViewEffort>> FindAllEffortByApplicationUserId(int @id)
         {
             ICollection<Effort> @efforts = await Context.Effort
@@ -97,6 +130,11 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<IList<ViewEffort>>(@efforts);
         }
 
+        /// <summary>
+        /// Finds Application User By Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{ApplicationUser}"/></returns>
         public async Task<ApplicationUser> FindApplicationUserById(int @id)
         {
             ApplicationUser @applicationUser = await Context.ApplicationUser
@@ -127,6 +165,11 @@ namespace Bondage.Tier.Services.Classes
             return @applicationUser;
         }
 
+        /// <summary>
+        /// Removes Effort By Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task"/></returns>
         public async Task RemoveEffortById(int @id)
         {
             try
@@ -152,6 +195,11 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
+        /// <summary>
+        /// Finds Effort By Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> FindEffortById(int @id)
         {
             Effort @effort = await Context.Effort
@@ -178,6 +226,11 @@ namespace Bondage.Tier.Services.Classes
             return @effort;
         }
 
+        /// <summary>
+        /// Finds Kind By Id
+        /// </summary>
+        /// <param name="id">Injected <see cref="int"/></param>
+        /// <returns>Instance of <see cref="Task{Kind}"/></returns>
         public async Task<Kind> FindKindById(int @id)
         {
             Kind @kind = await Context.Kind
@@ -204,6 +257,11 @@ namespace Bondage.Tier.Services.Classes
             return @kind;
         }
 
+        /// <summary>
+        /// Add Start Effort
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddStartEffort(AddEffort @viewmodel)
         {
             Effort @effort = new Effort
@@ -219,6 +277,11 @@ namespace Bondage.Tier.Services.Classes
             return @effort;
         }
 
+        /// <summary>
+        /// Add Pause Effort
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddPauseEffort(AddEffort @viewmodel)
         {
             Effort @effort = new Effort
@@ -234,6 +297,11 @@ namespace Bondage.Tier.Services.Classes
             return @effort;
         }
 
+        /// <summary>
+        /// Add Resume Effort
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddResumeEffort(AddEffort @viewmodel)
         {
             Effort @effort = new Effort
@@ -249,6 +317,11 @@ namespace Bondage.Tier.Services.Classes
             return @effort;
         }
 
+        /// <summary>
+        /// Add Stop Effort
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddStopEffort(AddEffort @viewmodel)
         {
             Effort @effort = new Effort
@@ -264,6 +337,11 @@ namespace Bondage.Tier.Services.Classes
             return @effort;
         }
 
+        /// <summary>
+        /// De Activates Stop
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task"/></returns>
         public async Task DeActivateStop(AddEffort @viewmodel)
         {
             Effort @effort = await this.FindFormerDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
@@ -296,6 +374,11 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
+        /// <summary>
+        /// Starts
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{ViewEffort}"/></returns>
         public async Task<ViewEffort> Start(AddEffort @viewmodel)
         {
             await DeActivateStop(@viewmodel);
@@ -316,9 +399,14 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEffort>(@effort);
         }
 
+        /// <summary>
+        /// De Activates Start
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task"/></returns>
         public async Task DeActivateStart(AddEffort @viewmodel)
         {
-            Effort @effort = await this.FindCurrenDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
+            Effort @effort = await this.FindCurrentDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
 
             if (@effort != null)
             {
@@ -362,6 +450,11 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
+        /// <summary>
+        /// Pauses
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{ViewEffort}"/></returns>
         public async Task<ViewEffort> Pause(AddEffort @viewmodel)
         {
             await DeActivateStart(@viewmodel);
@@ -382,9 +475,14 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEffort>(@effort);
         }
 
+        /// <summary>
+        /// De Activates Pause
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task"/></returns>
         public async Task DeActivatePause(AddEffort @viewmodel)
         {
-            Effort @effort = await this.FindCurrenDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
+            Effort @effort = await this.FindCurrentDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
 
             if (@effort != null)
             {
@@ -428,6 +526,11 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
+        /// <summary>
+        /// Resumes
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{ViewEffort}"/></returns>
         public async Task<ViewEffort> Resume(AddEffort @viewmodel)
         {
             await DeActivatePause(@viewmodel);
@@ -448,9 +551,14 @@ namespace Bondage.Tier.Services.Classes
             return Mapper.Map<ViewEffort>(@effort);
         }
 
+        /// <summary>
+        /// De Activates Resume
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task"/></returns>
         public async Task DeActivateResume(AddEffort @viewmodel)
         {
-            Effort @effort = await FindCurrenDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
+            Effort @effort = await FindCurrentDayActiveEffortByApplicationUserId(@viewmodel.ApplicationUserId);
 
             if (@effort != null)
             {
@@ -495,6 +603,11 @@ namespace Bondage.Tier.Services.Classes
             }
         }
 
+        /// <summary>
+        /// Stops
+        /// </summary>
+        /// <param name="viewmodel">Injected <see cref="AddEffort"/></param>
+        /// <returns>Instance of <see cref="Task{ViewEffort}"/></returns>
         public async Task<ViewEffort> Stop(AddEffort @viewmodel)
         {
             await DeActivateResume(@viewmodel);

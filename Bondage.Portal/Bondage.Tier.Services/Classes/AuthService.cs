@@ -20,7 +20,7 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 namespace Bondage.Tier.Services.Classes
 {
     /// <summary>
-    /// Represents a <see cref="AuthService"/> interface. Inherits <see cref="BaseService"/>. Implemenets <see cref="IAuthService"/>
+    /// Represents a <see cref="AuthService"/> class. Inherits <see cref="BaseService"/>. Implemenets <see cref="IAuthService"/>
     /// </summary>
     public class AuthService : BaseService, IAuthService
     {
