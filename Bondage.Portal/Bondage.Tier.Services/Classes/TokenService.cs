@@ -35,9 +35,9 @@ namespace Bondage.Tier.Services.Classes
         public JwtSecurityToken GenerateJwtToken(ApplicationUser @applicationUser)
         {
             return new JwtSecurityToken(
-                JwtSettings.JwtIssuer,
-                JwtSettings.JwtAudience,
-                GenerateJwtClaims(@applicationUser),
+                issuer: JwtSettings.JwtIssuer,
+                audience:JwtSettings.JwtAudience,
+                claims: GenerateJwtClaims(@applicationUser),
                 expires: GenerateTokenExpirationDate(),
                 signingCredentials: GenerateSigningCredentials(GenerateSymmetricSecurityKey())
             );
@@ -46,7 +46,7 @@ namespace Bondage.Tier.Services.Classes
         /// <summary>
         /// Writes Jwt Token
         /// </summary>
-        /// <param name="jwtSecurityToken">>Injected <see cref="JwtSecurityToken"/></param>
+        /// <param name="jwtSecurityToken">Injected <see cref="JwtSecurityToken"/></param>
         /// <returns>Instance of <see cref="string"/></returns>
         public string WriteJwtToken(JwtSecurityToken @jwtSecurityToken) => new JwtSecurityTokenHandler().WriteToken(@jwtSecurityToken);
 
@@ -62,7 +62,7 @@ namespace Bondage.Tier.Services.Classes
         /// <summary>
         /// Generates Signing Credentials
         /// </summary>
-        /// <param name="symmetricSecurityKey">>Injected <see cref="SymmetricSecurityKey"/></param>
+        /// <param name="symmetricSecurityKey">Injected <see cref="SymmetricSecurityKey"/></param>
         /// <returns>Instance of <see cref="SigningCredentials"/></returns>
         public SigningCredentials GenerateSigningCredentials(SymmetricSecurityKey @symmetricSecurityKey)
         {
@@ -79,7 +79,7 @@ namespace Bondage.Tier.Services.Classes
         /// <summary>
         /// Generates Jwt Claims
         /// </summary>
-        /// <param name="applicationUser">>Injected <see cref="ApplicationUser"/></param>
+        /// <param name="applicationUser">Injected <see cref="ApplicationUser"/></param>
         /// <returns>Instance of <see cref="List{Claim}"/></returns>
         public List<Claim> GenerateJwtClaims(ApplicationUser @applicationUser)
         {
