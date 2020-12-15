@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Copyright>2020 Javier Pardo</Copyright>
     <PackageProjectUrl>https://github.com/javierpardollama/BONDAGE/tree/master/Bondage.Portal/Bondage.Tier.Services.Tests</PackageProjectUrl>
     <RepositoryUrl>https://github.com/javierpardollama/BONDAGE/tree/master/Bondage.Portal/Bondage.Tier.Services.Tests</RepositoryUrl>
@@ -19,7 +19,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
   </ItemGroup>
 
   <ItemGroup>
