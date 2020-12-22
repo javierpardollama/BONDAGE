@@ -6,15 +6,15 @@ using Bondage.Tier.ViewModels.Interfaces.Views;
 namespace Bondage.Tier.ViewModels.Classes.Views
 {
     /// <summary>
-    /// Represents a <see cref="ViewKind"/> class. Implements <see cref="IViewKey"/>, <see cref="IViewBase"/>
+    /// Represents a <see cref="ViewGrade"/> class. Implements <see cref="IViewKey"/>, <see cref="IViewBase"/>
     /// </summary>
-    [XmlRoot("kind")]
-    public class ViewKind : IViewKey, IViewBase
+    [XmlRoot("grade")]
+    public class ViewGrade : IViewKey, IViewBase
     {
         /// <summary>
-        /// Initializes a new Instance of <see cref="ViewKind"/>
+        /// Initializes a new Instance of <see cref="ViewGrade"/>
         /// </summary>
-        public ViewKind()
+        public ViewGrade()
         {
         }
 

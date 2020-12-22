@@ -25,7 +25,13 @@ namespace Bondage.Tier.Mappings.Classes
 
             CreateMap<Effort, ViewEffort>();
 
+            CreateMap<Absence, ViewAbsence>();
+
             CreateMap<Kind, ViewKind>();
+
+            CreateMap<Kind, ViewKind>();
+
+            CreateMap<Grade, ViewGrade>();
         }
     }
 }

@@ -7,14 +7,14 @@ using Bondage.Tier.Entities.Interfaces;
 namespace Bondage.Tier.Entities.Classes
 {
     /// <summary>
-    /// Represents a <see cref="Kind"/> class. Implements <see cref="IKey"/>, <see cref="IBase"/>
+    /// Represents a <see cref="Grade"/> class. Implements <see cref="IKey"/>, <see cref="IBase"/>
     /// </summary>
-    public partial class Kind : IKey, IBase
+    public partial class Grade : IKey, IBase
     {
         /// <summary>
-        /// Initializes a new Instance of <see cref="Kind"/>
+        /// Initializes a new Instance of <see cref="Grade"/>
         /// </summary>
-        public Kind()
+        public Grade()
         {
         }
 

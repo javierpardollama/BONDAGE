@@ -1,9 +1,11 @@
-﻿namespace Bondage.Tier.ViewModels.Classes.Additions
+﻿using Bondage.Tier.ViewModels.Interfaces.Additions;
+
+namespace Bondage.Tier.ViewModels.Classes.Additions
 {
     /// <summary>
-    /// Represents a <see cref="AddEffort"/> class
+    /// Represents a <see cref="AddEffort"/> class. Implements <see cref="IAddBase"/>
     /// </summary>
-    public class AddEffort
+    public class AddEffort : IAddBase
     {
         /// <summary>
         /// Initializes a new Instance of <see cref="AddEffort"/>

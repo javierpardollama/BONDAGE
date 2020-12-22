@@ -7,17 +7,10 @@ using Bondage.Tier.Entities.Interfaces;
 namespace Bondage.Tier.Entities.Classes
 {
     /// <summary>
-    /// Represents a <see cref="Kind"/> class. Implements <see cref="IKey"/>, <see cref="IBase"/>
+    /// Represents a <see cref="Absence"/> class. Implements <see cref="IKey"/>, <see cref="IBase"/>
     /// </summary>
-    public partial class Kind : IKey, IBase
+    public class Absence : IKey, IBase
     {
-        /// <summary>
-        /// Initializes a new Instance of <see cref="Kind"/>
-        /// </summary>
-        public Kind()
-        {
-        }
-
         /// <summary>
         /// Gets or Sets <see cref="Id"/>
         /// </summary>
@@ -39,15 +32,21 @@ namespace Bondage.Tier.Entities.Classes
         public bool Deleted { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="Name"/>
+        /// Gets or Sets <see cref="Date"/>
         /// </summary>
         [Required]
-        public string Name { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="ImageUri"/>
+        ///  Gets or Sets <see cref="ApplicationUser"/>
         /// </summary>
         [Required]
-        public string ImageUri { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        /// <summary>
+        ///  Gets or Sets <see cref="Grade"/>
+        /// </summary>
+        [Required]
+        public virtual Grade Grade { get; set; }
     }
 }

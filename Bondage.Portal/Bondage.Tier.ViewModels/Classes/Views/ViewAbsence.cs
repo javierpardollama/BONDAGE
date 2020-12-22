@@ -8,13 +8,14 @@ namespace Bondage.Tier.ViewModels.Classes.Views
     /// <summary>
     /// Represents a <see cref="ViewEffort"/> class. Implements <see cref="IViewKey"/>, <see cref="IViewBase"/>
     /// </summary>
-    [XmlRoot("effort")]
-    public class ViewEffort : IViewKey, IViewBase
+    [XmlRoot("absence")]
+    public class ViewAbsence : IViewKey, IViewBase
     {
+
         /// <summary>
-        /// Initializes a new Instance of <see cref="ViewEffort"/>
+        /// Initializes a new Instance of <see cref="ViewAbsence"/>
         /// </summary>
-        public ViewEffort()
+        public ViewAbsence()
         {
         }
 
@@ -37,27 +38,15 @@ namespace Bondage.Tier.ViewModels.Classes.Views
         public virtual ViewApplicationUser ApplicationUser { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="Start"/>
+        /// Gets or Sets <see cref="Type"/>
         /// </summary>
-        [XmlElement("start")]
-        public DateTime? Start { get; set; }
+        [XmlElement("type")]
+        public ViewGrade Type { get; set; }
 
         /// <summary>
-        /// Gets or Sets <see cref="Stop"/>
+        /// Gets or Sets <see cref="Date"/>
         /// </summary>
-        [XmlElement("stop")]
-        public DateTime? Finish { get; set; }
-
-        /// <summary>
-        /// Gets or Sets <see cref="Kind"/>
-        /// </summary>
-        [XmlElement("kind")]
-        public ViewKind Kind { get; set; }
-
-        /// <summary>
-        /// Gets or Sets <see cref="Active"/>
-        /// </summary>
-        [XmlElement("active")]
-        public bool Active { get; set; }
+        [XmlElement("date")]
+        public DateTime Date { get; set; }
     }
 }
