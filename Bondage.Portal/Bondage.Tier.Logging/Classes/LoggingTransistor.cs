@@ -41,7 +41,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.GetItemNotFound, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteErrorDiagnostics(@logData);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.UpdateItem, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteInformationDiagnostics(@logData);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.DeleteItem, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteInformationDiagnostics(@logData);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.InsertItem, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteInformationDiagnostics(@logData);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.GetItemFound, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteErrorDiagnostics(@logData);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.UserAuthenticated, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteInformationDiagnostics(@logData);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.UserNotAuthenticated, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteErrorDiagnostics(@logData);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.PasswordRestored, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteInformationDiagnostics(@logData);
         }
 
         /// <summary>
@@ -145,14 +145,20 @@ namespace Bondage.Tier.Logging.Classes
         {
             @this.Emit(ApplicationEvents.EmailRestored, @logData);
 
-            WriteDiagnostics(@logData);
+            WriteInformationDiagnostics(@logData);
         }
 
         /// <summary>
-        /// Writes Diagnostics
+        /// Writes Information Diagnostics
         /// </summary>
         /// <param name="logData">Injected <see cref="string"/></param>
-        private static void WriteDiagnostics(string @logData) => System.Diagnostics.Debug.WriteLine(@logData);
+        private static void WriteInformationDiagnostics(string @logData) => System.Diagnostics.Trace.TraceInformation(@logData);
+
+        /// <summary>
+        /// Writes Information Diagnostics
+        /// </summary>
+        /// <param name="logData">Injected <see cref="string"/></param>
+        private static void WriteErrorDiagnostics(string @logData) => System.Diagnostics.Trace.TraceError(@logData);
 
         /// <summary>
         /// Gets Application Event Code
