@@ -25,6 +25,8 @@ namespace Bondage.Tier.Contexts.Extensions
             @this.Entity<ApplicationUserToken>().HasQueryFilter(p => !p.Deleted);
             @this.Entity<Effort>().HasQueryFilter(p => !p.Deleted);
             @this.Entity<Kind>().HasQueryFilter(p => !p.Deleted);
+            @this.Entity<Grade>().HasQueryFilter(p => !p.Deleted);
+            @this.Entity<Absence>().HasQueryFilter(p => !p.Deleted);
         }
     }
 }
