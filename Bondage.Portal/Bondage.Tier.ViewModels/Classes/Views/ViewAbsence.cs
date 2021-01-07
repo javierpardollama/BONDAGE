@@ -40,8 +40,8 @@ namespace Bondage.Tier.ViewModels.Classes.Views
         /// <summary>
         /// Gets or Sets <see cref="Type"/>
         /// </summary>
-        [XmlElement("type")]
-        public ViewGrade Type { get; set; }
+        [XmlElement("grade")]
+        public ViewGrade Grade { get; set; }
 
         /// <summary>
         /// Gets or Sets <see cref="Date"/>

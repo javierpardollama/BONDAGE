@@ -58,6 +58,16 @@ namespace Bondage.Tier.Contexts.Interfaces
         DbSet<Kind> Kind { get; set; }
 
         /// <summary>
+        /// Gets or Sets <see cref="DbSet{Grade}"/>
+        /// </summary>
+        DbSet<Grade> Grade { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="DbSet{Absence}"/>
+        /// </summary>
+        DbSet<Absence> Absence { get; set; }
+
+        /// <summary>
         /// Saves Changes Syncronously
         /// </summary>
         /// <returns>Instance of <see cref="int"/></returns>

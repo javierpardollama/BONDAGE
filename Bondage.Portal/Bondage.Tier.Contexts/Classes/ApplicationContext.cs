@@ -70,6 +70,16 @@ namespace Bondage.Tier.Contexts.Classes
         public virtual DbSet<Kind> Kind { get; set; }
 
         /// <summary>
+        /// Gets or Sets <see cref="DbSet{Grade}"/>
+        /// </summary>
+        public virtual DbSet<Grade> Grade { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="DbSet{Absence}"/>
+        /// </summary>
+        public virtual DbSet<Absence> Absence { get; set; }
+
+        /// <summary>
         /// Saves Changes Syncronously
         /// </summary>
         /// <returns>Instance of <see cref="int"/></returns>
