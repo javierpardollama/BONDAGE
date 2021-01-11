@@ -68,6 +68,16 @@ namespace Bondage.Tier.Contexts.Interfaces
         DbSet<Absence> Absence { get; set; }
 
         /// <summary>
+        /// Gets or Sets <see cref="DbSet{Year}"/>
+        /// </summary>
+        DbSet<Year> Year { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="DbSet{Month}"/>
+        /// </summary>
+        DbSet<Month> Month { get; set; }
+
+        /// <summary>
         /// Saves Changes Syncronously
         /// </summary>
         /// <returns>Instance of <see cref="int"/></returns>

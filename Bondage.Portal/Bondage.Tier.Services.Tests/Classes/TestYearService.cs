@@ -14,25 +14,25 @@ using Bondage.Tier.ViewModels.Classes.Updates;
 namespace Bondage.Tier.Services.Tests.Classes
 {
     /// <summary>
-    /// Represents a <see cref="TestGradeService"/> class. Inherits <see cref="TestBaseService"/>
+    /// Represents a <see cref="TestYearService"/> class. Inherits <see cref="TestBaseService"/>
     /// </summary>
     [TestFixture]
-    public class TestGradeService : TestBaseService
+    public class TestYearService : TestBaseService
     {
         /// <summary>
-        /// Instance of <see cref="ILogger{GradeService}"/>
+        /// Instance of <see cref="ILogger{YearService}"/>
         /// </summary>
-        private ILogger<GradeService> Logger;
+        private ILogger<YearService> Logger;
 
         /// <summary>
-        /// Instance of <see cref="GradeService"/>
+        /// Instance of <see cref="YearService"/>
         /// </summary>
-        private GradeService GradeService;
+        private YearService YearService;
 
         /// <summary>
-        /// Initializes a new Instance of <see cref="TestGradeService"/>
+        /// Initializes a new Instance of <see cref="TestYearService"/>
         /// </summary>
-        public TestGradeService()
+        public TestYearService()
         {
         }
 
@@ -56,7 +56,7 @@ namespace Bondage.Tier.Services.Tests.Classes
 
             SetUpContext();
 
-            GradeService = new GradeService(Context, Mapper, Logger);
+            YearService = new YearService(Context, Mapper, Logger);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Bondage.Tier.Services.Tests.Classes
                     .AddConsole();
             });
 
-            Logger = @loggerFactory.CreateLogger<GradeService>();
+            Logger = @loggerFactory.CreateLogger<YearService>();
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace Bondage.Tier.Services.Tests.Classes
         /// </summary>
         private void SetUpContext()
         {
-            Context.Grade.Add(new Grade { Name = "Grade " + Guid.NewGuid().ToString(), ImageUri = "Grades/Grade_1_500.png", LastModified = DateTime.Now, Deleted = false });
-            Context.Grade.Add(new Grade { Name = "Grade " + Guid.NewGuid().ToString(), ImageUri = "Grades/Grade_2_500.png", LastModified = DateTime.Now, Deleted = false });
-            Context.Grade.Add(new Grade { Name = "Grade " + Guid.NewGuid().ToString(), ImageUri = "Grades/Grade_3_500.png", LastModified = DateTime.Now, Deleted = false });
+            Context.Year.Add(new Year { Number = DateTime.Now.Year, LastModified = DateTime.Now, Deleted = false });
+            Context.Year.Add(new Year { Number = DateTime.Now.Year + 1, LastModified = DateTime.Now, Deleted = false });
+            Context.Year.Add(new Year { Number = DateTime.Now.Year + 2, LastModified = DateTime.Now, Deleted = false });
 
             Context.SaveChanges();
         }
@@ -93,96 +93,94 @@ namespace Bondage.Tier.Services.Tests.Classes
         [TearDown]
         public void TearDown()
         {
+            Context.Year.RemoveRange(Context.Year.ToList());
             Context.SaveChanges();
         }
 
         /// <summary>
-        /// Finds All Grade
+        /// Finds All Year
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task FindAllGrade()
+        public async Task FindAllYear()
         {
-            await GradeService.FindAllGrade();
-
-            Assert.Pass();
-        }        
-
-        /// <summary>
-        /// Finds Grade By Id
-        /// </summary>
-        /// <returns>Instance of <see cref="Task"/></returns>
-        [Test]
-        public async Task FindGradeById()
-        {
-            await GradeService.FindGradeById(Context.Grade.FirstOrDefault().Id);
+            await YearService.FindAllYear();
 
             Assert.Pass();
         }
 
         /// <summary>
-        /// Removes Grade By Id
+        /// Finds Year By Id
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task RemoveGradeById()
+        public async Task FindYearById()
         {
-            await GradeService.RemoveGradeById(Context.Grade.FirstOrDefault().Id);
+            await YearService.FindYearById(Context.Year.FirstOrDefault().Id);
 
             Assert.Pass();
         }
 
         /// <summary>
-        /// Updates Grade
+        /// Removes Year By Id
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task UpdateGrade()
+        public async Task RemoveYearById()
         {
-            UpdateGrade Grade = new UpdateGrade()
+            await YearService.RemoveYearById(Context.Year.FirstOrDefault().Id);
+
+            Assert.Pass();
+        }
+
+        /// <summary>
+        /// Updates Year
+        /// </summary>
+        /// <returns>Instance of <see cref="Task"/></returns>
+        [Test]
+        public async Task UpdateYear()
+        {
+            UpdateYear Year = new UpdateYear()
             {
-                Id = Context.Grade.FirstOrDefault().Id,
-                ImageUri = "URL/Grade_21_500px.png",
-                Name = "Grade 21"
+                Id = Context.Year.FirstOrDefault().Id,
+                Number = DateTime.Now.Year + 4,
             };
 
-            await GradeService.UpdateGrade(Grade);
+            await YearService.UpdateYear(Year);
 
             Assert.Pass();
         }
 
         /// <summary>
-        /// Adds Grade
+        /// Adds Year
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task AddGrade()
+        public async Task AddYear()
         {
-            AddGrade @Grade = new AddGrade()
+            AddYear @Year = new AddYear()
             {
-                ImageUri = "URL/Grade_4_500px.png",
-                Name = "Grade 4"
+                Number = DateTime.Now.Year + 5,
             };
 
-            await GradeService.AddGrade(@Grade);
+            await YearService.AddYear(@Year);
 
             Assert.Pass();
         }
 
         /// <summary>
-        /// Checks Name
+        /// Checks Number
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public void CheckName()
+        public void CheckNumber()
         {
-            AddGrade @Grade = new AddGrade()
+            AddYear @Year = new AddYear()
             {
-                ImageUri = "URL/Grade_3_500px.png",
-                Name = Context.Grade.FirstOrDefault().Name
+                Number = DateTime.Now.Year,
             };
 
-            Exception exception = Assert.ThrowsAsync<Exception>(async () => await GradeService.CheckName(@Grade));
+            Exception exception = Assert.ThrowsAsync<Exception>(async () => await YearService.CheckNumber(@Year));
 
             Assert.Pass();
         }

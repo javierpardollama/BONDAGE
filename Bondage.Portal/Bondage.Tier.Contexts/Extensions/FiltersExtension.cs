@@ -27,6 +27,8 @@ namespace Bondage.Tier.Contexts.Extensions
             @this.Entity<Kind>().HasQueryFilter(p => !p.Deleted);
             @this.Entity<Grade>().HasQueryFilter(p => !p.Deleted);
             @this.Entity<Absence>().HasQueryFilter(p => !p.Deleted);
+            @this.Entity<Month>().HasQueryFilter(p => !p.Deleted);
+            @this.Entity<Year>().HasQueryFilter(p => !p.Deleted);
         }
     }
 }

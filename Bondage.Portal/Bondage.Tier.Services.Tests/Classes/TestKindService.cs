@@ -181,6 +181,7 @@ namespace Bondage.Tier.Services.Tests.Classes
                 ImageUri = "URL/Kind_3_500px.png",
                 Name = Context.Kind.FirstOrDefault().Name
             };
+
             Exception exception = Assert.ThrowsAsync<Exception>(async () => await KindService.CheckName(@Kind));
 
             Assert.Pass();

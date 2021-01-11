@@ -80,6 +80,16 @@ namespace Bondage.Tier.Contexts.Classes
         public virtual DbSet<Absence> Absence { get; set; }
 
         /// <summary>
+        /// Gets or Sets <see cref="DbSet{Year}"/>
+        /// </summary>
+        public virtual DbSet<Year> Year { get; set; }
+
+        /// <summary>
+        /// Gets or Sets <see cref="DbSet{Month}"/>
+        /// </summary>
+        public virtual DbSet<Month> Month { get; set; }
+
+        /// <summary>
         /// Saves Changes Syncronously
         /// </summary>
         /// <returns>Instance of <see cref="int"/></returns>

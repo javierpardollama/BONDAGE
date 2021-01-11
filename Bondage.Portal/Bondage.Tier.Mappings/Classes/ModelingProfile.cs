@@ -32,6 +32,10 @@ namespace Bondage.Tier.Mappings.Classes
             CreateMap<Kind, ViewKind>();
 
             CreateMap<Grade, ViewGrade>();
+
+            CreateMap<Year, ViewYear>();
+
+            CreateMap<Month, ViewMonth>();
         }
     }
 }

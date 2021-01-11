@@ -14,25 +14,25 @@ using Bondage.Tier.ViewModels.Classes.Updates;
 namespace Bondage.Tier.Services.Tests.Classes
 {
     /// <summary>
-    /// Represents a <see cref="TestGradeService"/> class. Inherits <see cref="TestBaseService"/>
+    /// Represents a <see cref="TestMonthService"/> class. Inherits <see cref="TestBaseService"/>
     /// </summary>
     [TestFixture]
-    public class TestGradeService : TestBaseService
+    public class TestMonthService : TestBaseService
     {
         /// <summary>
-        /// Instance of <see cref="ILogger{GradeService}"/>
+        /// Instance of <see cref="ILogger{MonthService}"/>
         /// </summary>
-        private ILogger<GradeService> Logger;
+        private ILogger<MonthService> Logger;
 
         /// <summary>
-        /// Instance of <see cref="GradeService"/>
+        /// Instance of <see cref="MonthService"/>
         /// </summary>
-        private GradeService GradeService;
+        private MonthService MonthService;
 
         /// <summary>
-        /// Initializes a new Instance of <see cref="TestGradeService"/>
+        /// Initializes a new Instance of <see cref="TestMonthService"/>
         /// </summary>
-        public TestGradeService()
+        public TestMonthService()
         {
         }
 
@@ -56,7 +56,7 @@ namespace Bondage.Tier.Services.Tests.Classes
 
             SetUpContext();
 
-            GradeService = new GradeService(Context, Mapper, Logger);
+            MonthService = new MonthService(Context, Mapper, Logger);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Bondage.Tier.Services.Tests.Classes
                     .AddConsole();
             });
 
-            Logger = @loggerFactory.CreateLogger<GradeService>();
+            Logger = @loggerFactory.CreateLogger<MonthService>();
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace Bondage.Tier.Services.Tests.Classes
         /// </summary>
         private void SetUpContext()
         {
-            Context.Grade.Add(new Grade { Name = "Grade " + Guid.NewGuid().ToString(), ImageUri = "Grades/Grade_1_500.png", LastModified = DateTime.Now, Deleted = false });
-            Context.Grade.Add(new Grade { Name = "Grade " + Guid.NewGuid().ToString(), ImageUri = "Grades/Grade_2_500.png", LastModified = DateTime.Now, Deleted = false });
-            Context.Grade.Add(new Grade { Name = "Grade " + Guid.NewGuid().ToString(), ImageUri = "Grades/Grade_3_500.png", LastModified = DateTime.Now, Deleted = false });
+            Context.Month.Add(new Month { Name = "Month " + Guid.NewGuid().ToString(), Number = 1, LastModified = DateTime.Now, Deleted = false });
+            Context.Month.Add(new Month { Name = "Month " + Guid.NewGuid().ToString(), Number = 2, LastModified = DateTime.Now, Deleted = false });
+            Context.Month.Add(new Month { Name = "Month " + Guid.NewGuid().ToString(), Number = 3, LastModified = DateTime.Now, Deleted = false });
 
             Context.SaveChanges();
         }
@@ -93,78 +93,79 @@ namespace Bondage.Tier.Services.Tests.Classes
         [TearDown]
         public void TearDown()
         {
+            Context.Month.RemoveRange(Context.Month.ToList());
             Context.SaveChanges();
         }
 
         /// <summary>
-        /// Finds All Grade
+        /// Finds All Month
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task FindAllGrade()
+        public async Task FindAllMonth()
         {
-            await GradeService.FindAllGrade();
-
-            Assert.Pass();
-        }        
-
-        /// <summary>
-        /// Finds Grade By Id
-        /// </summary>
-        /// <returns>Instance of <see cref="Task"/></returns>
-        [Test]
-        public async Task FindGradeById()
-        {
-            await GradeService.FindGradeById(Context.Grade.FirstOrDefault().Id);
+            await MonthService.FindAllMonth();
 
             Assert.Pass();
         }
 
         /// <summary>
-        /// Removes Grade By Id
+        /// Finds Month By Id
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task RemoveGradeById()
+        public async Task FindMonthById()
         {
-            await GradeService.RemoveGradeById(Context.Grade.FirstOrDefault().Id);
+            await MonthService.FindMonthById(Context.Month.FirstOrDefault().Id);
 
             Assert.Pass();
         }
 
         /// <summary>
-        /// Updates Grade
+        /// Removes Month By Id
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task UpdateGrade()
+        public async Task RemoveMonthById()
         {
-            UpdateGrade Grade = new UpdateGrade()
+            await MonthService.RemoveMonthById(Context.Month.FirstOrDefault().Id);
+
+            Assert.Pass();
+        }
+
+        /// <summary>
+        /// Updates Month
+        /// </summary>
+        /// <returns>Instance of <see cref="Task"/></returns>
+        [Test]
+        public async Task UpdateMonth()
+        {
+            UpdateMonth Month = new UpdateMonth()
             {
-                Id = Context.Grade.FirstOrDefault().Id,
-                ImageUri = "URL/Grade_21_500px.png",
-                Name = "Grade 21"
+                Id = Context.Month.FirstOrDefault().Id,
+                Number = 21,
+                Name = "Month 21"
             };
 
-            await GradeService.UpdateGrade(Grade);
+            await MonthService.UpdateMonth(Month);
 
             Assert.Pass();
         }
 
         /// <summary>
-        /// Adds Grade
+        /// Adds Month
         /// </summary>
         /// <returns>Instance of <see cref="Task"/></returns>
         [Test]
-        public async Task AddGrade()
+        public async Task AddMonth()
         {
-            AddGrade @Grade = new AddGrade()
+            AddMonth @Month = new AddMonth()
             {
-                ImageUri = "URL/Grade_4_500px.png",
-                Name = "Grade 4"
+                Number = 4,
+                Name = "Month 4"
             };
 
-            await GradeService.AddGrade(@Grade);
+            await MonthService.AddMonth(@Month);
 
             Assert.Pass();
         }
@@ -176,13 +177,13 @@ namespace Bondage.Tier.Services.Tests.Classes
         [Test]
         public void CheckName()
         {
-            AddGrade @Grade = new AddGrade()
+            AddMonth @Month = new AddMonth()
             {
-                ImageUri = "URL/Grade_3_500px.png",
-                Name = Context.Grade.FirstOrDefault().Name
+                Number = 1,
+                Name = Context.Month.FirstOrDefault().Name
             };
 
-            Exception exception = Assert.ThrowsAsync<Exception>(async () => await GradeService.CheckName(@Grade));
+            Exception exception = Assert.ThrowsAsync<Exception>(async () => await MonthService.CheckName(@Month));
 
             Assert.Pass();
         }
