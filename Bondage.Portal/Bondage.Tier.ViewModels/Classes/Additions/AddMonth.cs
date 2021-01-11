@@ -8,7 +8,7 @@ namespace Bondage.Tier.ViewModels.Classes.Additions
     /// </summary>
     public class AddMonth : IAddBase
     {
-        /// Initializes a new Instance of <see cref="AddYear"/>
+        /// Initializes a new Instance of <see cref="AddMonth"/>
         /// </summary>
         public AddMonth()
         {

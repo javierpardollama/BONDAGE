@@ -8,6 +8,12 @@ namespace Bondage.Tier.ViewModels.Classes.Additions
     public class AddGrade : IAddBase
     {
         /// <summary>
+        /// Initializes a new Instance of <see cref="AddGrade"/>
+        /// </summary>
+        public AddGrade()
+        {
+        }
+        /// <summary>
         /// Gets or Sets <see cref="Name"/>
         /// </summary>
         public string Name { get; set; }
