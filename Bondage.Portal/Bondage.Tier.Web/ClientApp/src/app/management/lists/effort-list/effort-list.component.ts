@@ -9,7 +9,7 @@ import { TimeAppVariants } from './../../../../variants/time.app.variants';
 @Component({
   selector: 'app-effort-list',
   templateUrl: './effort-list.component.html',
-  styleUrls: ['./effort-list.component.css']
+  styleUrls: ['./effort-list.component.scss']
 })
 export class EffortListComponent implements OnInit {
 

@@ -71,6 +71,7 @@ import {
   ChangeEmailSecurityComponent
 } from './security/changeemail-security/changeemail-security.component';
 import { EffortListComponent } from './management/lists/effort-list/effort-list.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -112,57 +113,7 @@ import { EffortListComponent } from './management/lists/effort-list/effort-list.
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomeComponent,
-        pathMatch: 'full',
-        canActivate: [SignInGuard]
-      },
-      // App-Auth
-      {
-        path: 'auth/joinin',
-        component: JoinInAuthComponent,
-        pathMatch: 'full'
-      },
-      {
-        path: 'auth/signin',
-        component: SignInAuthComponent,
-        pathMatch: 'full'
-      },
-      // App-List
-      {
-        path: 'effort',
-        component: EffortListComponent,
-        pathMatch: 'full',
-        canActivate: [SignInGuard]
-      },
-
-      // App-Security
-      {
-        path: 'security',
-        component: SecurityComponent,
-        pathMatch: 'full',
-        canActivate: [SignInGuard]
-      },
-      {
-        path: 'security/changeemail',
-        component: ChangeEmailSecurityComponent,
-        pathMatch: 'full',
-        canActivate: [SignInGuard]
-      },
-      {
-        path: 'security/changepassword',
-        component: ChangePasswordSecurityComponent,
-        pathMatch: 'full',
-        canActivate: [SignInGuard]
-      },
-      {
-        path: 'security/resetpassword',
-        component: ResetPasswordSecurityComponent,
-        pathMatch: 'full'
-      },
-    ])
+    AppRoutingModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

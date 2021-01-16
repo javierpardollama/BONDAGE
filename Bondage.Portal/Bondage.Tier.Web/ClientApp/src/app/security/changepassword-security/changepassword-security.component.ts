@@ -20,7 +20,7 @@ import { TextAppVariants } from './../../../variants/text.app.variants';
 @Component({
   selector: 'app-changepassword-security',
   templateUrl: './changepassword-security.component.html',
-  styleUrls: ['./changepassword-security.component.css']
+  styleUrls: ['./changepassword-security.component.scss']
 })
 export class ChangePasswordSecurityComponent implements OnInit {
 

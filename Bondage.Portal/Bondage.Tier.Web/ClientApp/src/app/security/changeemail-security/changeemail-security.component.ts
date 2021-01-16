@@ -22,7 +22,7 @@ import { ExpressionAppVariants } from './../../../variants/expression.app.varian
 @Component({
   selector: 'app-changeemail-security',
   templateUrl: './changeemail-security.component.html',
-  styleUrls: ['./changeemail-security.component.css']
+  styleUrls: ['./changeemail-security.component.scss']
 })
 export class ChangeEmailSecurityComponent implements OnInit {
 
