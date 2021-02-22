@@ -19,7 +19,7 @@ namespace Bondage.Tier.ViewModels.Classes.Views
         /// <summary>
         /// Gets or Sets <see cref="Absence"/>
         /// </summary>
-        [XmlElement("type")]
+        [XmlElement("absence")]
         public ViewAbsence Absence { get; set; }
 
         /// <summary>

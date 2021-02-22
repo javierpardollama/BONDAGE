@@ -17,15 +17,9 @@ namespace Bondage.Tier.Services.Interfaces
         /// Finds Absence By Date
         /// </summary>
         /// <param name="date">Injected <see cref="DateTime"/></param>
+        /// <param name="@applicationUserId">Injected <see cref="int"/></param>
         /// <returns>Instance of <see cref="Task{Effort}"/></returns>
-        Task<Absence> FindAbsenceByDate(DateTime @date);
-
-        /// <summary>
-        /// Finds Application User By Id
-        /// </summary>
-        /// <param name="id">Injected <see cref="int"/></param>
-        /// <returns>Instance of <see cref="Task{ApplicationUser}"/></returns>
-        Task<ApplicationUser> FindApplicationUserById(int @id);
+        Task<Absence> FindAbsenceByDate(DateTime @date, int @applicationUserId);
 
         /// <summary>
         /// Finds Calendar Days By Filter

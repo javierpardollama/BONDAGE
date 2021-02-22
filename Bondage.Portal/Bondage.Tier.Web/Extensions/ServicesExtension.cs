@@ -24,6 +24,7 @@ namespace Bondage.Tier.Web.Extensions
             @this.AddTransient<IKindService, KindService>();
             @this.AddTransient<IMonthService, MonthService>();
             @this.AddTransient<IYearService, YearService>();
+            @this.AddTransient<ICalendarService, CalendarService>();
             // Add other services here
         }
     }
