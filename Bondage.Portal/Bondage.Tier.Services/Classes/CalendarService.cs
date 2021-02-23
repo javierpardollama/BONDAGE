@@ -37,20 +37,19 @@ namespace Bondage.Tier.Services.Classes
         }
 
         /// <summary>
-        /// Finds Absence By Date
+        /// Finds Absence By Filter
         /// </summary>
-        /// <param name="date">Injected <see cref="DateTime"/></param>
-        /// <param name="@applicationUserId">Injected <see cref="int"/></param>
+        /// <param name="viewmodel">Injected <see cref="FilterAbsence"/></param>
         /// <returns>Instance of <see cref="Task{Effort}"/></returns>
-        public async Task<Absence> FindAbsenceByDate(DateTime @date, int @applicationUserId)
+        public async Task<Absence> FindAbsenceByFilter(FilterAbsence @viewmodel)
         {
             Absence @absence = await Context.Absence
-              .TagWith("FindAbsenceByDate")
+              .TagWith("FindAbsenceByFilter")
               .AsQueryable()
               .Include(x => x.ApplicationUser)
               .Include(x => x.Grade)
-              .Where(x => x.ApplicationUser.Id == @applicationUserId)
-              .FirstOrDefaultAsync(x => x.Date == @date);                                        
+              .Where(x => x.ApplicationUser.Id == @viewmodel.ApplicationUserId)
+              .FirstOrDefaultAsync(x => x.Date == @viewmodel.Date);
 
             if (@absence == null)
             {
@@ -81,16 +80,20 @@ namespace Bondage.Tier.Services.Classes
         {
             ICollection<ViewDay> @days = new Collection<ViewDay>();
 
-            for (int i = 1; i <= DateTime.DaysInMonth(viewmodel.Year, viewmodel.Month); i++)
+            for (int i = 1; i <= DateTime.DaysInMonth(@viewmodel.Year, @viewmodel.Month); i++)
             {
                 @days.Add(new ViewDay
                 {
-                    Date = new DateTime(viewmodel.Year, viewmodel.Month, i),
-                    Absence = Mapper.Map<ViewAbsence>(await FindAbsenceByDate(new DateTime(@viewmodel.Year, @viewmodel.Month, i), @viewmodel.ApplicationUserId))
+                    Date = new DateTime(@viewmodel.Year, @viewmodel.Month, i),
+                    Absence = Mapper.Map<ViewAbsence>(await FindAbsenceByFilter(new FilterAbsence
+                    {
+                        Date = new DateTime(@viewmodel.Year, @viewmodel.Month, i),
+                        ApplicationUserId = @viewmodel.ApplicationUserId
+                    }))
                 });
             }
 
             return @days;
-        }        
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Bondage.Tier.Entities.Classes;
@@ -14,12 +13,11 @@ namespace Bondage.Tier.Services.Interfaces
     public interface ICalendarService : IBaseService
     {
         /// <summary>
-        /// Finds Absence By Date
+        /// Finds Absence By Filter
         /// </summary>
-        /// <param name="date">Injected <see cref="DateTime"/></param>
-        /// <param name="@applicationUserId">Injected <see cref="int"/></param>
+        /// <param name="viewmodel">Injected <see cref="FilterAbsence"/></param>
         /// <returns>Instance of <see cref="Task{Effort}"/></returns>
-        Task<Absence> FindAbsenceByDate(DateTime @date, int @applicationUserId);
+        Task<Absence> FindAbsenceByFilter(FilterAbsence @viewmodel);
 
         /// <summary>
         /// Finds Calendar Days By Filter
