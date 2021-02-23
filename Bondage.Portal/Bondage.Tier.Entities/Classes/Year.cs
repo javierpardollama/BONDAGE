@@ -9,7 +9,7 @@ namespace Bondage.Tier.Entities.Classes
     /// <summary>
     /// Represents a <see cref="Year"/> class. Implements <see cref="IKey"/>, <see cref="IBase"/>
     /// </summary>
-    public class Year
+    public class Year : IKey, IBase
     {
         /// <summary>
         /// Initializes a new Instance of <see cref="Year"/>

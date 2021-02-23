@@ -9,7 +9,7 @@ namespace Bondage.Tier.Entities.Classes
     /// <summary>
     /// Represents a <see cref="Month"/> class. Implements <see cref="IKey"/>, <see cref="IBase"/>
     /// </summary>
-    public class Month
+    public class Month : IKey, IBase
     {
         /// <summary>
         /// Initializes a new Instance of <see cref="Month"/>
