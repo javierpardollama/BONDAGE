@@ -264,7 +264,7 @@ namespace Bondage.Tier.Services.Classes
         /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddStartEffort(AddEffort @viewmodel)
         {
-            Effort @effort = new Effort
+            Effort @effort = new()
             {
                 Active = true,
                 ApplicationUser = await this.FindApplicationUserById(@viewmodel.ApplicationUserId),
@@ -284,7 +284,7 @@ namespace Bondage.Tier.Services.Classes
         /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddPauseEffort(AddEffort @viewmodel)
         {
-            Effort @effort = new Effort
+            Effort @effort = new()
             {
                 Active = true,
                 ApplicationUser = await this.FindApplicationUserById(@viewmodel.ApplicationUserId),
@@ -304,7 +304,7 @@ namespace Bondage.Tier.Services.Classes
         /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddResumeEffort(AddEffort @viewmodel)
         {
-            Effort @effort = new Effort
+            Effort @effort = new()
             {
                 Active = true,
                 ApplicationUser = await this.FindApplicationUserById(@viewmodel.ApplicationUserId),
@@ -324,7 +324,7 @@ namespace Bondage.Tier.Services.Classes
         /// <returns>Instance of <see cref="Task{Effort}"/></returns>
         public async Task<Effort> AddStopEffort(AddEffort @viewmodel)
         {
-            Effort @effort = new Effort
+            Effort @effort = new()
             {
                 Active = true,
                 ApplicationUser = await this.FindApplicationUserById(@viewmodel.ApplicationUserId),

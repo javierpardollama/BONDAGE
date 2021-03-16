@@ -45,7 +45,7 @@ namespace Bondage.Tier.Services.Classes
         {
             await CheckName(@viewModel);
 
-            Kind @Kind = new Kind
+            Kind @Kind = new()
             {
                 Name = @viewModel.Name,
                 ImageUri = @viewModel.ImageUri

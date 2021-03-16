@@ -45,7 +45,7 @@ namespace Bondage.Tier.Services.Classes
         {
             await CheckNumber(@viewModel);
 
-            Year @Year = new Year
+            Year @Year = new()
             {
                 Number = @viewModel.Number            };
 

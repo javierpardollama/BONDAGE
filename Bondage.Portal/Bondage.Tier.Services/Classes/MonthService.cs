@@ -45,7 +45,7 @@ namespace Bondage.Tier.Services.Classes
         {
             await CheckName(@viewModel);
 
-            Month @Month = new Month
+            Month @Month = new()
             {
                 Name = @viewModel.Name,
                 Number = @viewModel.Number

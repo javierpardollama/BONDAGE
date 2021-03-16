@@ -84,10 +84,7 @@ namespace Bondage.Tier.Services.Classes
         public List<Claim> GenerateJwtClaims(ApplicationUser @applicationUser)
         {
             return new List<Claim>
-            {
-                new Claim(
-                    JwtRegisteredClaimNames.Sub,
-                    @applicationUser.Email),
+            {               
                 new Claim(
                     JwtRegisteredClaimNames.Jti,
                     Guid.NewGuid().ToString()),
@@ -102,7 +99,10 @@ namespace Bondage.Tier.Services.Classes
                     JwtSettings.JwtIssuer),
                 new Claim(
                     JwtRegisteredClaimNames.Aud,
-                    JwtSettings.JwtAudience)
+                    JwtSettings.JwtAudience),
+                new Claim(
+                    ClaimTypes.System,
+                    Environment.MachineName)
             };
         }
     }

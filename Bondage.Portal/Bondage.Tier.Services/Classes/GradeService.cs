@@ -45,7 +45,7 @@ namespace Bondage.Tier.Services.Classes
         {
             await CheckName(@viewModel);
 
-            Grade @Grade = new Grade
+            Grade @Grade = new()
             {
                 Name = @viewModel.Name,
                 ImageUri = @viewModel.ImageUri
