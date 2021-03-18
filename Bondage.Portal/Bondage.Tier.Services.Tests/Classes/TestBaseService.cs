@@ -6,11 +6,13 @@ using AutoMapper;
 using Bondage.Tier.Contexts.Classes;
 using Bondage.Tier.Entities.Classes;
 using Bondage.Tier.Mappings.Classes;
+using Bondage.Tier.Settings.Classes;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Bondage.Tier.Services.Tests.Classes
 {
@@ -25,9 +27,9 @@ namespace Bondage.Tier.Services.Tests.Classes
         public IMapper Mapper;
 
         /// <summary>
-        /// Instance of <see cref="IConfiguration"/>
+        /// Instance of <see cref="IOptions{JwtSettings}"/>
         /// </summary>
-        public IConfiguration Configuration;
+        protected IOptions<JwtSettings> JwtOptions;
 
         /// <summary>
         /// Instance of <see cref="Dictionary{string, string}"/>
@@ -37,7 +39,7 @@ namespace Bondage.Tier.Services.Tests.Classes
         /// <summary>
         /// Instance of <see cref="DbContextOptions{ApplicationContext}"/>
         /// </summary>
-        private DbContextOptions<ApplicationContext> Options;
+        protected DbContextOptions<ApplicationContext> ContextOptions;
 
         /// <summary>
         /// Instance of <see cref="ApplicationContext"/>
@@ -71,8 +73,7 @@ namespace Bondage.Tier.Services.Tests.Classes
         {
             Services = new ServiceCollection();
 
-            Services
-                .AddSingleton(Configuration)
+            Services               
                 .AddDbContext<ApplicationContext>(o => o.UseSqlite("Data Source=bondage.db"))
                 .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {
@@ -90,7 +91,7 @@ namespace Bondage.Tier.Services.Tests.Classes
 
             ServiceProvider = Services.BuildServiceProvider();
 
-            Context = new ApplicationContext(Options);
+            Context = new ApplicationContext(ContextOptions);
             UserManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             SignInManager = ServiceProvider.GetRequiredService<SignInManager<ApplicationUser>>();
         }
@@ -106,38 +107,24 @@ namespace Bondage.Tier.Services.Tests.Classes
             });
 
             Mapper = @config.CreateMapper();
-        }
+        }     
 
         /// <summary>
-        /// Sets Up Jwt Settings
+        /// Sets Up Jwt Options
         /// </summary>
-        public void SetUpJwtSettings()
+        public void SetUpJwtOptions() => JwtOptions = Options.Create(new JwtSettings()
         {
-            JwtSettings = new Dictionary<string, string>
-            {
-                { "Jwt:JwtKey", "SOME_RANDOM_KEY_DO_NOT_SHARE"},
-                { "Jwt:JwtIssuer", "http://localhost:15208"},
-                { "Jwt:JwtAudience", " http://localhost:4200"},
-                { "Jwt:JwtExpireDays", "30"},
-            };
-        }
+            JwtAudience = "http://localhost:4200",
+            JwtExpireDays = 30,
+            JwtIssuer = "http://localhost:15208",
+            JwtKey = "SOME_RANDOM_KEY_DO_NOT_SHARE"
+        });
 
         /// <summary>
-        /// Sets Up Configuration
+        /// Sets Up Context Options
         /// </summary>
-        public void SetUpConfiguration()
-        {
-            Configuration = new ConfigurationBuilder().AddInMemoryCollection(JwtSettings).Build();
-        }
-
-        /// <summary>
-        /// Sets Up Options
-        /// </summary>
-        public void SetUpOptions()
-        {
-            Options = new DbContextOptionsBuilder<ApplicationContext>()
+        public void SetUpContextOptions() => ContextOptions = new DbContextOptionsBuilder<ApplicationContext>()
            .UseInMemoryDatabase(databaseName: "Data Source=bondage.db")
            .Options;
-        }
     }
 }

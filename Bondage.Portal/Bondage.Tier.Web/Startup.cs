@@ -96,6 +96,7 @@ namespace Bondage.Tier.Web
             // Register the Jwt Settings to the configuration container.
             JwtSettings = new JwtSettings();
             Configuration.GetSection("Jwt").Bind(JwtSettings);
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
 
             // Add customized Authentication to the services container.
             @services.AddCustomizedAuthentication(JwtSettings);

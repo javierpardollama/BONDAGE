@@ -9,6 +9,7 @@ using Bondage.Tier.Services.Interfaces;
 using Bondage.Tier.Settings.Classes;
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Bondage.Tier.Services.Classes
@@ -21,9 +22,9 @@ namespace Bondage.Tier.Services.Classes
         /// <summary>
         /// Initializes a new Instance of <see cref="TokenService"/>
         /// </summary>
-        /// <param name="configuration">Injected <see cref="IConfiguration"/></param>
+        /// <param name="jwtSettings">Injected <see cref="IOptions{JwtSettings}"/></param>
         public TokenService(
-           IConfiguration @configuration) : base(@configuration)
+            IOptions<JwtSettings> @jwtSettings) : base(@jwtSettings)
         {
         }
 
@@ -35,8 +36,8 @@ namespace Bondage.Tier.Services.Classes
         public JwtSecurityToken GenerateJwtToken(ApplicationUser @applicationUser)
         {
             return new JwtSecurityToken(
-                issuer: JwtSettings.JwtIssuer,
-                audience:JwtSettings.JwtAudience,
+                issuer: JwtSettings.Value.JwtIssuer,
+                audience:JwtSettings.Value.JwtAudience,
                 claims: GenerateJwtClaims(@applicationUser),
                 expires: GenerateTokenExpirationDate(),
                 signingCredentials: GenerateSigningCredentials(GenerateSymmetricSecurityKey())
@@ -56,7 +57,7 @@ namespace Bondage.Tier.Services.Classes
         /// <returns>Instance of <see cref="SymmetricSecurityKey"/></returns>
         public SymmetricSecurityKey GenerateSymmetricSecurityKey()
         {
-            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtSettings.JwtKey));
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtSettings.Value.JwtKey));
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace Bondage.Tier.Services.Classes
         /// Generates Token Expiration Date 
         /// </summary>
         /// <returns>Instance of <see cref="DateTime"/></returns>
-        public DateTime GenerateTokenExpirationDate() => DateTime.Now.AddDays(JwtSettings.JwtExpireDays);
+        public DateTime GenerateTokenExpirationDate() => DateTime.Now.AddDays(JwtSettings.Value.JwtExpireDays);
 
         /// <summary>
         /// Generates Jwt Claims
@@ -96,10 +97,10 @@ namespace Bondage.Tier.Services.Classes
                     @applicationUser.Email),
                 new Claim(
                     JwtRegisteredClaimNames.Iss,
-                    JwtSettings.JwtIssuer),
+                    JwtSettings.Value.JwtIssuer),
                 new Claim(
                     JwtRegisteredClaimNames.Aud,
-                    JwtSettings.JwtAudience),
+                    JwtSettings.Value.JwtAudience),
                 new Claim(
                     ClaimTypes.System,
                     Environment.MachineName)
