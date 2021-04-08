@@ -8,6 +8,8 @@ using Bondage.Tier.Contexts.Classes;
 using Bondage.Tier.Entities.Classes;
 using Bondage.Tier.Services.Classes;
 
+using Microsoft.Extensions.Logging;
+
 using NUnit.Framework;
 
 namespace Bondage.Tier.Services.Tests.Classes
@@ -19,6 +21,11 @@ namespace Bondage.Tier.Services.Tests.Classes
     public class TestTokenService : TestBaseService
     {
         private TokenService Service;
+
+        /// <summary>
+        /// Instance of <see cref="ILogger{TokenService}"/>
+        /// </summary>
+        private ILogger<TokenService> Logger;
 
         /// <summary>
         /// Initializes a new Instance of <see cref="TestTokenService"/>
@@ -42,9 +49,11 @@ namespace Bondage.Tier.Services.Tests.Classes
 
             SetUpMapper();
 
+            SetUpLogger();
+
             SetUpContext(Context);
 
-            Service = new TokenService(JwtOptions);
+            Service = new TokenService(Logger, JwtOptions);
         }
 
         /// <summary>
@@ -67,6 +76,22 @@ namespace Bondage.Tier.Services.Tests.Classes
             @context.ApplicationUser.Add(new ApplicationUser { Email = "thirstuser@email.com", LastModified = DateTime.Now, Deleted = false, ApplicationUserRoles = new List<ApplicationUserRole>() });
 
             @context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Sets Up Logger
+        /// </summary>
+        private void SetUpLogger()
+        {
+            ILoggerFactory @loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder
+                    .AddFilter("Microsoft", LogLevel.Warning)
+                    .AddFilter("System", LogLevel.Warning)
+                    .AddConsole();
+            });
+
+            Logger = @loggerFactory.CreateLogger<TokenService>();
         }
 
         /// <summary>
