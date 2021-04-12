@@ -22,7 +22,12 @@ namespace Bondage.Tier.Services.Tests.Classes
         /// <summary>
         /// Instance of <see cref="ILogger{AuthService}"/>
         /// </summary>
-        private ILogger<AuthService> Logger;
+        private ILogger<AuthService> AuthLogger;
+
+        /// <summary>
+        /// Instance of <see cref="ILogger{TokenService}"/>
+        /// </summary>
+        private ILogger<TokenService> TokenLogger;
 
         /// <summary>
         /// Instance of <see cref="TokenService"/>
@@ -61,9 +66,9 @@ namespace Bondage.Tier.Services.Tests.Classes
 
             SetUpContext();
 
-            TokenService = new TokenService(JwtOptions);
+            TokenService = new TokenService(TokenLogger, JwtOptions);
 
-            Service = new AuthService(Mapper, Logger, JwtOptions, UserManager, SignInManager, TokenService);
+            Service = new AuthService(Mapper, AuthLogger, JwtOptions, UserManager, SignInManager, TokenService);
         }
 
         /// <summary>
@@ -90,7 +95,8 @@ namespace Bondage.Tier.Services.Tests.Classes
                     .AddConsole();
             });
 
-            Logger = @loggerFactory.CreateLogger<AuthService>();
+            AuthLogger = @loggerFactory.CreateLogger<AuthService>();
+            TokenLogger = @loggerFactory.CreateLogger<TokenService>();
         }
 
         /// <summary>
