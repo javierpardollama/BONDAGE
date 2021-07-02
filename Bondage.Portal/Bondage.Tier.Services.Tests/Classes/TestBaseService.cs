@@ -32,11 +32,6 @@ namespace Bondage.Tier.Services.Tests.Classes
         protected IOptions<JwtSettings> JwtOptions;
 
         /// <summary>
-        /// Instance of <see cref="Dictionary{string, string}"/>
-        /// </summary>
-        private Dictionary<string, string> JwtSettings;
-
-        /// <summary>
         /// Instance of <see cref="DbContextOptions{ApplicationContext}"/>
         /// </summary>
         protected DbContextOptions<ApplicationContext> ContextOptions;
