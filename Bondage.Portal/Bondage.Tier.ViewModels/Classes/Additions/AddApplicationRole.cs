@@ -1,9 +1,11 @@
-﻿namespace Bondage.Tier.ViewModels.Classes.Additions
+﻿using Bondage.Tier.ViewModels.Interfaces.Additions;
+
+namespace Bondage.Tier.ViewModels.Classes.Additions
 {
     /// <summary>
-    /// Represents a <see cref="AddApplicationRole"/> class
+    /// Represents a <see cref="AddApplicationRole"/> class. Implements <see cref="IAddBase"/>
     /// </summary>
-    public class AddApplicationRole
+    public class AddApplicationRole : IAddBase
     {
         /// <summary>
         /// Initializes a new Instance of <see cref="AddApplicationRole"/>
@@ -11,6 +13,11 @@
         public AddApplicationRole()
         {
         }
+
+        /// <summary>
+        /// Gets or Sets <see cref="ApplicationUserId"/>
+        /// </summary>
+        public int ApplicationUserId { get; set; }
 
         /// <summary>
         /// Gets or Sets <see cref="Name"/>
