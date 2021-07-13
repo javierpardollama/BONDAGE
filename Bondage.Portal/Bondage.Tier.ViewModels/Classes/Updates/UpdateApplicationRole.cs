@@ -3,14 +3,14 @@
 namespace Bondage.Tier.ViewModels.Classes.Updates
 {
     /// <summary>
-    /// Represents a <see cref="UpdateGrade"/> class. Implements <see cref="IUpdateBase"/>
+    /// Represents a <see cref="UpdateApplicationRole"/> class. Inplemennts <see cref="IUpdateBase"/>
     /// </summary>
-    public class UpdateGrade : IUpdateBase
+    public class UpdateApplicationRole : IUpdateBase
     {
         /// <summary>
-        /// Initializes a new Instance of <see cref="UpdateGrade"/>
+        /// Initializes a new Instance of <see cref="UpdateApplicationRole"/>
         /// </summary>
-        public UpdateGrade()
+        public UpdateApplicationRole()
         {
         }
 

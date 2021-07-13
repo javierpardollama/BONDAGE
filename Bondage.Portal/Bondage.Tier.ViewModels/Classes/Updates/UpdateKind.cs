@@ -1,5 +1,5 @@
 ﻿
-using Bondage.Tier.ViewModels.Interfaces.Additions;
+using Bondage.Tier.ViewModels.Interfaces.Updates;
 
 namespace Bondage.Tier.ViewModels.Classes.Updates
 {

@@ -1,4 +1,4 @@
-﻿namespace Bondage.Tier.ViewModels.Interfaces.Additions
+﻿namespace Bondage.Tier.ViewModels.Interfaces.Updates
 {
     /// <summary>
     /// Represents a <see cref="IUpdateBase"/> interface

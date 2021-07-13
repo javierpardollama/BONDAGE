@@ -25,6 +25,9 @@ namespace Bondage.Tier.Web.Extensions
             @this.AddTransient<IMonthService, MonthService>();
             @this.AddTransient<IYearService, YearService>();
             @this.AddTransient<ICalendarService, CalendarService>();
+            @this.AddTransient<IApplicationRoleService, ApplicationRoleService>();
+            @this.AddTransient<IApplicationUserService, ApplicationUserService>();
+
             // Add other services here
         }
     }
